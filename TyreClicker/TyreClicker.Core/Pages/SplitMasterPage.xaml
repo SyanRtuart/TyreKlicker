@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:SplitMasterViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:viewModels="clr-namespace:TyreKlicker.Core.ViewModels;assembly=TyreKlicker.Core"
+    xmlns:local="clr-namespace:TyreKlicker.Core.Controls"
+    xmlns:behaviors="clr-namespace:TyreKlicker.Core.Behaviors"
+    x:Class="TyreKlicker.Core.Pages.SplitMasterPage"
+    Title="SplitMaster page"
+    Icon="hamburger.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <behaviors:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid BackgroundColor="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Image Source="bg.png" Aspect="AspectFill" />
+                <StackLayout  Padding="0,10,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <controls:CircleImage BorderColor="White" BorderThickness="2" Source="RyanStuart.jpg" Aspect="AspectFill" WidthRequest="100" HeightRequest="100" />
+                    <Label Text="Ryan Stuart" TextColor="White" FontSize="Large" />
+                </StackLayout>
+            </Grid>
+            <StackLayout  Grid.Row="1" Spacing="1">
+                <ListView ItemsSource="{Binding MenuItems}" ItemSelected="ToggleClicked">
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenUrlCommand}" Converter="{StaticResource itemTappedEventArgsConverter}" />
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="4*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding IconUniCode}" TextColor="Black" VerticalTextAlignment="Center" Grid.Column="0" HorizontalTextAlignment="Center" FontSize="Large" Margin="0,0,0,0">
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String"
+                        Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid"
+                        iOS="Font Awesome 5 Free"
+                        WinPhone="Assets/Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free" />
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Label Text="{Binding Label}" FontSize="Large" Grid.Column="1"  TextColor="Black" VerticalTextAlignment="Center" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</views:MvxContentPage>
