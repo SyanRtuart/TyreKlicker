@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Interfaces;
 using TyreKlicker.Persistence;
-using TyreKlicker.Domain.Entities;
 
 namespace TyreKlicker.Application.Job.Command.CreateJob
 {

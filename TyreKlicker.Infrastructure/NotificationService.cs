@@ -1,6 +1,6 @@
-﻿using TyreKlicker.Application.Notifications.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TyreKlicker.Application.Interfaces;
+using TyreKlicker.Application.Notifications.Models;
 
 namespace TyreKlicker.Infrastructure
 {

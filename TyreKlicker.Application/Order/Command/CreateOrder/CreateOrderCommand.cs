@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TyreKlicker.Application.Job.Command.CreateJob
 {

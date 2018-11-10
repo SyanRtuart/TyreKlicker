@@ -1,5 +1,3 @@
-using System;
-
 namespace TyreKlicker.API.Models
 {
     public class ErrorViewModel

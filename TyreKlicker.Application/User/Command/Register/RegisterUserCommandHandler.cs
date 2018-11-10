@@ -1,13 +1,4 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using TyreKlicker.Application.Interfaces;
-using TyreKlicker.Persistence;
-
-namespace TyreKlicker.Application.ApplicationUser.Command.Register
+﻿namespace TyreKlicker.Application.ApplicationUser.Command.Register
 {
     //public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Unit>
     //{

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using TyreKlicker.Domain.Entities;
 
 namespace TyreKlicker.Application.Order.Queries
 {

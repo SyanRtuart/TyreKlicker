@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TyreKlicker.Domain.Entities
+﻿namespace TyreKlicker.Domain.Entities
 {
     public class User
     {

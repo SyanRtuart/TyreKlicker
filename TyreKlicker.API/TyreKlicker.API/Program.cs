@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TyreKlicker.Persistence;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
-using Microsoft.Extensions.Configuration;
+using TyreKlicker.Persistence;
 
 namespace TyreKlicker.API
 {
@@ -22,7 +22,7 @@ namespace TyreKlicker.API
                     var context = scope.ServiceProvider.GetService<TyreKlickerDbContext>();
                     context.Database.Migrate();
 
-                    //NorthwindInitializer.Initialize(context);
+                    //TyreKlicker.Initialize(context);
                 }
                 catch (Exception ex)
                 {
