@@ -11,7 +11,7 @@ namespace TyreKlicker.Persistence
         {
         }
 
-        //public DbSet<User> User { get; set; }
+        public DbSet<User> User { get; set; }
 
         public DbSet<Order> Order { get; set; }
 
