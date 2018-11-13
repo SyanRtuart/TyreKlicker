@@ -18,12 +18,6 @@ namespace TyreKlicker.Application.Order.Queries
 
         public async Task<OrderListViewModel> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
         {
-            // TODO ADD ME
-            //if (entity == null)
-            //{
-            //    throw new NotFoundException(nameof(Customer), request.Id);
-            //}
-
             var model = new OrderListViewModel
             {
                 Orders = await _context.Order
