@@ -19,6 +19,7 @@ using TyreKlicker.Application.Interfaces;
 using TyreKlicker.Application.Job.Command.CreateJob;
 using TyreKlicker.Infrastructure;
 using TyreKlicker.Infrastructure.Identity.Data;
+using TyreKlicker.Infrastructure.Identity.Factories;
 using TyreKlicker.Infrastructure.Identity.Models;
 using TyreKlicker.Persistence;
 
@@ -54,7 +55,7 @@ namespace TyreKlicker.API
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 
             services.AddAuthentication(options =>
             {

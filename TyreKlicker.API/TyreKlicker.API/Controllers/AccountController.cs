@@ -12,13 +12,14 @@ using System.Threading.Tasks;
 using TyreKlicker.API.Models;
 using TyreKlicker.API.Models.AccountViewModels;
 using TyreKlicker.API.Services;
+using TyreKlicker.Application.User.Command.CreateUser;
 using TyreKlicker.Infrastructure.Identity.Models;
 
 namespace TyreKlicker.API.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -250,13 +251,13 @@ namespace TyreKlicker.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -268,6 +269,17 @@ namespace TyreKlicker.API.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+
+                    var command = new CreateUserCommand()
+                    {
+                        Email = user.Email,
+                        PhoneNumber = user.PhoneNumber,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName
+                    };
+
+                    return Ok(await Mediator.Send(command));
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

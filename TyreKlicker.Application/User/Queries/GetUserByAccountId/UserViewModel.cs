@@ -16,7 +16,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserByAccountId
             {
                 return u => new UserViewModel
                 {
-                    AccountId = u.AccountId,
+                    //AccountId = u.AccountId,
                     UserId = u.Id
                 };
             }

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using MediatR;
+using System;
 
-namespace TyreKlicker.Domain.Entities
+namespace TyreKlicker.Application.User.Command.CreateUser
 {
-    public class User
+    public class CreateUserCommand : IRequest
     {
-        public Guid Id { get; set; }
-
         public string Email { get; set; }
 
         public string FirstName { get; set; }
