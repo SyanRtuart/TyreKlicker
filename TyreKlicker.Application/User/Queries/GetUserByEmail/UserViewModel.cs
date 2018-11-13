@@ -8,7 +8,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserByAccountId
     {
         public Guid UserId { get; set; }
 
-        public Guid AccountId { get; set; }
+        public string Email { get; set; }
 
         public static Expression<Func<Domain.Entities.User, UserViewModel>> Projection
         {
@@ -16,7 +16,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserByAccountId
             {
                 return u => new UserViewModel
                 {
-                    //AccountId = u.AccountId,
+                    Email = u.Email,
                     UserId = u.Id
                 };
             }
