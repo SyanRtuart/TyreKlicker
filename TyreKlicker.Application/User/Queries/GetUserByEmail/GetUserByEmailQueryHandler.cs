@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Persistence;
 
-namespace TyreKlicker.Application.User.Queries.GetUserByAccountId
+namespace TyreKlicker.Application.User.Queries.GetUserByEmail
 {
     public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, UserViewModel>
     {

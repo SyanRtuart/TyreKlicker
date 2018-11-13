@@ -16,6 +16,7 @@ namespace TyreKlicker.API.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
