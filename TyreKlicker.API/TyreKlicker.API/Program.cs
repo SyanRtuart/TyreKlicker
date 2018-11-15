@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
+using TyreKlicker.Infrastructure.Identity;
+using TyreKlicker.Infrastructure.Identity.Data;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.API
@@ -22,7 +24,11 @@ namespace TyreKlicker.API
                     var context = scope.ServiceProvider.GetService<TyreKlickerDbContext>();
                     context.Database.Migrate();
 
-                    //TyreKlicker.Initialize(context);
+                    var identityContext = scope.ServiceProvider.GetService<AppIdentityDbContext>();
+                    identityContext.Database.Migrate();
+
+                    TyreKlickerInitalizer.Initialize(context);
+                    IdentityUserInitalizer.Initialize(identityContext);
                 }
                 catch (Exception ex)
                 {

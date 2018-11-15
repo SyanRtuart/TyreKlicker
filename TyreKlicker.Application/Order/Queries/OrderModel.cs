@@ -6,8 +6,15 @@ namespace TyreKlicker.Application.Order.Queries
     public class OrderModel
     {
         public Guid OrderId { get; set; }
+
         public Guid UserId { get; set; }
+
+        public Guid CreatedByUserId { get; set; }
+
+        public Guid AcceptedByUserId { get; set; }
+
         public string Registration { get; set; }
+
         public string Description { get; set; }
 
         public static Expression<Func<Domain.Entities.Order, OrderModel>> Projection
@@ -19,7 +26,8 @@ namespace TyreKlicker.Application.Order.Queries
                     Description = order.Description,
                     OrderId = order.OrderId,
                     Registration = order.Registration,
-                    UserId = order.UserId
+                    CreatedByUserId = order.CreatedByUserId,
+                    AcceptedByUserId = order.AcceptedByUserId
                 };
             }
         }

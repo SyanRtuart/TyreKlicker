@@ -16,7 +16,6 @@ namespace TyreKlicker.API.Controllers
         [HttpGet]
         public Task<OrderListViewModel> GetAll()
         {
-            //var asda = LoggedInUser;
             return Mediator.Send(new GetAllOrdersQuery());
         }
 

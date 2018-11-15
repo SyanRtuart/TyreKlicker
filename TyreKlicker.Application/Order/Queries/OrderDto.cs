@@ -7,7 +7,9 @@ namespace TyreKlicker.Application.Order.Queries
     {
         public Guid OrderId { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid CreatedByUserId { get; set; }
+
+        public Guid AcceptedByUserId { get; set; }
 
         public string Registration { get; set; }
 
@@ -20,7 +22,8 @@ namespace TyreKlicker.Application.Order.Queries
                 return o => new OrderDto
                 {
                     OrderId = o.OrderId,
-                    UserId = o.UserId,
+                    CreatedByUserId = o.CreatedByUserId,
+                    AcceptedByUserId = o.AcceptedByUserId,
                     Description = o.Description != null
                         ? o.Description : string.Empty,
                     Registration = o.Registration != null

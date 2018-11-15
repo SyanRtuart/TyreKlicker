@@ -6,7 +6,9 @@ namespace TyreKlicker.Domain.Entities
     {
         public Guid OrderId { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid CreatedByUserId { get; set; }
+
+        public Guid AcceptedByUserId { get; set; }
 
         public string Registration { get; set; }
 
