@@ -27,12 +27,28 @@ namespace TyreKlicker.Application.Tests.User.Command.CreateUser
         }
 
         [Theory]
+        [InlineData("abc")]
+        [InlineData("abcdefghijk")]
+        public void CreateUserCommandValidator_First_ReturnsNoValidationErrors(string lastName)
+        {
+            _validator.ShouldNotHaveValidationErrorFor(u => u.LastName, lastName);
+        }
+
+        [Theory]
         [InlineData("")]
         [InlineData("a")]
         [InlineData("MyNameIsVeryLongAndIShouldReturnAnError")]
         public void CreateUserCommandValidator_LastName_ReturnsValidationErrors(string lastName)
         {
             _validator.ShouldHaveValidationErrorFor(u => u.LastName, lastName);
+        }
+
+        [Theory]
+        [InlineData("abc")]
+        [InlineData("abcdefghijk")]
+        public void CreateUserCommandValidator_LastName_ReturnsNoValidationErrors(string lastName)
+        {
+            _validator.ShouldNotHaveValidationErrorFor(u => u.LastName, lastName);
         }
 
         [Fact]
