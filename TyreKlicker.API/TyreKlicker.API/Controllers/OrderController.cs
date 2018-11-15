@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Job.Command.CreateJob;
 using TyreKlicker.Application.Order.Queries;
@@ -14,6 +16,7 @@ namespace TyreKlicker.API.Controllers
         [HttpGet]
         public Task<OrderListViewModel> GetAll()
         {
+            //var asda = LoggedInUser;
             return Mediator.Send(new GetAllOrdersQuery());
         }
 

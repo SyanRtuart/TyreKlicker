@@ -18,7 +18,7 @@ using TyreKlicker.Infrastructure.Identity.Models;
 namespace TyreKlicker.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/account/[action]")]
     //[ApiController]
     public class ApiAccountController : BaseController
     {
