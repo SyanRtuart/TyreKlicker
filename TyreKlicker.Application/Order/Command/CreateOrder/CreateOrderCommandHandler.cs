@@ -23,6 +23,7 @@ namespace TyreKlicker.Application.Job.Command.CreateJob
         {
             var entity = new TyreKlicker.Domain.Entities.Order
             {
+                CreatedByUserId = request.CreatedByUserId,
                 Description = request.Description,
                 Registration = request.Registration,
             };
@@ -32,7 +33,6 @@ namespace TyreKlicker.Application.Job.Command.CreateJob
             await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
-            //throw new NotImplementedException();
         }
     }
 }
