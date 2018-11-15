@@ -6,7 +6,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserByEmail
 {
     public class UserViewModel
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
 
         public string Email { get; set; }
 
@@ -17,7 +17,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserByEmail
                 return u => new UserViewModel
                 {
                     Email = u.Email,
-                    UserId = u.Id
+                    Id = u.Id
                 };
             }
         }
