@@ -20,7 +20,7 @@ namespace TyreKlicker.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Order([FromQuery]CreateOrderCommand command)
+        public async Task<IActionResult> Order(CreateOrderCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
