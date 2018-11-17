@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -103,6 +104,7 @@ namespace TyreKlicker.API.Controllers
                     };
 
                     return Ok(await Mediator.Send(command));
+                    //+ ModelState.Values.SelectMany(e => e.Errors)
                 }
                 AddErrors(result);
             }

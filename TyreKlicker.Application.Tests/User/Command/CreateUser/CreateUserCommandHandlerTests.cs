@@ -21,7 +21,7 @@ namespace TyreKlicker.Application.Tests.User.Command.CreateUser
         }
 
         [Fact]
-        public async Task CreateUserCommand_UserIsCreated_ReturnsUserModel()
+        public async Task CreateUserCommand_OneUserIsCreated_ReturnsUserModel()
         {
             var sut = new CreateUserCommandHandler(_context);
             var userCountBeforeAct = _context.User.ToList().Count;
