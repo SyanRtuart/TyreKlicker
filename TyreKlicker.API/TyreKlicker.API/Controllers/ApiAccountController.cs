@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +81,7 @@ namespace TyreKlicker.API.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO Check user exists in Application Db - If it does send email to reset password
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -104,7 +104,6 @@ namespace TyreKlicker.API.Controllers
                     };
 
                     return Ok(await Mediator.Send(command));
-                    //+ ModelState.Values.SelectMany(e => e.Errors)
                 }
                 AddErrors(result);
             }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Shouldly;
 using TyreKlicker.Application.Tests.Infrastructure;

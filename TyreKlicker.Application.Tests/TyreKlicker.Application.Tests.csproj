@@ -21,4 +21,8 @@
     <ProjectReference Include="..\TyreKlicker.Persistence\TyreKlicker.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Order\Queries\" />
+  </ItemGroup>
+
 </Project>
