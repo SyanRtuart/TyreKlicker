@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TyreKlicker.Application.Order.Queries.GetAllOrders
+namespace TyreKlicker.Application.Order.Queries.GetAllPendingOrders
 {
     public class OrderListViewModel
     {

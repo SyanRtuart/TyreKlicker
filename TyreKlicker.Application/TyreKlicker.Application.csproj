@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Order\Queries\GetAllPendingOrders\OrderModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TyreKlicker.Domain\TyreKlicker.Domain.csproj" />
     <ProjectReference Include="..\TyreKlicker.Persistence\TyreKlicker.Persistence.csproj" />
   </ItemGroup>

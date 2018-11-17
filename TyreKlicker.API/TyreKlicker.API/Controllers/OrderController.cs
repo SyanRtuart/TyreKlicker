@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Job.Command.CreateJob;
-using TyreKlicker.Application.Order.Queries.GetAllOrders;
+using TyreKlicker.Application.Order.Queries.GetAllPendingOrders;
 
 namespace TyreKlicker.API.Controllers
 {
@@ -12,10 +12,16 @@ namespace TyreKlicker.API.Controllers
     public class OrderController : BaseController
     {
         [HttpGet]
-        public Task<OrderListViewModel> GetAll()
+        public Task<OrderListViewModel> Get()
         {
-            return Mediator.Send(new GetAllOrdersQuery());
+            return Mediator.Send(new GetAllPendingOrdersQuery());
         }
+
+        //[HttpGet]
+        //public Task<OrderListViewModel> Get(bool pending = true)
+        //{
+        //    return Mediator.Send(new GetAllPendingOrdersQuery());
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Order(CreateOrderCommand command)

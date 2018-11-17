@@ -21,9 +21,9 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrders
         [Fact]
         public async Task GetAllOrders_WhenCalled_ShouldReturnOrderListViewModel()
         {
-            var sut = new GetAllOrdersQueryHandler(_context);
+            var sut = new GetAllPendingOrdersQueryHandler(_context);
 
-            var result = await sut.Handle(new GetAllOrdersQuery(), CancellationToken.None);
+            var result = await sut.Handle(new GetAllPendingOrdersQuery(), CancellationToken.None);
 
             result.ShouldBeOfType<OrderListViewModel>();
         }
