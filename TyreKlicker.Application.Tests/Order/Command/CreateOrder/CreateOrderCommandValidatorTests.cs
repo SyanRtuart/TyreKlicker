@@ -1,10 +1,9 @@
 ﻿using FluentValidation.Results;
+using FluentValidation.TestHelper;
 using Shouldly;
 using TyreKlicker.Application.Job.Command.CreateJob;
 using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Persistence;
-using FluentValidation.TestHelper;
-
 using Xunit;
 
 namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
@@ -33,7 +32,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
         }
 
         [Fact]
-        public void CreateOrderCommandValidator_DescriptionIsEmpty_ShouldReturnValidationError()
+        public void CreateOrderCommandValidator_DescriptionIsEmpty_ShouldHaveValidationError()
         {
             _validator.ShouldHaveValidationErrorFor(o => o.Description, "");
         }
@@ -45,7 +44,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
         }
 
         [Fact]
-        public void CreateOrderCommandValidator_RegistrationIsEmpty_ShouldReturnValidationError()
+        public void CreateOrderCommandValidator_RegistrationIsEmpty_ShouldHaveValidationError()
         {
             _validator.ShouldHaveValidationErrorFor(o => o.Registration, "");
         }

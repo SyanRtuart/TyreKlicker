@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Job.Command.CreateJob;
-using TyreKlicker.Application.Order.Queries;
+using TyreKlicker.Application.Order.Queries.GetAllOrders;
 
 namespace TyreKlicker.API.Controllers
 {

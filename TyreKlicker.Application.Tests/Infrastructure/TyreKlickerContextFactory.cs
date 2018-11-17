@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using TyreKlicker.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Tests.Infrastructure
 {
-    public  class TyreKlickerContextFactory
+    public class TyreKlickerContextFactory
     {
         public static TyreKlickerDbContext Create()
         {

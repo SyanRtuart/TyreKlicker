@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 
-using System.Security.Claims;
-
-using Microsoft.AspNetCore.Authorization;
-
 namespace TyreKlicker.API.Controllers
 {
     [ApiController]

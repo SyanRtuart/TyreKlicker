@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using TyreKlicker.Infrastructure.Identity;
 using TyreKlicker.Infrastructure.Identity.Data;
 using TyreKlicker.Infrastructure.Identity.Models;
 using TyreKlicker.Persistence;

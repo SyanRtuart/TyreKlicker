@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace TyreKlicker.Application.Order.Queries
+namespace TyreKlicker.Application.Order.Queries.GetAllOrders
 {
     public class GetAllOrdersQuery : IRequest<OrderListViewModel>
     {

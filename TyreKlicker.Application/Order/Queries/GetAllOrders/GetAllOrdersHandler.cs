@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Persistence;
 
-namespace TyreKlicker.Application.Order.Queries
+namespace TyreKlicker.Application.Order.Queries.GetAllOrders
 {
     public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, OrderListViewModel>
     {

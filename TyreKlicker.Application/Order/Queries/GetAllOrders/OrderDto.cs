@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace TyreKlicker.Application.Order.Queries
+namespace TyreKlicker.Application.Order.Queries.GetAllOrders
 {
     public class OrderDto
     {

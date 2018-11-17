@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly;
+﻿using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Exceptions;
@@ -7,7 +6,6 @@ using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Application.User.Queries.GetUserByEmail;
 using TyreKlicker.Persistence;
 using Xunit;
-
 
 namespace TyreKlicker.Application.Tests.User.Queries.GetUserByEmail
 {
@@ -39,12 +37,9 @@ namespace TyreKlicker.Application.Tests.User.Queries.GetUserByEmail
         {
             var sut = new GetUserByEmailQueryHandler(_context);
 
-            var result = await sut.Handle(new GetUserByEmailQuery {Email = _invalidUserEmail}, CancellationToken.None)
-                
+            var result = await sut.Handle(new GetUserByEmailQuery { Email = _invalidUserEmail }, CancellationToken.None)
+
             .ShouldThrowAsync<NotFoundException>();
-
         }
-
-
     }
 }
