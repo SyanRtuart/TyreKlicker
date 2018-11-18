@@ -7,16 +7,16 @@ using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Queries.GetAllOrders
 {
-    public class GetAllPendingOrdersQueryHandler : IRequestHandler<GetAllOrders, OrderListViewModel>
+    public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, OrderListViewModel>
     {
         private readonly TyreKlickerDbContext _context;
 
-        public GetAllPendingOrdersQueryHandler(TyreKlickerDbContext context)
+        public GetAllOrdersQueryHandler(TyreKlickerDbContext context)
         {
             _context = context;
         }
 
-        public async Task<OrderListViewModel> Handle(GetAllOrders request, CancellationToken cancellationToken)
+        public async Task<OrderListViewModel> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
         {
             var model = new OrderListViewModel
             {
