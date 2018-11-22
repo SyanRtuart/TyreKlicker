@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TyreKlicker.Domain.Entities
 {
@@ -13,5 +14,10 @@ namespace TyreKlicker.Domain.Entities
         public string LastName { get; set; }
 
         public string PhoneNumber { get; set; }
+
+
+        public virtual IEnumerable<Order> OrdersCreated { get; set; }
+        public virtual IEnumerable<Order> OrdersAccepted { get; set; }
+
     }
 }

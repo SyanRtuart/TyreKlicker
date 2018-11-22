@@ -17,6 +17,20 @@ namespace TyreKlicker.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            builder.Entity<Order>()
+                .HasOne(o => o.AcceptedByUser)
+                .WithMany(u => u.OrdersAccepted)
+                .HasForeignKey(o => o.AcceptedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<Order>()
+                .HasOne(o => o.CreatedByUser)
+                .WithMany(u => u.OrdersCreated)
+                .HasForeignKey(o => o.CreatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.ApplyAllConfigurations();
         }
     }

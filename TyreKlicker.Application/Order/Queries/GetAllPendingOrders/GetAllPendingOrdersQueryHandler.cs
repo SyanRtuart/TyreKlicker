@@ -19,6 +19,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllPendingOrders
 
         public async Task<OrderListViewModel> Handle(GetAllPendingOrdersQuery request, CancellationToken cancellationToken)
         {
+
             var model = new OrderListViewModel
             {
                 Orders = await _context.Order
