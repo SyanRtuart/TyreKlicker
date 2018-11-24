@@ -1,4 +1,5 @@
 ﻿using Shouldly;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Order.Queries.GetAllOrders;
@@ -26,6 +27,18 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrders
             var result = await sut.Handle(new GetAllOrdersQuery(), CancellationToken.None);
 
             result.ShouldBeOfType<OrderListViewModel>();
+        }
+
+        [Fact]
+        public async Task GetAllOrders_WhenCalled_ShouldReturnCountOfAllOrders()
+        {
+            var sut = new GetAllOrdersQueryHandler(_context);
+            var countOfOrdersInDb = _context.Order.Count();
+
+            var result = await sut.Handle(new GetAllOrdersQuery(), CancellationToken.None);
+            var resultCount = result.Orders.Count();
+
+            resultCount.ShouldBe(countOfOrdersInDb);
         }
     }
 }
