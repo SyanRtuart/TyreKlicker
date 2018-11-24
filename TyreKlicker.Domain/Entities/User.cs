@@ -5,6 +5,12 @@ namespace TyreKlicker.Domain.Entities
 {
     public class User
     {
+        public User()
+        {
+            OrdersCreated = new HashSet<Order>();
+            OrdersAccepted = new HashSet<Order>();
+        }
+
         public Guid Id { get; set; }
 
         public string Email { get; set; }
@@ -15,9 +21,7 @@ namespace TyreKlicker.Domain.Entities
 
         public string PhoneNumber { get; set; }
 
-
-        public virtual IEnumerable<Order> OrdersCreated { get; set; }
-        public virtual IEnumerable<Order> OrdersAccepted { get; set; }
-
+        public IEnumerable<Order> OrdersCreated { get; set; }
+        public IEnumerable<Order> OrdersAccepted { get; set; }
     }
 }
