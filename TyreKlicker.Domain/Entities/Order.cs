@@ -16,6 +16,5 @@ namespace TyreKlicker.Domain.Entities
 
         public virtual User CreatedByUser { get; set; }
         public virtual User AcceptedByUser { get; set; }
-
     }
 }

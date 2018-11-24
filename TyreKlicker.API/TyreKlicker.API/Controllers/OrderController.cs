@@ -12,7 +12,7 @@ namespace TyreKlicker.API.Controllers
     public class OrderController : BaseController
     {
         [HttpGet]
-        public Task<OrderListViewModel> Get()
+        public Task<OrderListViewModel> GetAll()
         {
             return Mediator.Send(new GetAllPendingOrdersQuery());
         }

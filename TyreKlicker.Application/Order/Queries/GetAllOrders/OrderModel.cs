@@ -27,7 +27,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrders
                     OrderId = order.OrderId,
                     Registration = order.Registration,
                     CreatedByUserId = order.CreatedByUserId,
-                    AcceptedByUserId = order.AcceptedByUserId.Value
+                    AcceptedByUserId = order.AcceptedByUserId ?? Guid.Empty
                 };
             }
         }
