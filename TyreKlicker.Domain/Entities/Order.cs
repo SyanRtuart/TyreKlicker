@@ -8,7 +8,7 @@ namespace TyreKlicker.Domain.Entities
 
         public Guid CreatedByUserId { get; set; }
 
-        public Guid AcceptedByUserId { get; set; }
+        public Guid? AcceptedByUserId { get; set; }
 
         public string Registration { get; set; }
 

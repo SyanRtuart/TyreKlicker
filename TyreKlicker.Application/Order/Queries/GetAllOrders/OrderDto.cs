@@ -23,7 +23,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrders
                 {
                     OrderId = o.OrderId,
                     CreatedByUserId = o.CreatedByUserId,
-                    AcceptedByUserId = o.AcceptedByUserId,
+                    AcceptedByUserId = o.AcceptedByUserId.Value,
                     Description = o.Description != null
                         ? o.Description : string.Empty,
                     Registration = o.Registration != null
