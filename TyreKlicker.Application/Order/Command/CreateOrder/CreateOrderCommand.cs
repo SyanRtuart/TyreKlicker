@@ -1,7 +1,7 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
 
-namespace TyreKlicker.Application.Job.Command.CreateJob
+namespace TyreKlicker.Application.Order.Command.CreateOrder
 {
     public class CreateOrderCommand : IRequest
     {

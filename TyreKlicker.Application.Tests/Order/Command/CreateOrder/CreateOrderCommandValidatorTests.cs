@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Shouldly;
-using TyreKlicker.Application.Job.Command.CreateJob;
+using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Persistence;
 using Xunit;

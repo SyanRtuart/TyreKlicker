@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TyreKlicker.Application.Job.Command.CreateJob;
+using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Application.Order.Queries.GetAllPendingOrders;
 
 namespace TyreKlicker.API.Controllers

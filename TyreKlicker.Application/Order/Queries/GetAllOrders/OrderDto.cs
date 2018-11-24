@@ -24,10 +24,8 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrders
                     OrderId = o.OrderId,
                     CreatedByUserId = o.CreatedByUserId,
                     AcceptedByUserId = o.AcceptedByUserId.Value,
-                    Description = o.Description != null
-                        ? o.Description : string.Empty,
-                    Registration = o.Registration != null
-                        ? o.Registration : string.Empty
+                    Description = o.Description ?? string.Empty,
+                    Registration = o.Registration ?? string.Empty
                 };
             }
         }

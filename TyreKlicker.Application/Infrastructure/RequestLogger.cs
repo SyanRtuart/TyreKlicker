@@ -20,7 +20,7 @@ namespace TyreKlicker.Application.Infrastructure
 
             // TODO: Add User Details
 
-            _logger.LogInformation("Northwind Request: {Name} {@Request}", name, request);
+            _logger.LogInformation("TyreKlicker Request: {Name} {@Request}", name, request);
 
             return Task.CompletedTask;
         }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Interfaces;
-using TyreKlicker.Application.Job.Command.CreateJob;
+using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Persistence;
 using Xunit;

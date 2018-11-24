@@ -1,7 +1,8 @@
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using TyreKlicker.API.Services;
 
-namespace TyreKlicker.API.Services
+namespace TyreKlicker.API.Extensions
 {
     public static class EmailSenderExtensions
     {

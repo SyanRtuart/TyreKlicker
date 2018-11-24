@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace TyreKlicker.Application.Job.Command.CreateJob
+namespace TyreKlicker.Application.Order.Command.CreateOrder
 {
     public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     {

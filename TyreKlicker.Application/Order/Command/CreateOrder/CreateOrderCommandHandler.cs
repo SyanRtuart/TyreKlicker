@@ -1,11 +1,10 @@
-﻿using System;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using TyreKlicker.Application.Interfaces;
 using TyreKlicker.Persistence;
 
-namespace TyreKlicker.Application.Job.Command.CreateJob
+namespace TyreKlicker.Application.Order.Command.CreateOrder
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Unit>
     {

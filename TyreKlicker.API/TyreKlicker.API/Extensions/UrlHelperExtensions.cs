@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using TyreKlicker.API.Controllers;
 
-namespace Microsoft.AspNetCore.Mvc
+namespace TyreKlicker.API.Extensions
 {
     public static class UrlHelperExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace TyreKlicker.UnitTests
+namespace TyreClicker.UnitTests
 {
     public class Tests
     {
