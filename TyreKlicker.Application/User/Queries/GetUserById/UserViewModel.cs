@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace TyreKlicker.Application.User.Queries.GetUserById
 {

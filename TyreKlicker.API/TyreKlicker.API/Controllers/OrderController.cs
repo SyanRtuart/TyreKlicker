@@ -17,12 +17,6 @@ namespace TyreKlicker.API.Controllers
             return Mediator.Send(new GetAllPendingOrdersQuery());
         }
 
-        //[HttpGet]
-        //public Task<OrderListViewModel> Get(bool pending = true)
-        //{
-        //    return Mediator.Send(new GetAllPendingOrdersQuery());
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Order(CreateOrderCommand command)
         {
