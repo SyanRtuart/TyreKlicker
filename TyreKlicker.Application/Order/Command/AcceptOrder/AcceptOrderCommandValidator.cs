@@ -14,6 +14,7 @@ namespace TyreKlicker.Application.Order.Command.AcceptOrder
                 .NotNull()
                 .NotEmpty()
                 .SetValidator(new GuidValidator());
+           //ToDo Validate that User actually exists
         }
 
     }

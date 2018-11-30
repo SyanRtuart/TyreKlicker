@@ -22,15 +22,15 @@ namespace TyreKlicker.Application.Order.Command.AcceptOrder
 
         public async Task<Unit> Handle(AcceptOrderCommand request, CancellationToken cancellationToken)
         {
-            var entity = _context.Order.FirstOrDefault(x => x.OrderId == request.OrderId);
+            var order = _context.Order.FirstOrDefault(x => x.OrderId == request.OrderId);
             var user = _context.User.FirstOrDefault(x => x.Id == request.UserId);
 
 
-            if (entity == null) throw new NotFoundException(nameof(entity), request.OrderId);
+            if (order == null) throw new NotFoundException(nameof(order), request.OrderId);
 
             if (user == null) throw new NotFoundException(nameof(user), request.UserId);
 
-            entity.AcceptedByUserId = request.UserId;
+            order.AcceptedByUserId = request.UserId;
 
             _context.SaveChanges();
 

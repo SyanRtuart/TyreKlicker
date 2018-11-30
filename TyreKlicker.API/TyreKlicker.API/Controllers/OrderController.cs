@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Order.Command.AcceptOrder;
 using TyreKlicker.Application.Order.Command.CreateOrder;
@@ -24,8 +25,9 @@ namespace TyreKlicker.API.Controllers
             return Ok(await Mediator.Send(command));
         }
 
+        [Route("~/api/[controller]/{orderId:guid}/[action]")]
         [HttpPatch]
-        public async Task<IActionResult> AcceptOrder(AcceptOrderCommand command)
+        public async Task<IActionResult> AcceptOrder(AcceptOrderCommand command, [FromRoute] Guid orderId)
         {
             return Ok(await Mediator.Send(command));
         }
