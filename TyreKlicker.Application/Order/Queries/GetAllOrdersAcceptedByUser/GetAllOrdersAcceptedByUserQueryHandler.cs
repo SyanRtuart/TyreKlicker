@@ -7,7 +7,7 @@ using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser
 {
-    internal class GetAllOrdersAcceptedByUserQueryHandler : IRequestHandler<GetAllOrdersAcceptedByUserQuery, OrderAcceptedByUserListViewModel>
+    public class GetAllOrdersAcceptedByUserQueryHandler : IRequestHandler<GetAllOrdersAcceptedByUserQuery, OrderAcceptedByUserListViewModel>
     {
         private readonly TyreKlickerDbContext _context;
 
