@@ -18,8 +18,7 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
     public class GetAllOrdersAcceptedByUserQueryHandlerTests
     {
         private readonly TyreKlickerDbContext _context;
-        private static readonly Guid UserIdToTest = Guid.Parse("1114e3c0-093f-4e18-be42-d7c3e178a22c");
-
+        private static readonly Guid AcceptedByUserIdToTest = Guid.Parse("1114e3c0-093f-4e18-be42-d7c3e178a22c");
 
         public GetAllOrdersAcceptedByUserQueryHandlerTests(QueryTestFixture fixture)
         {
@@ -29,7 +28,7 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
 
 
         [Fact]
-        public async Task GetAllOrdersAcceptedByUser_WhenCalled_ShouldReturnOrderListViewModel()
+        public async Task GetAllOrdersAcceptedByUser_WhenCalled_ShouldReturnOrderAcceptedByUserListViewModel()
         {
             var sut = new GetAllOrdersAcceptedByUserQueryHandler(_context);
 
@@ -44,17 +43,16 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
             var sut = new GetAllOrdersAcceptedByUserQueryHandler(_context);
             var orders = new List<Domain.Entities.Order>()
             {
-                new Domain.Entities.Order { AcceptedByUserId = UserIdToTest},
+                new Domain.Entities.Order { AcceptedByUserId = AcceptedByUserIdToTest},
                 new Domain.Entities.Order { AcceptedByUserId = userGuid2},
                 new Domain.Entities.Order { AcceptedByUserId = userGuid3}
             };
             _context.Order.AddRange(orders);
             _context.SaveChanges();
-            var acceptedOrdersInDb =  _context.Order.Count(x => x.AcceptedByUserId == UserIdToTest);
+            var acceptedOrdersInDb =  _context.Order.Count(x => x.AcceptedByUserId == AcceptedByUserIdToTest);
 
-            var result = await sut.Handle(new GetAllOrdersAcceptedByUserQuery() { UserId = UserIdToTest }, CancellationToken.None);
+            var result = await sut.Handle(new GetAllOrdersAcceptedByUserQuery() { UserId = AcceptedByUserIdToTest }, CancellationToken.None);
             var resultCount = result.Orders.Count();
-
 
             resultCount.ShouldBe(acceptedOrdersInDb);
         }
@@ -64,8 +62,8 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
             get
             {               
                 yield return new object[] {  Guid.NewGuid() , Guid.NewGuid() };
-                yield return new object[] {  UserIdToTest , Guid.NewGuid() };
-                yield return new object[] {  UserIdToTest, UserIdToTest };
+                yield return new object[] {  AcceptedByUserIdToTest , Guid.NewGuid() };
+                yield return new object[] {  AcceptedByUserIdToTest, AcceptedByUserIdToTest };
             }
         }
 
