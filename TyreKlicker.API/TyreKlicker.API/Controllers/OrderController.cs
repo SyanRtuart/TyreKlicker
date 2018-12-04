@@ -29,6 +29,8 @@ namespace TyreKlicker.API.Controllers
         [HttpPatch]
         public async Task<IActionResult> AcceptOrder(AcceptOrderCommand command, [FromRoute] Guid orderId)
         {
+            if (command.OrderId != orderId) return BadRequest();
+            
             return Ok(await Mediator.Send(command));
         }
     }
