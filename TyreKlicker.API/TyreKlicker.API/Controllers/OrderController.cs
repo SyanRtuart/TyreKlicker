@@ -8,7 +8,7 @@ using TyreKlicker.Application.Order.Queries.GetAllPendingOrders;
 namespace TyreKlicker.API.Controllers
 {
     //[Produces("application/json")]
-    //[Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     //[Authorize]
     public class OrderController : BaseController
@@ -25,7 +25,7 @@ namespace TyreKlicker.API.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [Route("~/api/[controller]/{orderId:guid}/[action]")]
+        [Route("{orderId:guid}/[action]")]
         [HttpPatch]
         public async Task<IActionResult> AcceptOrder(AcceptOrderCommand command, [FromRoute] Guid orderId)
         {
