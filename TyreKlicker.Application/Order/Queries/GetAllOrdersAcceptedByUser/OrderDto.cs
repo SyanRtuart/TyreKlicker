@@ -5,7 +5,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser
 {
     public class OrderDto
     {
-        public Guid OrderId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid CreatedByUserId { get; set; }
 
@@ -22,7 +22,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser
                 return o => new OrderDto
                 {
                     CreatedByUserId = o.CreatedByUserId,
-                    OrderId = o.OrderId,
+                    Id = o.Id,
                     AcceptedByUserId = o.AcceptedByUserId ?? Guid.Empty,
                     Description = o.Description ?? string.Empty,
                     Registration = o.Registration ?? string.Empty

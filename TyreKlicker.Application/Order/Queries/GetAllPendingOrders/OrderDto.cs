@@ -5,7 +5,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllPendingOrders
 {
     public class OrderDto
     {
-        public Guid OrderId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid CreatedByUserId { get; set; }
 
@@ -21,7 +21,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllPendingOrders
             {
                 return o => new OrderDto
                 {
-                    OrderId = o.OrderId,
+                    Id = o.Id,
                     CreatedByUserId = o.CreatedByUserId,
                     AcceptedByUserId = o.AcceptedByUserId ?? Guid.Empty,
                     Description = o.Description ?? string.Empty,

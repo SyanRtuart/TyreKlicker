@@ -2,9 +2,8 @@
 
 namespace TyreKlicker.Domain.Entities
 {
-    public class Order
+    public class Order : Entity
     {
-        public Guid OrderId { get; set; }
 
         public Guid CreatedByUserId { get; set; }
 

@@ -25,7 +25,7 @@ namespace TyreKlicker.Application.Order.Command.CompleteOrder
         {
 
             var order = _context.Order
-                .SingleOrDefaultAsync(o => o.OrderId == request.OrderId, cancellationToken);
+                .SingleOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
 
             if (order == null) throw new NotFoundException(nameof(order), request.OrderId);
 

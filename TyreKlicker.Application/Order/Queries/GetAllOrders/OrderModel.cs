@@ -5,7 +5,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrders
 {
     public class OrderModel
     {
-        public Guid OrderId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid UserId { get; set; }
 
@@ -24,7 +24,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrders
                 return order => new OrderModel
                 {
                     Description = order.Description,
-                    OrderId = order.OrderId,
+                    Id = order.Id,
                     Registration = order.Registration,
                     CreatedByUserId = order.CreatedByUserId,
                     AcceptedByUserId = order.AcceptedByUserId ?? Guid.Empty
