@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TyreKlicker.Domain.Entities;
 using TyreKlicker.Persistence.Extensions;
 
@@ -30,6 +34,26 @@ namespace TyreKlicker.Persistence
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.ApplyAllConfigurations();
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var addedEntities = ChangeTracker.Entries().Where(e => e.State == EntityState.Added).ToList();
+
+            addedEntities.ForEach(e =>
+            {
+                e.Property("CreatedDate").CurrentValue = DateTime.Now;
+            });
+
+            var editedEntities = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified).ToList();
+
+            editedEntities.ForEach(e =>
+            {
+                e.Property("ModifiedDate").CurrentValue = DateTime.Now;
+            });
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+
         }
     }
 }
