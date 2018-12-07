@@ -17,7 +17,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
     public class AcceptOrderCommandHandlerTests
     {
         private readonly TyreKlickerDbContext _context;
-        private static readonly Guid UserIdInDb= Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5");
+        private static readonly Guid UserIdInDb = Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5");
 
 
         public AcceptOrderCommandHandlerTests(QueryTestFixture fixture)
@@ -103,6 +103,23 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
             await sut.Handle(new AcceptOrderCommand { OrderId = order.Id, UserId = Guid.Empty}, CancellationToken.None)
 
             .ShouldThrowAsync<NotFoundException>();
+        }
+
+        [Fact]
+        public async Task AcceptOrderCommand_AlreadyAccepted_ShouldThrowException()
+        {
+            var sut = new AcceptOrderCommandHandler(_context);
+            var order = new Domain.Entities.Order()
+            {
+                Id = Guid.NewGuid(),
+                AcceptedByUserId = Guid.NewGuid()
+            };
+            _context.Order.Add(order);
+            _context.SaveChanges();
+
+            await sut.Handle(new AcceptOrderCommand { OrderId = order.Id, UserId = UserIdInDb }, CancellationToken.None)
+
+            .ShouldThrowAsync<AlreadyAcceptedException>();
         }
     }
 }
