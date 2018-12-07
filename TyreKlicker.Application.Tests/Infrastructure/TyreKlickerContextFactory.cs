@@ -17,7 +17,7 @@ namespace TyreKlicker.Application.Tests.Infrastructure
             context.Database.EnsureCreated();
 
             context.User.AddRange(new[] {
-                new Domain.Entities.User { Email  = "ryan@email.co.uk", FirstName = "Ryan", LastName = "Stuart"}
+                new Domain.Entities.User { Id = Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5"), Email  = "ryan@email.co.uk", FirstName = "Ryan", LastName = "Stuart"}
             });
 
             SeedOrders(context);
