@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace TyreKlicker.Domain.Entities
 {
-    public class User
+    public class User : Entity
     {
         public User()
         {
             OrdersCreated = new HashSet<Order>();
             OrdersAccepted = new HashSet<Order>();
         }
-
-        public Guid Id { get; set; }
 
         public string Email { get; set; }
 

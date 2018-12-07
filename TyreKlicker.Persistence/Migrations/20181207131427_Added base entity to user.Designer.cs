@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Persistence.Migrations
 {
     [DbContext(typeof(TyreKlickerDbContext))]
-    partial class TyreKlickerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181207131427_Added base entity to user")]
+    partial class Addedbaseentitytouser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
