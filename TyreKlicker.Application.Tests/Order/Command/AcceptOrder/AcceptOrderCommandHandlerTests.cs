@@ -14,31 +14,23 @@ using Xunit;
 namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
 {
     [Collection("QueryCollection")]
-    public class AcceptOrderCommandHandlerTests
+    public class AcceptOrderCommandHandlerTests : IClassFixture<AcceptOrderTestsFixture>
     {
-        private readonly TyreKlickerDbContext _context;
         private static readonly Guid UserIdInDb = Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5");
+        readonly AcceptOrderTestsFixture fixtures;
 
-
-        public AcceptOrderCommandHandlerTests(QueryTestFixture fixture)
+        public AcceptOrderCommandHandlerTests(AcceptOrderTestsFixture fixtures)
         {
-            _context = fixture.Context;
+            this.fixtures = fixtures;
         }
 
         [Fact]
         public async Task AcceptOrderCommand_ValidParameters_ShouldSetAcceptedByUserIdToId()
         {
-            var sut = new AcceptOrderCommandHandler(_context);
-            var order = new Domain.Entities.Order()
-            {
-                Id = Guid.NewGuid(),
-                AcceptedByUserId = Guid.Empty
-            };
-            _context.Order.Add(order);
-            _context.SaveChanges();
+            var sut = new AcceptOrderCommandHandler(fixtures.Context);
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = order.Id, UserId = UserIdInDb }, CancellationToken.None);
-            var orderInDb = await _context.Order.SingleOrDefaultAsync(o => o.Id == order.Id, CancellationToken.None);
+            await sut.Handle(new AcceptOrderCommand { OrderId = fixtures.Order.Id, UserId = UserIdInDb }, CancellationToken.None);
+            var orderInDb = await fixtures.Context.Order.SingleOrDefaultAsync(o => o.Id == fixtures.Order.Id, CancellationToken.None);
 
             orderInDb.AcceptedByUserId.ShouldBe(UserIdInDb);
         }
@@ -46,7 +38,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         [Fact]
         public async Task AcceptOrderCommand_OrderDoesNotExist_ShouldThrowException()
         {
-            var sut = new AcceptOrderCommandHandler(_context);
+            var sut = new AcceptOrderCommandHandler(fixtures.Context);
             var orderId = Guid.NewGuid();
 
             await sut.Handle(new AcceptOrderCommand { OrderId = orderId, UserId = UserIdInDb }, CancellationToken.None)
@@ -57,14 +49,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         [Fact]
         public async Task AcceptOrderCommand_OrderIdIsEmpty_ShouldThrowException()
         {
-            var sut = new AcceptOrderCommandHandler(_context);
-            var order = new Domain.Entities.Order()
-            {
-                Id = Guid.NewGuid(),
-                AcceptedByUserId = Guid.Empty
-            };
-            _context.Order.Add(order);
-            _context.SaveChanges();
+            var sut = new AcceptOrderCommandHandler(fixtures.Context);
 
             await sut.Handle(new AcceptOrderCommand { OrderId = Guid.Empty , UserId = UserIdInDb }, CancellationToken.None)
 
@@ -74,16 +59,10 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         [Fact]
         public async Task AcceptOrderCommand_UserDoesNotExist_ShouldThrowException()
         {
-            var sut = new AcceptOrderCommandHandler(_context);
-            var order = new Domain.Entities.Order()
-            {
-                Id = Guid.NewGuid(),
-                AcceptedByUserId = Guid.Empty
-            };
-            _context.Order.Add(order);
-            _context.SaveChanges();
+            var sut = new AcceptOrderCommandHandler(fixtures.Context);
+            fixtures.Order.AcceptedByUserId = Guid.Empty;
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = order.Id, UserId = Guid.NewGuid() }, CancellationToken.None)
+            await sut.Handle(new AcceptOrderCommand { OrderId = fixtures.Order.Id, UserId = Guid.NewGuid() }, CancellationToken.None)
 
             .ShouldThrowAsync<NotFoundException>();
         }
@@ -91,16 +70,9 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         [Fact]
         public async Task AcceptOrderCommand_UserIdIsEmpty_ShouldThrowException()
         {
-            var sut = new AcceptOrderCommandHandler(_context);
-            var order = new Domain.Entities.Order()
-            {
-                Id = Guid.NewGuid(),
-                AcceptedByUserId = Guid.Empty
-            };
-            _context.Order.Add(order);
-            _context.SaveChanges();
+            var sut = new AcceptOrderCommandHandler(fixtures.Context);
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = order.Id, UserId = Guid.Empty}, CancellationToken.None)
+            await sut.Handle(new AcceptOrderCommand { OrderId = fixtures.Order.Id, UserId = Guid.Empty}, CancellationToken.None)
 
             .ShouldThrowAsync<NotFoundException>();
         }
@@ -108,18 +80,37 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         [Fact]
         public async Task AcceptOrderCommand_AlreadyAccepted_ShouldThrowException()
         {
-            var sut = new AcceptOrderCommandHandler(_context);
-            var order = new Domain.Entities.Order()
+            var sut = new AcceptOrderCommandHandler(fixtures.Context);
+
+            await sut.Handle(new AcceptOrderCommand { OrderId = fixtures.Order.Id , UserId = UserIdInDb }, CancellationToken.None)
+
+            .ShouldThrowAsync<AlreadyAcceptedException>();
+        }
+    }
+
+    [Collection("QueryCollection")]
+    public class AcceptOrderTestsFixture : IDisposable
+    {
+        public TyreKlickerDbContext Context { get; set; }
+        public Domain.Entities.Order Order;
+
+        public AcceptOrderTestsFixture(QueryTestFixture fixture)
+        {
+            Context = fixture.Context;
+
+            Order = new Domain.Entities.Order()
             {
                 Id = Guid.NewGuid(),
                 AcceptedByUserId = Guid.NewGuid()
             };
-            _context.Order.Add(order);
-            _context.SaveChanges();
-
-            await sut.Handle(new AcceptOrderCommand { OrderId = order.Id, UserId = UserIdInDb }, CancellationToken.None)
-
-            .ShouldThrowAsync<AlreadyAcceptedException>();
+            Context.Order.Add(Order);
+            Context.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            Context.Order.RemoveRange(Order);
+        }
+
     }
 }
