@@ -35,12 +35,3 @@ namespace TyreKlicker.Application.Tests.Order.Command.CompleteOrder
         }
     }
 }
-
-//RuleFor(o => o.OrderId)
-//                .NotNull()
-//                .NotEmpty()
-//                .SetValidator(new GuidValidator());
-
-//            RuleFor(o => o.Complete)
-//                .NotEmpty()
-//                .NotNull();
