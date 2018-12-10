@@ -34,7 +34,6 @@ namespace TyreKlicker.Application.Order.Command.AcceptOrder
 
             await _context.SaveChangesAsync(cancellationToken);
 
-
             return Unit.Value;
         }
     }
