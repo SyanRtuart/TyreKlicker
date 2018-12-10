@@ -10,11 +10,16 @@ namespace TyreKlicker.Application.Order.Command.AcceptOrder
     {
         public AcceptOrderCommandValidator()
         {
-            RuleFor(d => d.UserId)
+            RuleFor(o => o.UserId)
                 .NotNull()
                 .NotEmpty()
                 .SetValidator(new GuidValidator());
-           //ToDo Validate that User actually exists
+            RuleFor(o => o.OrderId)
+                .NotNull()
+                .NotEmpty()
+                .SetValidator(new GuidValidator());
+
+            //ToDo Validate that User actually exists
         }
 
     }

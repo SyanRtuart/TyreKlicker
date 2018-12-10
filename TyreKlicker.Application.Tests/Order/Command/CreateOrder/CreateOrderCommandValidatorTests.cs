@@ -11,12 +11,10 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
     [Collection("QueryCollection")]
     public class CreateOrderCommandValidatorTests
     {
-        private CreateOrderCommandValidator _validator;
-        private readonly TyreKlickerDbContext _context;
+        private readonly CreateOrderCommandValidator _validator;
 
         public CreateOrderCommandValidatorTests(QueryTestFixture fixture)
         {
-            _context = fixture.Context;
             _validator = new CreateOrderCommandValidator();
         }
 
