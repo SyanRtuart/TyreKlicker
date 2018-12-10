@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MediatR;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Utilities;
 using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Persistence;
 
@@ -23,13 +18,12 @@ namespace TyreKlicker.Application.Order.Command.CompleteOrder
 
         public async Task<Unit> Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
         {
-
             var order = _context.Order
-                .SingleOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
+                .SingleOrDefault(o => o.Id == request.OrderId);
 
             if (order == null) throw new NotFoundException(nameof(order), request.OrderId);
 
-            order.Result.Complete = request.Complete;
+            order.Complete = request.Complete;
 
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 using TyreKlicker.Application.Infrastructure;
-
 
 namespace TyreKlicker.Application.Order.Command.CompleteOrder
 {
@@ -17,10 +13,7 @@ namespace TyreKlicker.Application.Order.Command.CompleteOrder
                 .SetValidator(new GuidValidator());
 
             RuleFor(o => o.Complete)
-                .NotEmpty()
                 .NotNull();
-
-
         }
     }
 }

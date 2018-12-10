@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using Shouldly;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Shouldly;
+using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Application.Order.Command.CompleteOrder;
 using TyreKlicker.Application.Tests.Infrastructure;
-using TyreKlicker.Application.Tests.Order.Command.AcceptOrder;
 using TyreKlicker.Persistence;
 using Xunit;
 
@@ -28,10 +26,20 @@ namespace TyreKlicker.Application.Tests.Order.Command.CompleteOrder
         {
             var sut = new CompleteOrderCommandHandler(_fixtures.Context);
 
-            await sut.Handle(new CompleteOrderCommand {OrderId = _fixtures.Order.Id, Complete = true}, CancellationToken.None);
+            await sut.Handle(new CompleteOrderCommand { OrderId = _fixtures.Order.Id, Complete = true }, CancellationToken.None);
             var orderInDb = await _fixtures.Context.Order.SingleOrDefaultAsync(o => o.Id == _fixtures.Order.Id, CancellationToken.None);
 
             orderInDb.Complete.ShouldBe(true);
+        }
+
+        [Fact]
+        public async Task CreateOrderCommand_OrderIdDoesNotExist_ShouldThrowNotFoundException()
+        {
+            var sut = new CompleteOrderCommandHandler(_fixtures.Context);
+
+            await sut.Handle(new CompleteOrderCommand { OrderId = Guid.NewGuid(), Complete = true }, CancellationToken.None)
+
+            .ShouldThrowAsync<NotFoundException>();
         }
     }
 
@@ -59,6 +67,5 @@ namespace TyreKlicker.Application.Tests.Order.Command.CompleteOrder
         {
             Context.Order.RemoveRange(Order);
         }
-
     }
 }
