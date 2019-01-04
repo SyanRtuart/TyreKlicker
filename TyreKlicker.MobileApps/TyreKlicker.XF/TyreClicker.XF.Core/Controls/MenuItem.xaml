@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TyreKlicker.XF.Core.Controls.MenuItem">
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="50" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <Label Text="{Binding IconUniCode}" TextColor="Gray" VerticalTextAlignment="Center" Grid.Column="0" HorizontalTextAlignment="Center" FontSize="Large" Margin="0,4,0,0">
+        <Label.FontFamily>
+            <OnPlatform x:TypeArguments="x:String"
+                        Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid"
+                        iOS="Font Awesome 5 Free"
+                        WinPhone="Assets/Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free" />
+        </Label.FontFamily>
+    </Label>
+    <Label Text="{Binding Label}" Grid.Column="1" FontSize="Large" />
+
+    <!--<Grid Margin="20,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <StackLayout Grid.Column="0" BackgroundColor="Red" VerticalOptions="FillAndExpand">
+            <Label Text="&#xf1ea;" TextColor="Gray" HorizontalTextAlignment="Center">
+                <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String"
+                        Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid"
+                        iOS="Font Awesome 5 Free"
+                        WinPhone="Assets/Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free" />
+                </Label.FontFamily>
+            </Label>
+            </StackLayout>
+            <StackLayout Grid.Column="1" BackgroundColor="Green">
+                <Label Text="News" HorizontalTextAlignment="Center"></Label>
+            </StackLayout>
+    </Grid>-->
+</Grid>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage x:TypeArguments="viewModels:OrderViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                    xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+                    x:Class="TyreKlicker.XF.Core.Pages.OrderPage"
+                    Title="Order"
+                    Icon="hamburger.png">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Red">
+            <ListView RefreshCommand="{Binding RefreshCommand}" ItemsSource="{Binding StringItems}" IsPullToRefreshEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Orders.Id}"
+                                TextColor="#f35e20" />
+                                    <Label Text="{Binding Orders.Registration}"
+                                HorizontalOptions="EndAndExpand"
+                                TextColor="#503026" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</views:MvxContentPage>
