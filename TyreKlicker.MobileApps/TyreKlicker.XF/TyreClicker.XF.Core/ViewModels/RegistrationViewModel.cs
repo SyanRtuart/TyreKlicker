@@ -1,5 +1,4 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Forms.Presenters.Attributes;
+﻿using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 

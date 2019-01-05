@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Queries.GetCurrentOrders

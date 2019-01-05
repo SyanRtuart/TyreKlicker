@@ -4,7 +4,6 @@ namespace TyreKlicker.Domain.Entities
 {
     public class Order : Entity
     {
-
         public Guid CreatedByUserId { get; set; }
 
         public Guid? AcceptedByUserId { get; set; }

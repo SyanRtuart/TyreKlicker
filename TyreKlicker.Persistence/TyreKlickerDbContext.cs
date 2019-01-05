@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TyreKlicker.Domain.Entities;
 using TyreKlicker.Persistence.Extensions;
 
@@ -53,7 +53,6 @@ namespace TyreKlicker.Persistence
             });
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-
         }
     }
 }

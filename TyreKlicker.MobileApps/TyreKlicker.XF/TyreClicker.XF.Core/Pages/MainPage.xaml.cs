@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-using MvvmCross.Forms.Views;
+﻿using MvvmCross.Forms.Views;
 
 namespace TyreKlicker.XF.Core.Pages
 {

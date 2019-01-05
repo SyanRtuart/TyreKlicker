@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace TyreKlicker.Application.Order.Queries.GetCurrentOrders
 {
@@ -16,7 +14,6 @@ namespace TyreKlicker.Application.Order.Queries.GetCurrentOrders
         public string Registration { get; set; }
 
         public string Description { get; set; }
-
 
         public static Expression<Func<Domain.Entities.Order, OrderDto>> Projection
         {

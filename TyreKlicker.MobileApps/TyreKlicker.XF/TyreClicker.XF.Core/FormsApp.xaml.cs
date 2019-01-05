@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-using MvvmCross.Forms.Core;
+﻿using MvvmCross.Forms.Core;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]

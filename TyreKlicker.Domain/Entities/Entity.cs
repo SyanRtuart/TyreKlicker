@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TyreKlicker.Domain.Entities
 {
     public abstract class Entity
     {
-        public virtual Guid Id { get;  set; }
-
+        public virtual Guid Id { get; set; }
 
         //private DateTime? _createdDate;
         //public virtual DateTime CreatedDate

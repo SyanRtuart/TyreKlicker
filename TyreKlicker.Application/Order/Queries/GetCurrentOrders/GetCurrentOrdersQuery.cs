@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MediatR;
+﻿using MediatR;
+using System;
 
 namespace TyreKlicker.Application.Order.Queries.GetCurrentOrders
 {
