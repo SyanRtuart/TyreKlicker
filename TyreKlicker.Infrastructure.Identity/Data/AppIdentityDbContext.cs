@@ -13,6 +13,20 @@ namespace TyreKlicker.Infrastructure.Identity.Data
         {
         }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RefreshToken>()
+                .HasAlternateKey(c => c.UserId)
+                .HasName("refreshToken_UserId");
+            modelBuilder.Entity<RefreshToken>()
+                .HasAlternateKey(c => c.Token)
+                .HasName("refreshToken_Token");
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // get the configuration from the app settings

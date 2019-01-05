@@ -9,11 +9,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TyreKlicker.API.Extensions;
 using TyreKlicker.API.Models;
 using TyreKlicker.API.Models.AccountViewModels;
 using TyreKlicker.API.Services;
 using TyreKlicker.Application.User.Command.CreateUser;
-using TyreKlicker.API.Extensions;
 using TyreKlicker.Infrastructure.Identity.Models;
 
 namespace TyreKlicker.API.Controllers

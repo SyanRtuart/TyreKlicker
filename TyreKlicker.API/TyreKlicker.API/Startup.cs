@@ -14,6 +14,8 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 using TyreKlicker.API.Services;
+using TyreKlicker.API.Services.Token;
+using TyreKlicker.API.Services.UserToken;
 using TyreKlicker.Application.Infrastructure;
 using TyreKlicker.Application.Interfaces;
 using TyreKlicker.Application.Order.Command.CreateOrder;
@@ -21,7 +23,9 @@ using TyreKlicker.Infrastructure;
 using TyreKlicker.Infrastructure.Identity.Data;
 using TyreKlicker.Infrastructure.Identity.Factories;
 using TyreKlicker.Infrastructure.Identity.Models;
+using TyreKlicker.Infrastructure.Identity.Service.RefreshToken;
 using TyreKlicker.Persistence;
+using RefreshTokenService = TyreKlicker.API.Services.Token.RefreshTokenService;
 
 namespace TyreKlicker.API
 {
@@ -84,6 +88,9 @@ namespace TyreKlicker.API
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IRefreshTokenService, RefreshTokenService>();
+            services.AddTransient<IUserTokenService, UserTokenService>();
+            services.AddTransient<IRefreshTokenRepository, Infrastructure.Identity.Service.RefreshToken.RefreshTokenRepository>();
 
             services
                 .AddMvc()

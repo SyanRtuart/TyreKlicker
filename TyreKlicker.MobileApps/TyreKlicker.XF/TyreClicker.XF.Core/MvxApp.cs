@@ -4,6 +4,8 @@ using MvvmCross.Base;
 using MvvmCross.IoC;
 using MvvmCross.Plugin.Json;
 using MvvmCross.ViewModels;
+using TyreKlicker.XF.Core.Services.AuthenticationService;
+using TyreKlicker.XF.Core.Services.RequestProvider;
 
 namespace TyreKlicker.XF.Core
 {
@@ -16,14 +18,16 @@ namespace TyreKlicker.XF.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            CreatableTypes().
-                EndingWith("Repository")
-                .AsTypes()
-                .RegisterAsLazySingleton();
+            //CreatableTypes().
+            //    EndingWith("Repository")
+            //    .AsTypes()
+            //    .RegisterAsLazySingleton();
 
             Mvx.RegisterType<Services.IAppSettings, Services.AppSettings>();
             Mvx.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
             Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+            Mvx.RegisterType<IRequestProvider, RequestProvider>();
+            Mvx.RegisterType<IAuthenticationService, AuthenticationService>();
 
             Resources.AppResources.Culture = Mvx.Resolve<Services.ILocalizeService>().GetCurrentCultureInfo();
 

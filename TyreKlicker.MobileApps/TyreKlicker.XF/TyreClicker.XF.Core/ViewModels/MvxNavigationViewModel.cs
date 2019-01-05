@@ -10,6 +10,22 @@ namespace TyreKlicker.XF.Core.ViewModels
     {
         private IMvxLog _log;
 
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+
+            set
+            {
+                _isBusy = value;
+                RaisePropertyChanged(() => IsBusy);
+            }
+        }
+
         protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base()
         {
             LogProvider = logProvider;

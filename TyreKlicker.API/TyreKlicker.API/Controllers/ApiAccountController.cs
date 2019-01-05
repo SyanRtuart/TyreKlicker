@@ -2,17 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using TyreKlicker.API.Extensions;
 using TyreKlicker.API.Models;
 using TyreKlicker.API.Models.AccountViewModels;
 using TyreKlicker.API.Services;
+using TyreKlicker.API.Services.Token;
 using TyreKlicker.Application.User.Command.CreateUser;
-using TyreKlicker.API.Extensions;
 using TyreKlicker.Infrastructure.Identity.Models;
 
 namespace TyreKlicker.API.Controllers
@@ -26,17 +22,23 @@ namespace TyreKlicker.API.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IUserTokenService _userTokenService;
+        private readonly IRefreshTokenService _refreshTokenService;
 
         public ApiAccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IUserTokenService userTokenService,
+            IRefreshTokenService refreshTokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _userTokenService = userTokenService;
+            _refreshTokenService = refreshTokenService;
         }
 
         [HttpPost]
@@ -120,41 +122,51 @@ namespace TyreKlicker.API.Controllers
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
-                var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                };
-
-                var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySuperSecureKey"));
-
-                var token = new JwtSecurityToken
-                    (
-                    issuer: "http://oec.com",
-                    audience: "http://oec.com",
-                    expires: DateTime.Now.AddHours(1),
-                    claims: claims,
-                    signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
-
-                    );
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                var userToken = _userTokenService.CreateUserToken(user);
+                return Ok(userToken);
             }
 
-            return NotFound();
+            return NotFound("Invalid email or password.");
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    _logger.LogInformation("User logged out.");
-        //    return Ok("Signed out.");
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshAccessToken(string token)
+        {
+            var refreshToken = _refreshTokenService.GetRefreshToken(token);
+
+            if (refreshToken.Token == null)
+            {
+                return NotFound("Refresh token was not found.");
+            }
+            if (refreshToken.Revoked)
+            {
+                return BadRequest("Refresh token was revoked.");
+            }
+            var user = await _userManager.FindByEmailAsync(refreshToken.Email);
+
+            var userToken = _userTokenService.CreateUserToken(user);
+
+            return Ok(userToken);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RevokeRefreshToken(string token)
+        {
+            var refreshToken = _refreshTokenService.GetRefreshToken(token);
+
+            if (refreshToken.Token == null)
+            {
+                return NotFound("Refresh token was not found.");
+            }
+            if (refreshToken.Revoked)
+            {
+                return BadRequest("Refresh token was revoked.");
+            }
+            _refreshTokenService.RevokeRefreshToken(token);
+            return Ok();
+        }
 
         //#region Helpers
 

@@ -15,5 +15,8 @@ namespace TyreKlicker.XF.Core.Models.Authentication
 
         [JsonProperty("token_type")]
         public string TokenType { get; set; }
+
+        [JsonProperty("refresh_token")]
+        public string RefreshToken { get; set; }
     }
 }

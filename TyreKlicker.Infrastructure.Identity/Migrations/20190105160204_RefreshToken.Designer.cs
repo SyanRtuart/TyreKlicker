@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyreKlicker.Infrastructure.Identity.Data;
 
 namespace TyreKlicker.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190105160204_RefreshToken")]
+    partial class RefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,8 +190,6 @@ namespace TyreKlicker.Infrastructure.Identity.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Email");
 
                     b.Property<DateTime>("ExpiresUtc");
 
