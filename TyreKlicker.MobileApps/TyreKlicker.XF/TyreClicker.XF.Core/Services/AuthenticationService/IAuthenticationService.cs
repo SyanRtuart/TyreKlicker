@@ -7,7 +7,7 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
     {
         string CreateLogoutRequest(string token);
 
-        Task<UserToken> GetTokenAsync(string userName, string password);
+        Task<UserToken> GetTokenAsync(LoginRequest loginRequest);
 
         Task<UserToken> RefreshTokenAsync(string token);
     }

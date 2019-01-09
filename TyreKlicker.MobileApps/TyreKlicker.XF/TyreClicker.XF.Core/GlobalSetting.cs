@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace TyreKlicker.XF.Core
+﻿namespace TyreKlicker.XF.Core
 {
     public class GlobalSetting
     {
-        public const string DefaultEndpoint = "https://localhost:44310";
+        public const string DefaultEndpoint = "http://192.168.0.6:45456/";
 
         private string _baseIdentityEndpoint;
+
+        public string TestUri = "https://jsonplaceholder.typicode.com/posts";
 
         public GlobalSetting()
         {
@@ -27,33 +27,17 @@ namespace TyreKlicker.XF.Core
             }
         }
 
-        public string ClientId { get { return "xamarin"; } }
-
-        public string ClientSecret { get { return "secret"; } }
-
         public string AuthToken { get; set; }
 
         public string AuthorizeEndpoint { get; set; }
 
         public string TokenEndpoint { get; set; }
-        public string Callback { get; set; }
 
         private void UpdateEndpoint(string endpoint)
         {
             var connectBaseEndpoint = $"{endpoint}/connect";
-            AuthorizeEndpoint = $"{connectBaseEndpoint}/authorize";
-            TokenEndpoint = $"{connectBaseEndpoint}/token";
-
-            var baseUri = ExtractBaseUri(endpoint);
-            Callback = $"{baseUri}/xamarincallback";
-        }
-
-        private string ExtractBaseUri(string endpoint)
-        {
-            var uri = new Uri(endpoint);
-            var baseUri = uri.GetLeftPart(System.UriPartial.Authority);
-
-            return baseUri;
+            AuthorizeEndpoint = $"{endpoint}/authorize";
+            TokenEndpoint = $"{endpoint}/api/account/tokenlogin";
         }
     }
 }

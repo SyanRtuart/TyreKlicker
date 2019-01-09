@@ -8,7 +8,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
         Task<TResult> PostAsync<TResult>(string uri, TResult data, string token = "", string header = "");
 
-        Task<TResult> PostAsync<TResult>(string uri, string data, string clientId, string clientSecret);
+        Task<TResult> PostAsync<TResult, T1>(string uri, T1 data, string header = "");
 
         Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "");
 

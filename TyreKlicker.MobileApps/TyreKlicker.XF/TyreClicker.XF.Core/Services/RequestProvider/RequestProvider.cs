@@ -5,8 +5,10 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Exceptions;
+using TyreKlicker.XF.Core.Models.Authentication;
 
 namespace TyreKlicker.XF.Core.Services.RequestProvider
 {
@@ -27,13 +29,13 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
         public async Task<TResult> GetAsync<TResult>(string uri, string token = "")
         {
-            HttpClient httpClient = CreateHttpClient(token);
-            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            var httpClient = CreateHttpClient(token);
+            var response = await httpClient.GetAsync(uri);
 
             await HandleResponse(response);
-            string serialized = await response.Content.ReadAsStringAsync();
+            var serialized = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() =>
+            var result = await Task.Run(() =>
                 JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
 
             return result;
@@ -41,7 +43,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
         public async Task<TResult> PostAsync<TResult>(string uri, TResult data, string token = "", string header = "")
         {
-            HttpClient httpClient = CreateHttpClient(token);
+            var httpClient = CreateHttpClient(token);
 
             if (!string.IsNullOrEmpty(header))
             {
@@ -50,34 +52,56 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
             var content = new StringContent(JsonConvert.SerializeObject(data));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = await httpClient.PostAsync(uri, content);
+            var response = await httpClient.PostAsync(uri, content);
 
             await HandleResponse(response);
-            string serialized = await response.Content.ReadAsStringAsync();
+            var serialized = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() =>
+            var result = await Task.Run(() =>
                 JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
 
             return result;
         }
 
-        public async Task<TResult> PostAsync<TResult>(string uri, string data, string clientId, string clientSecret)
+        public LoginRequest Ryan(string uri, LoginRequest data, string header = "")
         {
-            HttpClient httpClient = CreateHttpClient(string.Empty);
+            var httpClient = CreateHttpClient();
 
-            if (!string.IsNullOrWhiteSpace(clientId) && !string.IsNullOrWhiteSpace(clientSecret))
+            if (!string.IsNullOrEmpty(header))
             {
-                AddBasicAuthenticationHeader(httpClient, clientId, clientSecret);
+                AddHeaderParameter(httpClient, header);
             }
 
-            var content = new StringContent(data);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-            HttpResponseMessage response = await httpClient.PostAsync(uri, content);
+            var content = new StringContent(JsonConvert.SerializeObject(data));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = httpClient.PostAsync(uri, content);
+
+            return data;
+        }
+
+        public async Task<TResult> PostAsync<TResult, T1>(string uri, T1 data, string header = "")
+        {
+            var httpClient = CreateHttpClient();
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+
+            if (!string.IsNullOrEmpty(header))
+            {
+                AddHeaderParameter(httpClient, header);
+            }
+
+            var content = new StringContent(JsonConvert.SerializeObject(data));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = new HttpResponseMessage();
+            httpClient.Timeout = TimeSpan.FromMinutes(1);
+
+            response = await httpClient.PostAsync(uri, content);
 
             await HandleResponse(response);
-            string serialized = await response.Content.ReadAsStringAsync();
+            var serialized = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() =>
+            var result = await Task.Run(() =>
                 JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
 
             return result;
@@ -85,7 +109,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
         public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
         {
-            HttpClient httpClient = CreateHttpClient(token);
+            var httpClient = CreateHttpClient(token);
 
             if (!string.IsNullOrEmpty(header))
             {
@@ -94,12 +118,12 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
             var content = new StringContent(JsonConvert.SerializeObject(data));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = await httpClient.PutAsync(uri, content);
+            var response = await httpClient.PutAsync(uri, content);
 
             await HandleResponse(response);
-            string serialized = await response.Content.ReadAsStringAsync();
+            var serialized = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() =>
+            var result = await Task.Run(() =>
                 JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
 
             return result;
@@ -107,7 +131,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
         public async Task DeleteAsync(string uri, string token = "")
         {
-            HttpClient httpClient = CreateHttpClient(token);
+            var httpClient = CreateHttpClient(token);
             await httpClient.DeleteAsync(uri);
         }
 

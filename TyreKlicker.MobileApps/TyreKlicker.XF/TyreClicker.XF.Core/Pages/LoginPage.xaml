@@ -3,6 +3,7 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                 xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+                xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
                 NavigationPage.HasNavigationBar="False"
                 BackgroundImage="LoginScreenTire.jpg"
                 x:Class="TyreKlicker.XF.Core.Pages.LoginPage">
@@ -29,8 +30,44 @@
                     <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
 
-                <Entry Grid.Row="1"  Text="{Binding Email}" TextColor="White"  Placeholder="Email" PlaceholderColor="White" FontSize="Default" />
-                <Entry Grid.Row="2" IsPassword="True" Text="{Binding Password}" TextColor="White"   Placeholder="Password" PlaceholderColor="White" FontSize="Default" />
+                <!--<Entry Grid.Row="1"  Text="{Binding Email.Value, Mode=TwoWay}" TextColor="White"  Placeholder="Email" PlaceholderColor="White" FontSize="Default" />-->
+
+                <Entry Grid.Row="1" Text="{Binding Email.Value, Mode=TwoWay}" TextColor="White" PlaceholderColor="White" FontSize="Default">
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding ValidateUserNameCommand}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
+                            TargetType="Entry"
+                            Binding="{Binding UserName.IsValid}"
+                            Value="False">
+                            <!--<Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />-->
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
+                <!--<Entry Grid.Row="2" IsPassword="True" Text="{Binding Password}" TextColor="White"   Placeholder="Password" PlaceholderColor="White" FontSize="Default" />-->
+
+                <Entry Grid.Row="2" TextColor="White" PlaceholderColor="White" FontSize="Default"
+                    IsPassword="True"
+                    Text="{Binding Password.Value, Mode=TwoWay}">
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding ValidatePasswordCommand}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
+                            TargetType="Entry"
+                            Binding="{Binding Password.IsValid}"
+                            Value="False">
+                            <!--<Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />-->
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
                 <Label Grid.Row="3" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" >FORGOT PASSWORD?</Label>
                 <Button Grid.Row="4"  Command="{Binding LoginCommand,Mode=TwoWay}"  Text="LOGIN" HeightRequest="40" VerticalOptions="Start" />
             </Grid>

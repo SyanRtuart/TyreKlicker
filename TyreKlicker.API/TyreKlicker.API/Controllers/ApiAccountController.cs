@@ -105,13 +105,15 @@ namespace TyreKlicker.API.Controllers
                         LastName = user.LastName
                     };
 
-                    return Ok(await Mediator.Send(command));
+                    var mediator = await Mediator.Send(command);
+
+                    return Ok();
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest(model);
+            return BadRequest();
         }
 
         [HttpPost]

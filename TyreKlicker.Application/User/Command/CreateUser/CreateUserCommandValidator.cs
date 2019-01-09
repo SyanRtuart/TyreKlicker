@@ -8,7 +8,6 @@ namespace TyreKlicker.Application.User.Command.CreateUser
         {
             RuleFor(x => x.FirstName).MinimumLength(2).MaximumLength(30);
             RuleFor(x => x.LastName).MinimumLength(2).MaximumLength(30);
-            RuleFor(x => x.PhoneNumber).NotEmpty();
         }
     }
 }

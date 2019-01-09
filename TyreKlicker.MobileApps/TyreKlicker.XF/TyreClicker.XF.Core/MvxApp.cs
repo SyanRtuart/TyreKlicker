@@ -4,6 +4,7 @@ using MvvmCross.Base;
 using MvvmCross.IoC;
 using MvvmCross.Plugin.Json;
 using MvvmCross.ViewModels;
+using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
 using TyreKlicker.XF.Core.Services.RequestProvider;
 
@@ -31,7 +32,10 @@ namespace TyreKlicker.XF.Core
 
             Resources.AppResources.Culture = Mvx.Resolve<Services.ILocalizeService>().GetCurrentCultureInfo();
 
-            RegisterAppStart<ViewModels.LoginViewModel>();
+            if (string.IsNullOrEmpty(Settings.AccessToken))
+                RegisterAppStart<ViewModels.LoginViewModel>();
+            else
+                RegisterAppStart<ViewModels.SplitRootViewModel>();
         }
     }
 }
