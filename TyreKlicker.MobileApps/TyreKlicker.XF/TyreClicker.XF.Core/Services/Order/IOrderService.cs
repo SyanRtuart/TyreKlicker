@@ -5,6 +5,6 @@ namespace TyreKlicker.XF.Core.Services.Order
 {
     public interface IOrderService
     {
-        Task<ObservableCollection<Models.Order.OrderList>> GetOrdersAsync(string token);
+        Task<ObservableCollection<Models.Order.Order>> GetAllPendingOrdersAsync(string token);
     }
 }

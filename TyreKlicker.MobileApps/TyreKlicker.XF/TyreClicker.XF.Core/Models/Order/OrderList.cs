@@ -4,6 +4,6 @@ namespace TyreKlicker.XF.Core.Models.Order
 {
     public class OrderList
     {
-        public IEnumerable<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

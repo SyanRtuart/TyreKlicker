@@ -32,6 +32,7 @@ namespace TyreKlicker.XF.Core
 
             Resources.AppResources.Culture = Mvx.Resolve<Services.ILocalizeService>().GetCurrentCultureInfo();
             //Settings.AccessToken = null;
+            //ToDo Test if the token is actually valid.
             if (string.IsNullOrEmpty(Settings.AccessToken))
                 RegisterAppStart<ViewModels.LoginViewModel>();
             else
