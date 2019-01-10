@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-using MvvmCross;
+﻿using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Forms.Presenters;
 

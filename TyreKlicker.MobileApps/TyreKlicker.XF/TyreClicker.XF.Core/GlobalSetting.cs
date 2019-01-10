@@ -33,6 +33,8 @@
 
         public string TokenEndpoint { get; set; }
 
+        public string EncryptionPassword => "ThisWillBeChanged";
+
         private void UpdateEndpoint(string endpoint)
         {
             var connectBaseEndpoint = $"{endpoint}/connect";

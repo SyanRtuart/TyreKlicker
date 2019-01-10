@@ -16,6 +16,24 @@ namespace TyreKlicker.XF.Core.ViewModels
         private ValidatableObject<string> _email;
         private ValidatableObject<string> _password;
 
+        public LoginViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService
+            , IAuthenticationService authenticationService)
+            : base(logProvider, navigationService)
+        {
+            _authenticationService = authenticationService;
+
+            NavigateToRegistrationPageCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
+            LoginCommand = new MvxAsyncCommand(async () => await LoginAsync());
+
+            _email = new ValidatableObject<string>();
+            _password = new ValidatableObject<string>();
+
+            _email.Value = "syan1@emax-systems.co.uk";
+            _password.Value = "Invasi0n!";
+
+            AddValidations();
+        }
+
         public ValidatableObject<string> Email
         {
             get => _email;
@@ -37,23 +55,8 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public LoginViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService
-            , IAuthenticationService authenticationService)
-            : base(logProvider, navigationService)
-        {
-            _authenticationService = authenticationService;
-
-            NavigateToRegistrationPageCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
-            LoginCommand = new MvxAsyncCommand(async () => await LoginAsync());
-
-            _email = new ValidatableObject<string>();
-            _password = new ValidatableObject<string>();
-
-            _email.Value = "syan1@emax-systems.co.uk";
-            _password.Value = "Invasi0n!";
-
-            AddValidations();
-        }
+        public IMvxAsyncCommand LoginCommand { get; }
+        public IMvxAsyncCommand NavigateToRegistrationPageCommand { get; }
 
         private async Task LoginAsync()
         {
@@ -72,11 +75,9 @@ namespace TyreKlicker.XF.Core.ViewModels
                     Settings.AccessToken = token.AccessToken;
                     await NavigationService.Navigate<SplitRootViewModel>();
                 }
+                //handle else
             }
         }
-
-        public IMvxAsyncCommand LoginCommand { get; }
-        public IMvxAsyncCommand NavigateToRegistrationPageCommand { get; }
 
         private bool Validate()
         {

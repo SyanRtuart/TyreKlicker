@@ -11,6 +11,8 @@
     <ContentPage.Content>
         <StackLayout Margin="10">
             <Label Text="ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE " />
+            <Button Text="Logout" Command="{Binding LogoutCommand,Mode=TwoWay}">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </views:MvxContentPage>

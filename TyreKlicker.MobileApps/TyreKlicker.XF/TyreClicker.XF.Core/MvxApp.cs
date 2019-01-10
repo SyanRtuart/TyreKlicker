@@ -31,7 +31,7 @@ namespace TyreKlicker.XF.Core
             Mvx.RegisterType<IAuthenticationService, AuthenticationService>();
 
             Resources.AppResources.Culture = Mvx.Resolve<Services.ILocalizeService>().GetCurrentCultureInfo();
-
+            //Settings.AccessToken = null;
             if (string.IsNullOrEmpty(Settings.AccessToken))
                 RegisterAppStart<ViewModels.LoginViewModel>();
             else

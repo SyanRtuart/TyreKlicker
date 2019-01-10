@@ -29,8 +29,18 @@ namespace TyreKlicker.XF.Core.Helpers
 
         public static string AccessToken
         {
-            get => AppSettings.GetValueOrDefault(AccessTokenKey, SettingsDefault);
-            set => AppSettings.AddOrUpdateValue(AccessTokenKey, value);
+            get
+            {
+                var accessToken = AppSettings.GetValueOrDefault(AccessTokenKey, SettingsDefault);
+
+                return Crypto.Decrypt(accessToken, GlobalSetting.Instance.EncryptionPassword);
+            }
+            set
+            {
+                var encryptAccessToken = Crypto.Encrypt(value, GlobalSetting.Instance.EncryptionPassword);
+
+                AppSettings.AddOrUpdateValue(AccessTokenKey, encryptAccessToken);
+            }
         }
     }
 }
