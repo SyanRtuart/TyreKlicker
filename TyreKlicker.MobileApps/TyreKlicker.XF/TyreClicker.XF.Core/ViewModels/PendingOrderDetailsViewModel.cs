@@ -1,7 +1,9 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System;
 using System.Threading.Tasks;
+using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
 
@@ -17,14 +19,14 @@ namespace TyreKlicker.XF.Core.ViewModels
             IMvxNavigationService navigationService,
             IOrderService orderService) : base(logProvider, navigationService)
         {
+            _orderService = orderService;
             AcceptOrderCommand = new MvxAsyncCommand(async () => await AcceptOrderAsync());
         }
 
         private async Task AcceptOrderAsync()
         {
-            //Accept Order here
-
-            throw new System.NotImplementedException();
+            var command = new AcceptOrderCommand { OrderId = _pendingOrder.Id, UserId = Guid.NewGuid() };
+            await _orderService.AcceptOrder(Settings.AccessToken, command);
         }
 
         public Order PendingOrder

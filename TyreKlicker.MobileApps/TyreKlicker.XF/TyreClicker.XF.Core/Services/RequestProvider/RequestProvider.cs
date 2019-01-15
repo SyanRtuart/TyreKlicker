@@ -86,28 +86,6 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             return result;
         }
 
-        public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
-        {
-            var httpClient = CreateHttpClient(token);
-
-            if (!string.IsNullOrEmpty(header))
-            {
-                AddHeaderParameter(httpClient, header);
-            }
-
-            var content = new StringContent(JsonConvert.SerializeObject(data));
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await httpClient.PutAsync(uri, content);
-
-            await HandleResponse(response);
-            var serialized = await response.Content.ReadAsStringAsync();
-
-            var result = await Task.Run(() =>
-                JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
-
-            return result;
-        }
-
         public async Task DeleteAsync(string uri, string token = "")
         {
             var httpClient = CreateHttpClient(token);

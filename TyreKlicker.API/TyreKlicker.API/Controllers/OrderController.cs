@@ -25,7 +25,7 @@ namespace TyreKlicker.API.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpPatch, Route("{orderId:guid}/[action]")]
+        [HttpPost, Route("{orderId:guid}/[action]")]
         public async Task<IActionResult> AcceptOrder(AcceptOrderCommand command, [FromRoute] Guid orderId)
         {
             if (command.OrderId != orderId) return BadRequest();
@@ -33,7 +33,7 @@ namespace TyreKlicker.API.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpPatch, Route("{orderId:guid}/[action]")]
+        [HttpPost, Route("{orderId:guid}/[action]")]
         public async Task<IActionResult> CompleteOrder(AcceptOrderCommand command, [FromRoute] Guid orderId)
         {
             if (command.OrderId != orderId) return BadRequest();

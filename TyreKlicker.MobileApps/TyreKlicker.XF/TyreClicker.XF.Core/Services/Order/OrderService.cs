@@ -32,5 +32,14 @@ namespace TyreKlicker.XF.Core.Services.Order
 
             return new ObservableCollection<Models.Order.Order>();
         }
+
+        public async Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command)
+        {
+            var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}/{command.OrderId}/AcceptOrder");
+
+            var result = await _requestProvider.PostAsync(uri, command, Settings.AccessToken);
+
+            return result;
+        }
     }
 }

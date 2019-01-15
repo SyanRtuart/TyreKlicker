@@ -10,8 +10,6 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
         Task<TResult> PostAsync<TResult, T1>(string uri, T1 data, string header = "");
 
-        Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "");
-
         Task DeleteAsync(string uri, string token = "");
     }
 }
