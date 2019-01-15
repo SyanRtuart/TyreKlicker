@@ -3,7 +3,6 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
 
@@ -14,8 +13,14 @@ namespace TyreKlicker.XF.Core.ViewModels
         private readonly IOrderService _orderService;
         private ObservableCollection<Order> _orderItems;
 
-        //private MvxAsyncCommand _refreshCommand;
-        public IMvxAsyncCommand GetOrdersCommand { get; }
+        public OrderViewModel(IMvxLogProvider logProvider,
+            IMvxNavigationService navigationService,
+            IOrderService orderService) : base(logProvider, navigationService)
+        {
+            _orderService = orderService;
+
+            GetCurrentOrdersCommand = new MvxAsyncCommand(async () => await GetCurrentOrdersAsync());
+        }
 
         public ObservableCollection<Order> OrderItems
         {
@@ -27,17 +32,18 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public OrderViewModel(IMvxLogProvider logProvider,
-            IMvxNavigationService navigationService,
-            IOrderService orderService) : base(logProvider, navigationService)
+        public IMvxAsyncCommand GetCurrentOrdersCommand { get; }
+
+        public IMvxAsyncCommand<Order> OpenOrderDetailsCommand => new MvxAsyncCommand<Order>(async (order) => await OpenOrderDetailsAsync(order));
+
+        private async Task OpenOrderDetailsAsync(Order order)
         {
-            GetOrdersCommand = new MvxAsyncCommand(async () => await GetOrdersAsync());
-            _orderService = orderService;
+            await NavigationService.Navigate<OrderDetailsViewModel, Order>(order);
         }
 
-        private async Task GetOrdersAsync()
+        private async Task GetCurrentOrdersAsync()
         {
-            OrderItems = await _orderService.GetAllPendingOrdersAsync(Settings.AccessToken);
+            //OrderItems = await _orderService.GetAllPendingOrdersAsync(Settings.AccessToken);
         }
     }
 }

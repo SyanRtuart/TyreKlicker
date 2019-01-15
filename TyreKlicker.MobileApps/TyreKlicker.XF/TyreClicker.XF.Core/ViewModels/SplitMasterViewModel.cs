@@ -33,7 +33,7 @@ namespace TyreKlicker.XF.Core.ViewModels
                         break;
 
                     case MenuItem.JobBoard:
-                        await NavigationService.Navigate<JobViewModel>();
+                        await NavigationService.Navigate<PendingOrdersViewModel>();
                         break;
 
                     case MenuItem.News:

@@ -2,12 +2,12 @@
 using MvvmCross.Forms.Views;
 using TyreKlicker.XF.Core.ViewModels;
 
-namespace TyreKlicker.XF.Core.Pages
+namespace TyreKlicker.XF.Core.Views
 {
     [MvxMasterDetailPagePresentation()]
-    public partial class SplitDetailPage : MvxContentPage<SplitDetailViewModel>
+    public partial class SplitDetailView : MvxContentPage<SplitDetailViewModel>
     {
-        public SplitDetailPage()
+        public SplitDetailView()
         {
             InitializeComponent();
         }

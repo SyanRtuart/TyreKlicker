@@ -5,7 +5,7 @@
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                       xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
                       xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-                      x:Class="TyreKlicker.XF.Core.Pages.SplitDetailPage"
+                      x:Class="TyreKlicker.XF.Core.Views.SplitDetailView"
                       Title="SplitDetail page"
                         Icon="hamburger.png">
     <ContentPage.Content>

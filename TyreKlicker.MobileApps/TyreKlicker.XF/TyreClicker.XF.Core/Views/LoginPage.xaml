@@ -48,8 +48,6 @@
                     </Entry.Triggers>
                 </Entry>
 
-                <!--<Entry Grid.Row="2" IsPassword="True" Text="{Binding Password}" TextColor="White"   Placeholder="Password" PlaceholderColor="White" FontSize="Default" />-->
-
                 <Entry Grid.Row="2" TextColor="White" PlaceholderColor="White" FontSize="Default"
                     IsPassword="True"
                     Text="{Binding Password.Value, Mode=TwoWay}">

@@ -2,7 +2,7 @@
 {
     public class GlobalSetting
     {
-        public const string DefaultEndpoint = "http://192.168.0.6:45456/";
+        public const string DefaultEndpoint = "http://192.168.0.6:45455";
 
         private string _baseIdentityEndpoint;
 

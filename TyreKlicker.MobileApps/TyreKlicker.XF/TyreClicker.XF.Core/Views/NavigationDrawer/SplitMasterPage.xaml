@@ -11,13 +11,6 @@
     x:Class="TyreKlicker.XF.Core.Pages.SplitMasterPage"
     Title="SplitMaster page"
     Icon="hamburger.png">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <behaviors:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <ContentPage.Content>
         <Grid BackgroundColor="Transparent">
             <Grid.RowDefinitions>
@@ -34,7 +27,9 @@
             <StackLayout  Grid.Row="1" Spacing="1">
                 <ListView ItemsSource="{Binding MenuItems}" ItemSelected="ToggleClicked">
                     <ListView.Behaviors>
-                        <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OpenUrlCommand}" Converter="{StaticResource itemTappedEventArgsConverter}" />
+                        <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                                          Command="{Binding OpenUrlCommand}"
+                                                          Converter="{StaticResource ItemTappedEventArgsConverter}" />
                     </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>

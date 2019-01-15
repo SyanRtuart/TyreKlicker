@@ -8,7 +8,6 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Exceptions;
-using TyreKlicker.XF.Core.Models.Authentication;
 
 namespace TyreKlicker.XF.Core.Services.RequestProvider
 {
@@ -63,23 +62,6 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             return result;
         }
 
-        public LoginRequest Ryan(string uri, LoginRequest data, string header = "")
-        {
-            var httpClient = CreateHttpClient();
-
-            if (!string.IsNullOrEmpty(header))
-            {
-                AddHeaderParameter(httpClient, header);
-            }
-
-            var content = new StringContent(JsonConvert.SerializeObject(data));
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var response = httpClient.PostAsync(uri, content);
-
-            return data;
-        }
-
         public async Task<TResult> PostAsync<TResult, T1>(string uri, T1 data, string header = "")
         {
             var httpClient = CreateHttpClient();
@@ -93,10 +75,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             var content = new StringContent(JsonConvert.SerializeObject(data));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = new HttpResponseMessage();
-            httpClient.Timeout = TimeSpan.FromMinutes(1);
-
-            response = await httpClient.PostAsync(uri, content);
+            var response = await httpClient.PostAsync(uri, content);
 
             await HandleResponse(response);
             var serialized = await response.Content.ReadAsStringAsync();

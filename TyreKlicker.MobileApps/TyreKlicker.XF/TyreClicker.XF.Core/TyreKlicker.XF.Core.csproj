@@ -63,12 +63,21 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>AppResources.resx</DependentUpon>
         </Compile>
+        <Compile Update="Views\NavigationDrawer\SplitDetailPage.xaml.cs">
+          <DependentUpon>SplitDetailPage.xaml</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="Pages\RegistrationPage.xaml">
+        <EmbeddedResource Update="Views\Order\OrderDetailsPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Pages\Templates\OrderItemTemplate.xaml">
+        <EmbeddedResource Update="Views\PendingOrders\PendingOrderDetailsPage.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\PendingOrders\PendingOrdersPage.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\RegistrationPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\AppResources.resx">
@@ -124,5 +133,6 @@
     <ItemGroup>
       <Folder Include="Controls\" />
       <Folder Include="Factory\" />
+      <Folder Include="Views\Templates\" />
     </ItemGroup>
 </Project>

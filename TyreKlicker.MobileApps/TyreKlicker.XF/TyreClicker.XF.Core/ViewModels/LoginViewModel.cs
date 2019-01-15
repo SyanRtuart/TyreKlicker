@@ -16,8 +16,9 @@ namespace TyreKlicker.XF.Core.ViewModels
         private ValidatableObject<string> _email;
         private ValidatableObject<string> _password;
 
-        public LoginViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService
-            , IAuthenticationService authenticationService)
+        public LoginViewModel(IMvxLogProvider logProvider,
+            IMvxNavigationService navigationService,
+            IAuthenticationService authenticationService)
             : base(logProvider, navigationService)
         {
             _authenticationService = authenticationService;
