@@ -1,4 +1,7 @@
-﻿namespace TyreKlicker.XF.Core
+﻿using System.IdentityModel.Tokens.Jwt;
+using TyreKlicker.XF.Core.Helpers;
+
+namespace TyreKlicker.XF.Core
 {
     public class GlobalSetting
     {
@@ -22,6 +25,15 @@
             {
                 _baseIdentityEndpoint = value;
                 UpdateEndpoint(_baseIdentityEndpoint);
+            }
+        }
+
+        public string CurrentLoggedInUserEmail
+        {
+            get
+            {
+                var jwtToken = new JwtSecurityToken(Settings.AccessToken);
+                return jwtToken.Subject;
             }
         }
 

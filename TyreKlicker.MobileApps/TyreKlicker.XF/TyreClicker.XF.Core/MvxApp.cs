@@ -7,6 +7,7 @@ using MvvmCross.ViewModels;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
 using TyreKlicker.XF.Core.Services.RequestProvider;
+using TyreKlicker.XF.Core.Services.User;
 
 namespace TyreKlicker.XF.Core
 {
@@ -29,6 +30,7 @@ namespace TyreKlicker.XF.Core
             Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
             Mvx.RegisterType<IRequestProvider, RequestProvider>();
             Mvx.RegisterType<IAuthenticationService, AuthenticationService>();
+            Mvx.RegisterType<IUserService, UserService>();
 
             Resources.AppResources.Culture = Mvx.Resolve<Services.ILocalizeService>().GetCurrentCultureInfo();
             //Settings.AccessToken = null;

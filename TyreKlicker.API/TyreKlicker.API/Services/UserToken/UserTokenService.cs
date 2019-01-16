@@ -30,8 +30,8 @@ namespace TyreKlicker.API.Services.UserToken
 
             var token = new JwtSecurityToken
             (
-                issuer: "http://oec.com",
-                audience: "http://oec.com",
+                issuer: "TyreKlicker.API",
+                audience: "TyreKlicker.XF",
                 expires: DateTime.Now.AddHours(1),
                 claims: claims,
                 signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)

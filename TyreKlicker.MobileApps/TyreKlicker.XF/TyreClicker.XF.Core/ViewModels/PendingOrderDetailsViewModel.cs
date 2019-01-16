@@ -1,31 +1,37 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
+using TyreKlicker.XF.Core.Services.User;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
     public class PendingOrderDetailsViewModel : MvxNavigationViewModel<Order>
     {
         private readonly IOrderService _orderService;
+        private readonly IUserService _userService;
 
         private Order _pendingOrder;
 
         public PendingOrderDetailsViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            IOrderService orderService) : base(logProvider, navigationService)
+            IOrderService orderService,
+            IUserService userService) : base(logProvider, navigationService)
         {
             _orderService = orderService;
+            _userService = userService;
             AcceptOrderCommand = new MvxAsyncCommand(async () => await AcceptOrderAsync());
         }
 
         private async Task AcceptOrderAsync()
         {
-            var command = new AcceptOrderCommand { OrderId = _pendingOrder.Id, UserId = Guid.NewGuid() };
+            var user = await _userService.GetUser(GlobalSetting.Instance.CurrentLoggedInUserEmail);
+
+            var command = new AcceptOrderCommand { OrderId = _pendingOrder.Id, UserId = user.Id };
+
             await _orderService.AcceptOrder(Settings.AccessToken, command);
         }
 

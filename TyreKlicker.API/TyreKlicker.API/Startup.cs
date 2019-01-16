@@ -75,8 +75,8 @@ namespace TyreKlicker.API
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = "http://oec.com",
-                    ValidIssuer = "http://oec.com",
+                    ValidAudience = "TyreKlicker.XF",
+                    ValidIssuer = "TyreKlicker.API",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySuperSecureKey"))
                 };
             });

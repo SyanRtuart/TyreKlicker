@@ -9,6 +9,12 @@ namespace TyreKlicker.Application.User.Queries.GetUserByEmail
 
         public string Email { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
         public static Expression<Func<Domain.Entities.User, UserViewModel>> Projection
         {
             get
@@ -16,7 +22,11 @@ namespace TyreKlicker.Application.User.Queries.GetUserByEmail
                 return u => new UserViewModel
                 {
                     Email = u.Email,
-                    Id = u.Id
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    PhoneNumber = u.PhoneNumber
+                    //firstname lastname phonenumber
                 };
             }
         }
