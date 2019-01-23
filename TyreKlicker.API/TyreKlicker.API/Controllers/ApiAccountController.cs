@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 using TyreKlicker.API.Extensions;
 using TyreKlicker.API.Models;
@@ -84,7 +85,15 @@ namespace TyreKlicker.API.Controllers
             if (ModelState.IsValid)
             {
                 //TODO Check user exists in Application Db - If it does send email to reset password
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var linkingGuid = Guid.NewGuid();
+                var user = new ApplicationUser
+                {
+                    TyreKlickerUserId = linkingGuid,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -99,10 +108,11 @@ namespace TyreKlicker.API.Controllers
 
                     var command = new CreateUserCommand()
                     {
+                        Id = linkingGuid,
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
                         FirstName = user.FirstName,
-                        LastName = user.LastName
+                        LastName = user.LastName,
                     };
 
                     var mediator = await Mediator.Send(command);

@@ -29,7 +29,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             _email = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();
 
-            _email.Value = "syan1@emax-systems.co.uk";
+            _email.Value = "meex@emax-systems.co.uk";
             _password.Value = "Invasi0n!";
 
             AddValidations();

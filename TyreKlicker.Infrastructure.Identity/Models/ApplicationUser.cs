@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace TyreKlicker.Infrastructure.Identity.Models
 {
@@ -7,5 +8,7 @@ namespace TyreKlicker.Infrastructure.Identity.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public Guid TyreKlickerUserId { get; set; }
     }
 }

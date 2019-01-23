@@ -18,6 +18,7 @@ namespace TyreKlicker.Application.User.Command.CreateUser
         {
             var entity = new Domain.Entities.User
             {
+                Id = request.Id,
                 Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
                 FirstName = request.FirstName,
