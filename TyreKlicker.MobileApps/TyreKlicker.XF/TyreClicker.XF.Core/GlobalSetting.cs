@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using TyreKlicker.XF.Core.Helpers;
 
 namespace TyreKlicker.XF.Core
@@ -28,12 +29,13 @@ namespace TyreKlicker.XF.Core
             }
         }
 
-        public string CurrentLoggedInUserEmail
+        public Guid CurrentLoggedInUserId
         {
             get
             {
                 var jwtToken = new JwtSecurityToken(Settings.AccessToken);
-                return jwtToken.Subject;
+
+                return Guid.Parse(jwtToken.Subject);
             }
         }
 
