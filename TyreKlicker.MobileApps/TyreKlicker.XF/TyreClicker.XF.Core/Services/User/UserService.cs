@@ -19,8 +19,6 @@ namespace TyreKlicker.XF.Core.Services.User
 
         public async Task<UserModel> GetUser(string email)
         {
-            var encoded = HttpUtility.UrlEncode(email);
-
             var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}/Email?email=" + HttpUtility.UrlEncode(email));
 
             var result = await _requestProvider.GetAsync<UserModel>(uri, Settings.AccessToken);

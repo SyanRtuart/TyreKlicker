@@ -18,7 +18,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             IOrderService orderService) : base(logProvider, navigationService)
         {
             _orderService = orderService;
-
             GetCurrentOrdersCommand = new MvxAsyncCommand(async () => await GetCurrentOrdersAsync());
         }
 

@@ -67,8 +67,14 @@
         <Compile Update="Views\NavigationDrawer\SplitDetailPage.xaml.cs">
           <DependentUpon>SplitDetailPage.xaml</DependentUpon>
         </Compile>
+        <Compile Update="Views\PendingOrders\NewPendingOrderPage.xaml.cs">
+          <DependentUpon>NewPendingOrderPage.xaml</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
+        <EmbeddedResource Update="Views\PendingOrders\NewPendingOrderPage.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
         <EmbeddedResource Update="Views\Order\OrderDetailsPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
