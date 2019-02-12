@@ -41,5 +41,14 @@ namespace TyreKlicker.XF.Core.Services.Order
 
             return result;
         }
+
+        public async Task<CreateNewPendingOrderCommand> CreateNewPendingOrder(string token, CreateNewPendingOrderCommand command)
+        {
+            var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}");
+
+            var result = await _requestProvider.PostAsync(uri, command, Settings.AccessToken);
+
+            return result;
+        }
     }
 }

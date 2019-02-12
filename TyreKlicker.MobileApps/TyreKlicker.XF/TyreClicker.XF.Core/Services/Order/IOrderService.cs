@@ -9,5 +9,7 @@ namespace TyreKlicker.XF.Core.Services.Order
         Task<ObservableCollection<Models.Order.Order>> GetAllPendingOrdersAsync(string token);
 
         Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command);
+
+        Task<CreateNewPendingOrderCommand> CreateNewPendingOrder(string token, CreateNewPendingOrderCommand command);
     }
 }
