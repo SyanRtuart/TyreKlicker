@@ -12,7 +12,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         private readonly IRequestProvider _requestProvider;
 
         private const string BaseUri = @"https://api.wheel-size.com/v1/";
-        private const string Key = "6cbe0b7035ba71026abe2ca8dae889af"; 
+        private const string Key = "6cbe0b7035ba71026abe2ca8dae889af";
 
         public TyreService(IRequestProvider requestProvider)
         {
@@ -23,10 +23,10 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"key", Key }
+                {"user_key", Key }
             };
 
-            var uri = UriHelper.BuildUri(BaseUri + "make/" , values);
+            var uri = UriHelper.BuildUri(BaseUri + "makes/", values);
 
             var response = await _requestProvider.GetAsync<IEnumerable<Make>>(uri);
 
@@ -37,10 +37,11 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"key", Key }
+                {"user_key", Key },
+                {"make", make.Name }
             };
 
-            var uri = UriHelper.BuildUri(BaseUri + "models/" , values);
+            var uri = UriHelper.BuildUri(BaseUri + "models/", values);
 
             var response = await _requestProvider.GetAsync<IEnumerable<Model>>(uri);
 
@@ -51,12 +52,30 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"key", Key }
+                {"user_key", Key },
+                {"make", make.Name }
             };
 
             var uri = UriHelper.BuildUri(BaseUri + "years/", values);
 
             var response = await _requestProvider.GetAsync<IEnumerable<Years>>(uri);
+
+            return response;
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetVehicles(Make make, Model model, Years year)
+        {
+            var values = new NameValueCollection
+            {
+                {"user_key", Key },
+                {"make", make.Name },
+                {"model", model.Name },
+                {"year", year.Name }
+            };
+
+            var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
+
+            var response = await _requestProvider.GetAsync<IEnumerable<Vehicle>>(uri);
 
             return response;
         }

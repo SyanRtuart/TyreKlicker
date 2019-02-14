@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,6 +15,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
     public class RequestProvider : IRequestProvider
     {
         private readonly JsonSerializerSettings _serializerSettings;
+        private List<string> errors = new List<string>();
 
         public RequestProvider()
         {
@@ -21,7 +23,12 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
+                Error = (s, a) =>
+                {
+                    a.ErrorContext.Handled = true;
+                    errors.Add(a.ErrorContext.Error.Message);
+                }
             };
             _serializerSettings.Converters.Add(new StringEnumConverter());
         }

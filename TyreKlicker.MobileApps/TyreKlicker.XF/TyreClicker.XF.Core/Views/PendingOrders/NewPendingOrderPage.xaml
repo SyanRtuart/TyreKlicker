@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage x:TypeArguments="viewModels:NewOrderViewModel"
+<views:MvxContentPage x:TypeArguments="viewModels:NewPendingOrderViewModel"
             xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
@@ -29,7 +29,7 @@
 
                 <!--<Entry Grid.Row="1"  Text="{Binding Email.Value, Mode=TwoWay}" TextColor="White"  Placeholder="Email" PlaceholderColor="White" FontSize="Default" />-->
 
-                <Entry Grid.Row="1" Text="{Binding Email.Value, Mode=TwoWay}" 
+                <Entry Grid.Row="1" Text="{Binding Email.Value, Mode=TwoWay}"
                        TextColor="White" PlaceholderColor="White" FontSize="Default">
                 </Entry>
 
@@ -37,10 +37,7 @@
                     IsPassword="True"
                     Text="{Binding Password.Value, Mode=TwoWay}">
                 </Entry>
-
             </Grid>
-
-           
         </Grid>
     </ContentPage.Content>
 </views:MvxContentPage>
