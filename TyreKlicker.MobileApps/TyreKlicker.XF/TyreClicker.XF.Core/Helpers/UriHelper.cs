@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
 
 namespace TyreKlicker.XF.Core.Helpers
 {
@@ -17,6 +20,20 @@ namespace TyreKlicker.XF.Core.Helpers
                 }
             }
             return uri;
+        }
+
+        public static string BuildUri(string root, NameValueCollection query)
+        {
+            // sneaky way to get a HttpValueCollection (which is internal)
+            var collection = HttpUtility.ParseQueryString(string.Empty);
+
+            foreach (var key in query.Cast<string>().Where(key => !string.IsNullOrEmpty(query[key])))
+            {
+                collection[key] = query[key];
+            }
+
+            var builder = new UriBuilder(root) { Query = collection.ToString() };
+            return builder.Uri.ToString();
         }
     }
 }
