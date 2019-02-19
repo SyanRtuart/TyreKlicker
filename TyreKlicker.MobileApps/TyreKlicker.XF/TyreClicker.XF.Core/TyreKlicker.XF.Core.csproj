@@ -11,6 +11,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
+        <PackageReference Include="Behaviors.Forms" Version="1.4.0" />
         <PackageReference Include="Fody" Version="3.1.4" developmentDependency="true" />
         <PackageReference Include="IdentityModel" Version="4.0.0-bruichladdich" />
         <PackageReference Include="Microsoft.NETCore.Platforms" Version="2.1.0" />

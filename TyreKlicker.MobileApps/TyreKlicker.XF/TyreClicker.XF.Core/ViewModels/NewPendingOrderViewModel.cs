@@ -81,7 +81,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedMake = value;
-                GetModelsCommand.ExecuteAsync();
+
                 RaisePropertyChanged(() => SelectedMake);
             }
         }
@@ -92,7 +92,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedModel = value;
-                GetYearsCommand.ExecuteAsync();
                 RaisePropertyChanged(() => SelectedModel);
             }
         }
@@ -103,7 +102,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedYear = value;
-                GetVehiclesCommand.ExecuteAsync();
                 RaisePropertyChanged(() => SelectedYear);
             }
         }
@@ -114,14 +112,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedVehicle = value;
-                //GetModelsCommand.ExecuteAsync();
                 RaisePropertyChanged(() => SelectedVehicle);
             }
         }
-
-        //SelectedModel
-        //SelectedYear
-        //SelectedVehicle
 
         public IMvxAsyncCommand GetMakesCommand => new MvxAsyncCommand(async () => await GetMakesAsync());
 

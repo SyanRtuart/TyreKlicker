@@ -4,28 +4,50 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
             xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+            xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
+
             x:Class="TyreKlicker.XF.Core.Views.PendingOrders.NewPendingOrderPage">
     <ContentPage.Content>
         <StackLayout>
-            <Picker ItemsSource="{Binding Makes}"
+            <Picker x:Name="MyPicker"
+                ItemsSource="{Binding Makes}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Make"
-                    SelectedItem="{Binding SelectedMake, Mode=TwoWay}" />
+                    SelectedItem="{Binding SelectedMake, Mode=TwoWay}">
+                <Picker.Behaviors>
+                    <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding GetModelsCommand}" />
+                    </behaviors:EventHandlerBehavior>
+                </Picker.Behaviors>
+            </Picker>
 
             <Picker ItemsSource="{Binding Models}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Model"
-                    SelectedItem="{Binding SelectedModel, Mode=TwoWay}" />
+                    SelectedItem="{Binding SelectedModel, Mode=TwoWay}">
+                <Picker.Behaviors>
+                    <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding GetYearsAsync}" />
+                    </behaviors:EventHandlerBehavior>
+                </Picker.Behaviors>
+            </Picker>
 
             <Picker ItemsSource="{Binding Years}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Year"
-                    SelectedItem="{Binding SelectedYear, Mode=TwoWay}" />
+                    SelectedItem="{Binding SelectedYear, Mode=TwoWay}">
+                <Picker.Behaviors>
+                    <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding GetVehiclesAsync}" />
+                    </behaviors:EventHandlerBehavior>
+                </Picker.Behaviors>
+            </Picker>
 
             <Picker ItemsSource="{Binding Vehicles.Wheels.Front}"
                     ItemDisplayBinding="{Binding Tire}"
                     Title="Select Vehicle"
-                    SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}" />
+                    SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}">
+            </Picker>
         </StackLayout>
     </ContentPage.Content>
 </views:MvxContentPage>
