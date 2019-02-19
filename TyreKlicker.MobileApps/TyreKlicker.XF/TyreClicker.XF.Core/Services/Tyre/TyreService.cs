@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
@@ -19,7 +19,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
             _requestProvider = requestProvider;
         }
 
-        public async Task<IEnumerable<Make>> GetMakes()
+        public async Task<ObservableCollection<Make>> GetMakes()
         {
             var values = new NameValueCollection
             {
@@ -28,12 +28,12 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             var uri = UriHelper.BuildUri(BaseUri + "makes/", values);
 
-            var response = await _requestProvider.GetAsync<IEnumerable<Make>>(uri);
+            var response = await _requestProvider.GetAsync<ObservableCollection<Make>>(uri);
 
             return response;
         }
 
-        public async Task<IEnumerable<Model>> GetModels(Make make)
+        public async Task<ObservableCollection<Model>> GetModels(Make make)
         {
             var values = new NameValueCollection
             {
@@ -43,12 +43,12 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             var uri = UriHelper.BuildUri(BaseUri + "models/", values);
 
-            var response = await _requestProvider.GetAsync<IEnumerable<Model>>(uri);
+            var response = await _requestProvider.GetAsync<ObservableCollection<Model>>(uri);
 
             return response;
         }
 
-        public async Task<IEnumerable<Years>> GetYears(Make make)
+        public async Task<ObservableCollection<Years>> GetYears(Make make)
         {
             var values = new NameValueCollection
             {
@@ -58,12 +58,12 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             var uri = UriHelper.BuildUri(BaseUri + "years/", values);
 
-            var response = await _requestProvider.GetAsync<IEnumerable<Years>>(uri);
+            var response = await _requestProvider.GetAsync<ObservableCollection<Years>>(uri);
 
             return response;
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles(Make make, Model model, Years year)
+        public async Task<ObservableCollection<Vehicle>> GetVehicles(Make make, Model model, Years year)
         {
             var values = new NameValueCollection
             {
@@ -75,7 +75,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
 
-            var response = await _requestProvider.GetAsync<IEnumerable<Vehicle>>(uri);
+            var response = await _requestProvider.GetAsync<ObservableCollection<Vehicle>>(uri);
 
             return response;
         }
