@@ -2,11 +2,13 @@
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Models.Tyre;
 using TyreKlicker.XF.Core.Services.Order;
 using TyreKlicker.XF.Core.Services.Tyre;
+using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -14,17 +16,22 @@ namespace TyreKlicker.XF.Core.ViewModels
     {
         private readonly IOrderService _orderService;
         private readonly ITyreService _tyreService;
+
         private ObservableCollection<Make> _makes;
         private ObservableCollection<Model> _models;
         private ObservableCollection<Years> _years;
         private ObservableCollection<Vehicle> _vehicle;
-        private ObservableCollection<WheelPair> _wheelPairs;
+        private ObservableCollection<VehicleTrim> _trims;
+        private ObservableCollection<Wheel> _tyres;
 
         private Order _order;
         private Make _selectedMake;
         private Model _selectedModel;
         private Years _selectedYear;
         private Vehicle _selectedVehicle;
+        private Wheel _selectedTyre;
+        private VehicleTrim _selectedVehicleTrim;
+        private ValidatableObject<string> _registration;
 
         public NewPendingOrderViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
@@ -34,7 +41,12 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             _tyreService = tyreService;
             _orderService = orderService;
+
             GetMakesCommand.ExecuteAsync();
+
+            _registration = new ValidatableObject<string>();
+
+            AddValidations();
         }
 
         public ObservableCollection<Make> Makes
@@ -77,13 +89,23 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public ObservableCollection<WheelPair> WheelPairs
+        public ObservableCollection<VehicleTrim> Trims
         {
-            get { return _wheelPairs; }
+            get { return _trims; }
             set
             {
-                _wheelPairs = value;
-                RaisePropertyChanged(() => WheelPairs);
+                _trims = value;
+                RaisePropertyChanged(() => Trims);
+            }
+        }
+
+        public ObservableCollection<Wheel> Tyres
+        {
+            get { return _tyres; }
+            set
+            {
+                _tyres = value;
+                RaisePropertyChanged(() => Tyres);
             }
         }
 
@@ -128,6 +150,39 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
+        public VehicleTrim SelectedVehicleTrim
+        {
+            get { return _selectedVehicleTrim; }
+            set
+            {
+                _selectedVehicleTrim = value;
+                RaisePropertyChanged(() => SelectedVehicleTrim);
+            }
+        }
+
+        public Wheel SelectedTyre
+        {
+            get { return _selectedTyre; }
+            set
+            {
+                _selectedTyre = value;
+                RaisePropertyChanged(() => SelectedTyre);
+            }
+        }
+
+        public ValidatableObject<string> Registration
+        {
+            get
+            {
+                return _registration;
+            }
+            set
+            {
+                _registration = value;
+                RaisePropertyChanged(() => Registration);
+            }
+        }
+
         public IMvxAsyncCommand GetMakesCommand => new MvxAsyncCommand(async () => await GetMakesAsync());
 
         public IMvxAsyncCommand GetModelsCommand => new MvxAsyncCommand(async () => await GetModelsAsync());
@@ -136,7 +191,9 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxAsyncCommand GetVehiclesCommand => new MvxAsyncCommand(async () => await GetVehiclesAsync());
 
-        public IMvxAsyncCommand GetWheelPairsCommand => new MvxAsyncCommand(async () => await GetWheelPairsAsync());
+        public IMvxAsyncCommand GetTyresCommand => new MvxAsyncCommand(async () => await GetTyresAsync());
+
+        public IMvxCommand ValidateRegistrationCommand => new MvxCommand(() => ValidateRegistration());
 
         private async Task GetMakesAsync()
         {
@@ -155,12 +212,41 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task GetVehiclesAsync()
         {
-            Vehicles = await _tyreService.GetVehicles(_selectedMake, _selectedModel, _selectedYear);
+            var vehicles = await _tyreService.GetVehicles(_selectedMake, _selectedModel, _selectedYear);
+            Vehicles = vehicles;
+            GetTrims(vehicles);
         }
 
-        private async Task GetWheelPairsAsync()
+        private void GetTrims(ObservableCollection<Vehicle> vehicles)
         {
-            WheelPairs = await _tyreService.GetWheelPairs(_selectedMake, _selectedModel, _selectedYear);
+            Trims = new ObservableCollection<VehicleTrim>();
+            foreach (var trim in vehicles.Select(x => x.Trim).Distinct())
+            {
+                Trims.Add(new VehicleTrim { Trim = trim });
+            }
+        }
+
+        private async Task GetTyresAsync()
+        {
+            var vehicles = Vehicles.Where(x => x.Trim == SelectedVehicleTrim.Trim).ToList();
+            Tyres = new ObservableCollection<Wheel>();
+            foreach (var vehicle in vehicles)
+            {
+                foreach (var tyre in vehicle.Wheels)
+                {
+                    Tyres.Add(tyre.Front);
+                }
+            }
+        }
+
+        private bool ValidateRegistration()
+        {
+            return _registration.Validate();
+        }
+
+        private void AddValidations()
+        {
+            _registration.Validations.Add(new VehicleRegistrationRule<string> { ValidationMessage = "A username is required." });
         }
     }
 }
