@@ -9,8 +9,7 @@
             x:Class="TyreKlicker.XF.Core.Views.PendingOrders.NewPendingOrderPage">
     <ContentPage.Content>
         <StackLayout>
-            <Picker x:Name="MyPicker"
-                ItemsSource="{Binding Makes}"
+            <Picker ItemsSource="{Binding Makes}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Make"
                     SelectedItem="{Binding SelectedMake, Mode=TwoWay}">
@@ -27,7 +26,7 @@
                     SelectedItem="{Binding SelectedModel, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviors:InvokeCommandAction Command="{Binding GetYearsAsync}" />
+                        <behaviors:InvokeCommandAction Command="{Binding GetYearsCommand}" />
                     </behaviors:EventHandlerBehavior>
                 </Picker.Behaviors>
             </Picker>
@@ -38,7 +37,7 @@
                     SelectedItem="{Binding SelectedYear, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviors:InvokeCommandAction Command="{Binding GetVehiclesAsync}" />
+                        <behaviors:InvokeCommandAction Command="{Binding GetWheelPairsCommand}" />
                     </behaviors:EventHandlerBehavior>
                 </Picker.Behaviors>
             </Picker>

@@ -18,6 +18,8 @@ namespace TyreKlicker.XF.Core.ViewModels
         private ObservableCollection<Model> _models;
         private ObservableCollection<Years> _years;
         private ObservableCollection<Vehicle> _vehicle;
+        private ObservableCollection<WheelPair> _wheelPairs;
+
         private Order _order;
         private Make _selectedMake;
         private Model _selectedModel;
@@ -75,6 +77,16 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
+        public ObservableCollection<WheelPair> WheelPairs
+        {
+            get { return _wheelPairs; }
+            set
+            {
+                _wheelPairs = value;
+                RaisePropertyChanged(() => WheelPairs);
+            }
+        }
+
         public Make SelectedMake
         {
             get { return _selectedMake; }
@@ -124,6 +136,8 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxAsyncCommand GetVehiclesCommand => new MvxAsyncCommand(async () => await GetVehiclesAsync());
 
+        public IMvxAsyncCommand GetWheelPairsCommand => new MvxAsyncCommand(async () => await GetWheelPairsAsync());
+
         private async Task GetMakesAsync()
         {
             Makes = await _tyreService.GetMakes();
@@ -142,6 +156,11 @@ namespace TyreKlicker.XF.Core.ViewModels
         private async Task GetVehiclesAsync()
         {
             Vehicles = await _tyreService.GetVehicles(_selectedMake, _selectedModel, _selectedYear);
+        }
+
+        private async Task GetWheelPairsAsync()
+        {
+            WheelPairs = await _tyreService.GetWheelPairs(_selectedMake, _selectedModel, _selectedYear);
         }
     }
 }

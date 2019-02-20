@@ -79,5 +79,32 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             return response;
         }
+
+        public async Task<ObservableCollection<WheelPair>> GetWheelPairs(Make make, Model model, Years year)
+        {
+            var values = new NameValueCollection
+            {
+                {"user_key", Key },
+                {"make", make.Name },
+                {"model", model.Name },
+                {"year", year.Name }
+            };
+
+            var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
+
+            var response = await _requestProvider.GetAsync<ObservableCollection<Vehicle>>(uri);
+
+            var myWheelPairs = new ObservableCollection<WheelPair>();
+
+            foreach (var vehicle in response)
+            {
+                foreach (var wheel in vehicle.Wheels)
+                {
+                    myWheelPairs.Add(wheel);
+                }
+            }
+
+            return myWheelPairs;
+        }
     }
 }
