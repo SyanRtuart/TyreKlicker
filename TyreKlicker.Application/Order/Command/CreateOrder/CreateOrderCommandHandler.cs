@@ -26,6 +26,11 @@ namespace TyreKlicker.Application.Order.Command.CreateOrder
                 CreatedByUserId = request.CreatedByUserId,
                 Description = request.Description,
                 Registration = request.Registration,
+                Make = request.Make,
+                Model = request.Model,
+                Trim = request.Trim,
+                Tyre = request.Tyre,
+                Year = request.Year
             };
 
             _context.Order.Add(entity);
