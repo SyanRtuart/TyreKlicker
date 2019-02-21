@@ -28,7 +28,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             _tyreService = tyreService;
             _orderService = orderService;
 
-            _order = new CreateNewPendingOrderCommand();
+            _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
             _registration = new ValidatableObject<string>();
 
             AddValidations();
