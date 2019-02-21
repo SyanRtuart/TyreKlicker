@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
-using TyreKlicker.XF.Core.Services.Tyre;
 using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
@@ -13,19 +12,16 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class NewPendingOrderViewModel : MvxNavigationViewModel
     {
         private readonly IOrderService _orderService;
-        private readonly ITyreService _tyreService;
 
-        private CreateNewPendingOrderCommand _order;
+        private readonly CreateNewPendingOrderCommand _order;
 
         private ValidatableObject<string> _registration;
 
         public NewPendingOrderViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            IOrderService orderService,
-            ITyreService tyreService) :
+            IOrderService orderService) :
             base(logProvider, navigationService)
         {
-            _tyreService = tyreService;
             _orderService = orderService;
 
             _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
