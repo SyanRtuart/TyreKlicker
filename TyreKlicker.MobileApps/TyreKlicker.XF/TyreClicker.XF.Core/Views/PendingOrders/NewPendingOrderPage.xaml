@@ -10,62 +10,11 @@
             x:Class="TyreKlicker.XF.Core.Views.PendingOrders.NewPendingOrderPage">
     <ContentPage.Content>
         <StackLayout>
-            <Picker ItemsSource="{Binding Makes}"
-                    ItemDisplayBinding="{Binding Name}"
-                    Title="Select Make"
-                    SelectedItem="{Binding SelectedMake, Mode=TwoWay}">
-                <Picker.Behaviors>
-                    <behaviorsNuget:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviorsNuget:InvokeCommandAction Command="{Binding GetModelsCommand}" />
-                    </behaviorsNuget:EventHandlerBehavior>
-                </Picker.Behaviors>
-            </Picker>
+            <Button Command="{Binding SelectTyreCommand}"
+                    Text="Select Tyre" />
 
-            <Picker ItemsSource="{Binding Models}"
-                    ItemDisplayBinding="{Binding Name}"
-                    Title="Select Model"
-                    SelectedItem="{Binding SelectedModel, Mode=TwoWay}">
-                <Picker.Behaviors>
-                    <behaviorsNuget:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviorsNuget:InvokeCommandAction Command="{Binding GetYearsCommand}" />
-                    </behaviorsNuget:EventHandlerBehavior>
-                </Picker.Behaviors>
-            </Picker>
-
-            <Picker ItemsSource="{Binding Years}"
-                    ItemDisplayBinding="{Binding Name}"
-                    Title="Select Year"
-                    SelectedItem="{Binding SelectedYear, Mode=TwoWay}">
-                <Picker.Behaviors>
-                    <behaviorsNuget:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviorsNuget:InvokeCommandAction Command="{Binding GetVehiclesCommand}" />
-                    </behaviorsNuget:EventHandlerBehavior>
-                </Picker.Behaviors>
-            </Picker>
-
-            <Picker ItemsSource="{Binding Trims}"
-                    ItemDisplayBinding="{Binding Trim}"
-                    Title="Select Vehicle"
-                    SelectedItem="{Binding SelectedVehicleTrim, Mode=TwoWay}">
-                <Picker.Behaviors>
-                    <behaviorsNuget:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviorsNuget:InvokeCommandAction Command="{Binding GetTyresCommand}" />
-                    </behaviorsNuget:EventHandlerBehavior>
-                </Picker.Behaviors>
-            </Picker>
-
-            <Picker ItemsSource="{Binding Tyres}"
-                    ItemDisplayBinding="{Binding Tire}"
-                    Title="Select Tyre Size"
-                    SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}">
-                <Picker.Behaviors>
-                    <behaviorsNuget:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviorsNuget:InvokeCommandAction Command="{Binding GetWheelPairsCommand}" />
-                    </behaviorsNuget:EventHandlerBehavior>
-                </Picker.Behaviors>
-            </Picker>
-
-            <Entry Text="{Binding Registration.Value, Mode=TwoWay}">
+            <Entry Text="{Binding Registration.Value, Mode=TwoWay}"
+                   Placeholder="Enter Registration">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
                         <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -81,7 +30,8 @@
                         TargetType="Entry"
                         Binding="{Binding Registration.IsValid}"
                         Value="False">
-                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                        <Setter Property="behaviors:LineColorBehavior.LineColor"
+Value="{StaticResource ErrorColor}" />
                     </DataTrigger>
                 </Entry.Triggers>
             </Entry>
