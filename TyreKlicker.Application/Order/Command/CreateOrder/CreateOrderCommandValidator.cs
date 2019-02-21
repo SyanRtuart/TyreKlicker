@@ -6,7 +6,6 @@ namespace TyreKlicker.Application.Order.Command.CreateOrder
     {
         public CreateOrderCommandValidator()
         {
-            RuleFor(x => x.Description).NotEmpty();
             RuleFor(x => x.Registration).NotEmpty();
         }
     }
