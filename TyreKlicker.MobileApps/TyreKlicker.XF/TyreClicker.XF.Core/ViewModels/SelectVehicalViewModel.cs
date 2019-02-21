@@ -11,7 +11,7 @@ using TyreKlicker.XF.Core.Services.Tyre;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
-    public class SelectVehicalViewModel : MvxNavigationViewModel<Order, Order>
+    public class SelectVehicalViewModel : MvxNavigationViewModel<CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>
     {
         private readonly IOrderService _orderService;
 
@@ -24,7 +24,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         private ObservableCollection<VehicleTrim> _trims;
         private ObservableCollection<Wheel> _tyres;
 
-        private Order _order;
+        private CreateNewPendingOrderCommand _order;
         private Make _selectedMake;
         private Model _selectedModel;
         private Years _selectedYear;
@@ -45,7 +45,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             GetMakesCommand.ExecuteAsync();
         }
 
-        public Order Order
+        public CreateNewPendingOrderCommand Order
         {
             get => _order;
             set
@@ -308,7 +308,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             // first callback. Initialize parameter-agnostic stuff here
         }
 
-        public override void Prepare(Order order)
+        public override void Prepare(CreateNewPendingOrderCommand order)
         {
             _order = order;
         }

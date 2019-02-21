@@ -35,6 +35,10 @@ Value="{StaticResource ErrorColor}" />
                     </DataTrigger>
                 </Entry.Triggers>
             </Entry>
+
+            <Button
+                Command="{Binding SubmitOrderCommand}"
+                Text="Submit" />
         </StackLayout>
     </ContentPage.Content>
 </views:MvxContentPage>

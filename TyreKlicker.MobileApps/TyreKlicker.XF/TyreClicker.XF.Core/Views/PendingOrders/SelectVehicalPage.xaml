@@ -57,7 +57,7 @@
             <Picker ItemsSource="{Binding Tyres}"
                     ItemDisplayBinding="{Binding Tire}"
                     Title="Select Tyre Size"
-                    SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedTyre, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetWheelPairsCommand}" />

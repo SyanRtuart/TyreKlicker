@@ -2,6 +2,7 @@
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Threading.Tasks;
+using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
 using TyreKlicker.XF.Core.Services.Tyre;
@@ -14,7 +15,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         private readonly IOrderService _orderService;
         private readonly ITyreService _tyreService;
 
-        private Order _order;
+        private CreateNewPendingOrderCommand _order;
 
         private ValidatableObject<string> _registration;
 
@@ -27,7 +28,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             _tyreService = tyreService;
             _orderService = orderService;
 
-            _order = new Order();
+            _order = new CreateNewPendingOrderCommand();
             _registration = new ValidatableObject<string>();
 
             AddValidations();
@@ -47,20 +48,30 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxCommand ValidateRegistrationCommand => new MvxCommand(() => ValidateRegistration());
 
+        public IMvxAsyncCommand SubmitOrderCommand => new MvxAsyncCommand(async () => await SubmitOrderAsync());
+
+        private async Task SubmitOrderAsync()
+        {
+            await _orderService.CreateNewPendingOrder(Settings.AccessToken, _order);
+        }
+
         private async Task NavigateToSelectTyrePage()
         {
-            var result = await NavigationService.Navigate<SelectVehicalViewModel, Order, Order>(_order);
+            var result = await NavigationService.Navigate<SelectVehicalViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
         }
 
         private bool ValidateRegistration()
         {
-            return _registration.Validate();
+            var result = _registration.Validate();
+
+            if (result) _order.Registration = _registration.Value;
+
+            return result;
         }
 
         private void AddValidations()
         {
-            _registration.Validations.Add(new VehicleRegistrationRule<string>
-            { ValidationMessage = "A valid UK Vehical registration is required." });
+            _registration.Validations.Add(new VehicleRegistrationRule<string> { ValidationMessage = "A valid UK vehical registration is required." });
         }
     }
 }
