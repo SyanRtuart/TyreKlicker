@@ -121,7 +121,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedMake = value;
-
+                _order.Make = value.Name;
                 RaisePropertyChanged(() => SelectedMake);
             }
         }
@@ -132,6 +132,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedModel = value;
+                _order.Model = value.Name;
                 RaisePropertyChanged(() => SelectedModel);
             }
         }
@@ -142,6 +143,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedYear = value;
+                _order.Year = value.Name;
                 RaisePropertyChanged(() => SelectedYear);
             }
         }
@@ -162,6 +164,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedVehicleTrim = value;
+                _order.Trim = value.Trim;
                 RaisePropertyChanged(() => SelectedVehicleTrim);
             }
         }
@@ -172,6 +175,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             set
             {
                 _selectedTyre = value;
+                _order.Tyre = value.Tire;
                 RaisePropertyChanged(() => SelectedTyre);
             }
         }
@@ -272,6 +276,7 @@ namespace TyreKlicker.XF.Core.ViewModels
                 Trims = null;
                 SelectedVehicleTrim = null;
             }
+
             if (tyres)
             {
                 Tyres = null;
