@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-WebApplication2-8A0D3A12-100F-4920-8447-15F948224875</UserSecretsId>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +32,12 @@
     <ProjectReference Include="..\..\TyreKlicker.Application\TyreKlicker.Application.csproj" />
     <ProjectReference Include="..\..\TyreKlicker.Infrastructure.Identity\TyreKlicker.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\..\TyreKlicker.Infrastructure\TyreKlicker.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
