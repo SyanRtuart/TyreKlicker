@@ -1,0 +1,569 @@
+[33mcommit c43d9f7919cf95238fa6809099cc83ea3c756e7e[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/NugetChanges[m[33m, [m[1;32mNugetChanges[m[33m)[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Feb 26 19:57:46 2019 +0000
+
+    Mid nuget Changes
+
+[33mcommit da40e7e26a8a89c41f2976680552d7b4f890f219[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Feb 25 21:38:19 2019 +0000
+
+    changed startup to SQL string for AWS
+
+[33mcommit 4a85886a32957d1ae6dcc577f0ce6f86a8bb90b3[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Feb 25 20:25:46 2019 +0000
+
+    turned off DBInitalizer
+
+[33mcommit 0d5ecbed0aa180b1d33701cec29fbd3ce6d2ed93[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Feb 25 20:06:35 2019 +0000
+
+    added AWS sql strings
+
+[33mcommit bac18c9bb8a1b19aa33cfc182b9f89c4c0ba2cb8[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 22:09:53 2019 +0000
+
+    cleaned up NewPendingOrderViewModel
+
+[33mcommit 5f4a698ef521faf7b932276c662dc347db6b5908[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 22:09:15 2019 +0000
+
+    added constructor to NewPendingOrderCommand
+
+[33mcommit 61e8afac5bd4183a27c4214fdd1a5d8e51dbcbee[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 21:43:55 2019 +0000
+
+    removed description validation from new order
+
+[33mcommit 7fa818e4adf660e89942f0b6306fbc47a08b4fae[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 21:43:17 2019 +0000
+
+    Added submit order
+
+[33mcommit 6c28a7856963090e1ad683f292f9f4b1a3cc7e69[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 21:10:42 2019 +0000
+
+    added new properties to create order command
+
+[33mcommit f26d832d45a444e2a4d4a588c8b9df6c6faf612a[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 20:59:04 2019 +0000
+
+    added order properties to mobile app
+
+[33mcommit 23a68a2dc575a5dc5afa91257c423f7101a38f13[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 21 20:25:28 2019 +0000
+
+    Moved select vehical to seperate page
+
+[33mcommit 948a822bafd3f649c2717e89ac130d8275b19551[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Feb 20 22:13:18 2019 +0000
+
+    added LineColorEffect to IOS
+
+[33mcommit 8d2b39555ada2aee0312e83bda341d696e6f4afd[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Feb 20 22:00:53 2019 +0000
+
+    added registration validation
+
+[33mcommit 8d03feef2c833f9eab152ada043f744e45729d66[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Feb 20 00:10:12 2019 +0000
+
+    added get wheel pairs to tyre service
+
+[33mcommit 9af5d0250ac4fd064b61c2d4fb151d76ef314a40[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Feb 19 23:50:18 2019 +0000
+
+    Implemented async tyre service behaviors
+
+[33mcommit 504b94fde7c41bc1779a568eb42d5d67ccda1d62[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Feb 19 22:50:21 2019 +0000
+
+    working on Add New Pending Order
+
+[33mcommit 1226946226d5f2385b7d74ccf4f45369916d6848[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 14 22:27:03 2019 +0000
+
+    added tyre service
+
+[33mcommit 1738f2a7a983fc8661dc6e91e51cb58d20a4de4d[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Feb 14 17:34:31 2019 +0000
+
+    added tyre service
+
+[33mcommit f8c4a180d695b17bab6197b6f5937340db2dbb62[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Feb 12 14:15:21 2019 +0000
+
+    Order service work
+
+[33mcommit 6bcdcabf80e92307a49e0f6d414f3e6f18f3810d[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Jan 23 19:27:59 2019 +0000
+
+    Changed CurrentLoggedInUserEmail to Id
+
+[33mcommit 39a5bccf81b19a0ec9965b16bc4a2cdd12b20cde[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Jan 23 19:25:55 2019 +0000
+
+    Changed the user token to provide TyreKlickerUserId
+
+[33mcommit 4b7f8bc99b45c6f850d590ece509c0efa502ca38[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Jan 23 19:21:59 2019 +0000
+
+    Added TyreKlickerUserId to App Identity user
+
+[33mcommit f510099e9ef6b81e2a3176ee06c2db1b1a879932[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Jan 23 18:39:09 2019 +0000
+
+    Added add new pending order
+
+[33mcommit 627995042d44a70af46979c92bff936fa02b23cb[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Jan 16 21:08:26 2019 +0000
+
+    Implemented accept order
+
+[33mcommit e03365342af612ef77ab3cfd691006607bb904ef[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Jan 15 23:36:56 2019 +0000
+
+    fixed a bug with accept order command handler
+
+[33mcommit e7bf8d25b976883e7699b16ff0a9c04e4e88f27f[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Jan 15 23:21:26 2019 +0000
+
+    Implemented accept order on XF app
+
+[33mcommit 1300d53d50ec4afba5f5b2ac5c7782c49d5c1b55[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Jan 15 21:57:12 2019 +0000
+
+    General cleaup of pages
+
+[33mcommit 62c2b3e03da3f9c36d8bc30f4b5ca3020e7b98fa[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Jan 10 19:36:45 2019 +0000
+
+    Implemented orders service
+
+[33mcommit 50923d3caff78fed6d152e70a16a7536a8d96952[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Jan 10 00:38:51 2019 +0000
+
+    added settings to store token
+
+[33mcommit 4b0e664b37e98d975623bc06dade27165eee65e3[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Wed Jan 9 22:49:01 2019 +0000
+
+    Added get token
+
+[33mcommit 4068a590c0878a60db8a5f7c5c2eda064e25e799[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Jan 5 21:45:19 2019 +0000
+
+    Project cleanup
+
+[33mcommit 921c2a42db979b87d5e3fbe575149fab47eaa352[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Jan 5 21:17:18 2019 +0000
+
+    Fixed token auth and added Refresh token
+
+[33mcommit 47597172424c583e686bacdd32cbec4413b68536[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Fri Jan 4 20:12:32 2019 +0000
+
+    readded XF project
+
+[33mcommit 1078b7a340460e7dd03ad67d31754a9a3493401c[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Fri Jan 4 19:59:26 2019 +0000
+
+    file switch
+
+[33mcommit 15adf4d6de85a026c8159803090bac13f60f1137[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 14 13:41:32 2018 +0000
+
+    Splitting out XF project
+
+[33mcommit b7ef0cd1a4a924f334376d79a8e936eed50e1c6d[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 21:06:39 2018 +0000
+
+    added get current orders tests
+
+[33mcommit fb9d02aebfc5e2a4fb36a78e1ad6c75ee65153ff[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 20:36:50 2018 +0000
+
+    added Get user by id tests
+
+[33mcommit abd1bfc2d6a8c5502c6074b907dd0bad7c06edc2[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 20:23:29 2018 +0000
+
+    Added complete order command validator tests
+
+[33mcommit b91c1bc9e52b06d8b4dcf85e50bb682467c8dc3f[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 19:44:01 2018 +0000
+
+    added complete order tests and fixed validation
+
+[33mcommit 35188e4daae9f3946c7c08acd0fc531343cc59e8[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 16:39:44 2018 +0000
+
+    added complete order command tests
+
+[33mcommit c8c7025fe0d9076fb7ab417bb6db9bf6835b2e63[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 16:06:40 2018 +0000
+
+    Added Complete Order Command Validator
+
+[33mcommit daab056b73522d5f4661e0b49621e1748d18edb2[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 15:57:02 2018 +0000
+
+    added Accept Order Command validator tests
+
+[33mcommit 6fced457d64677785ff50dd11d1e97932c0059db[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Mon Dec 10 15:20:47 2018 +0000
+
+    Create order validator tests cleanup
+
+[33mcommit ab45c69421fdc25bd393dce97690a5dc498cdbf1[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 16:36:16 2018 +0000
+
+    fixed accept order tests
+
+[33mcommit 70d7fa7dc2b6efbf64798a7c534e1425ca6476c0[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 16:24:33 2018 +0000
+
+    Cleaned up Accept Order tests
+
+[33mcommit 1f85abbb2692019f344b83a36b13fd747d3dbad5[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 15:48:05 2018 +0000
+
+    added Already accepted exception tests and changes
+
+[33mcommit f0f174dc5b6fdc867bde64c170be1188849b46b6[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 15:40:37 2018 +0000
+
+    added Already accepted exception
+
+[33mcommit 1ab6352ef235232f373d7747520a5ac75e499011[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 15:36:45 2018 +0000
+
+    Added AcceptOrderCommand tests
+
+[33mcommit 192d463484d8ee9717acea6c9c905bc83e0b50c1[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 13:17:19 2018 +0000
+
+    added base entity to user
+
+[33mcommit 86ee3498792c85c74533e85c6b70eb7874abba01[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Dec 7 12:54:51 2018 +0000
+
+    added Accept Order Tests
+
+[33mcommit cf69dd42cb39b2eb6b13ba8afe59bbd684c141cc[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Dec 6 12:24:06 2018 +0000
+
+    Removed redundant class
+
+[33mcommit a381c5c459f352522dbc9c7bd1eedcebb3f87fba[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Dec 6 12:23:44 2018 +0000
+
+    Base entity dates now update automatically
+
+[33mcommit bd60fbe392b60b71d68b81f26d2259f6c90acfa6[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Dec 6 11:23:43 2018 +0000
+
+    Changed OrderId to Id and added base entity
+
+[33mcommit 2f8c292beb8e20e9d3820a97f35d0f28fedc8168[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Wed Dec 5 16:42:37 2018 +0000
+
+    added get current orders query
+
+[33mcommit 980788c289f05535954635ca74c74e5f3cd8b188[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Wed Dec 5 15:46:55 2018 +0000
+
+    added complete order command
+
+[33mcommit 618e5cd4c2019efc521ef3356a4b957572f4ed0c[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Tue Dec 4 16:51:57 2018 +0000
+
+    Controller change
+
+[33mcommit 69d47fa603f2920ef693eb8bb4144aa5991a66b0[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Tue Dec 4 16:12:08 2018 +0000
+
+    Made AcceptOrder Async
+
+[33mcommit bbac23ce86b617c9ba2e762f890e71c0e7bd5e79[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Nov 30 16:17:58 2018 +0000
+
+    AcceptOrderCommand work
+
+[33mcommit d5dbeb65bc0afaf0db92cd7077328c022582473c[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Nov 30 13:38:28 2018 +0000
+
+    Added AcceptOrderCommand and Validator
+
+[33mcommit 01cc00ff9315f820a51ed66cc5e09ec86eb65232[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Nov 30 11:36:26 2018 +0000
+
+    added Complete to Order
+
+[33mcommit eeadcba5e973d51ad786c39e9fcbea15b4c588bf[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Nov 30 11:24:30 2018 +0000
+
+    Added GetAllOrdersCreatedByUser Tests
+
+[33mcommit c73b8f4e3db7cf221a1933a6d327912c34031f51[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Fri Nov 30 11:13:17 2018 +0000
+
+    Added GetAllOrdersAcceptedByUser Tests
+
+[33mcommit 69825108f1a859d3d402ad8cf69a590d086c0492[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 29 22:56:26 2018 +0000
+
+    added GetAllOrdersAcceptedByUser
+
+[33mcommit 55329c58580f5db024bf7f52fc4368cf7b86f86e[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 29 22:38:37 2018 +0000
+
+    added GetOrdersCreatedByUser
+
+[33mcommit c31069cee1dfdd899824e7797b27a0cfe465ff25[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 29 08:32:08 2018 +0000
+
+    Changed GetUserById
+
+[33mcommit ad27e2e3f95fb9aeb681d2cf8dac8a72316da2fe[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 24 16:45:45 2018 +0000
+
+    added GetPendingOrders tests
+
+[33mcommit 88519c84bbda07d7f1d6c2f11734a7189307fed1[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 24 16:07:07 2018 +0000
+
+    removed virual from entites
+
+[33mcommit c9ccfcfae643c50472f0be509b74277c920112af[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 24 16:05:44 2018 +0000
+
+    Fixing nullable AccepctedById
+
+[33mcommit ddbae9d7910d20d8c358bcc0683b3998087b7673[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 24 14:46:09 2018 +0000
+
+    Code cleanup
+
+[33mcommit ea47787f22052d53d8a4722f3912c7c8c07ed68e[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 24 13:58:47 2018 +0000
+
+    Allowed AcceptedByUserId to be null
+
+[33mcommit 161f6136089a5d8add9db172d4ba523a25fcd4f3[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 22 19:31:05 2018 +0000
+
+    Added navigation properties to order and user
+
+[33mcommit 0754d88f53ef7c85f696a44b70c0adcb82fb8220[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sun Nov 18 12:08:02 2018 +0000
+
+    Changes to GetAllOrdersQuery
+
+[33mcommit b54742e0dc79f924f6adcf658105baac17f8029e[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 17 15:44:38 2018 +0000
+
+    added get pending order command and some seed data
+
+[33mcommit 02407c63a41f69ec346bbe008f8be4033153610d[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 17 12:38:11 2018 +0000
+
+    Added GetAllOrder test
+
+[33mcommit ca886026ee1e5e9ea2f8fe3ec2ce206a51c0858f[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 17 12:26:01 2018 +0000
+
+    Project and namespace cleanup
+
+[33mcommit 683bd9d912e95c534afae67b4d4619b821dbb94f[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 17 12:13:37 2018 +0000
+
+    Added CreateOrderCommand tests
+
+[33mcommit 64eacb9a408e80b5ca3b71501abbeaedc5edc831[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 17 11:27:57 2018 +0000
+
+    added more CreateUserCommand tests
+
+[33mcommit cb5083087cc337c3f8317c1e731df7f7b7519c8e[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 23:07:20 2018 +0000
+
+    Added AcceptedByUserId to CreateOrderCommandHandler
+
+[33mcommit c5034503bfecd84b365aa4e13fabdb70f51ee52b[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 22:57:10 2018 +0000
+
+    Reimplemented Identity seeder
+
+[33mcommit 7da6300f9b8a6f913573177ee31fa4687312126a[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 22:05:23 2018 +0000
+
+    added database seeder
+
+[33mcommit e3ea2397c536d21505756fadd2b8b1995dbe815e[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 20:44:45 2018 +0000
+
+    added valid CreateUserCommandValidation tests
+
+[33mcommit 2ba64b63e489f3dbe293da8ac0ba459340d3ab4b[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 20:40:28 2018 +0000
+
+    Added CreateUserCommandValidator tests
+
+[33mcommit bd0754049b7e5673f655943912caa942d1e1300b[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 19:50:31 2018 +0000
+
+    remove redudnant test
+
+[33mcommit 163502b8f7561f02fee3c591fd72998a0f4b5b78[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 16:53:49 2018 +0000
+
+    added CreateUserCommand test
+
+[33mcommit 10c96fcc1e39019ac8f9dbbf012a67b0ae21c8e2[m
+Author: SyanRtuart <Ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 16:19:52 2018 +0000
+
+    added GetUserByEmail tests
+
+[33mcommit 37fe515f3502e5aee5823f6e744133610cf33057[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Thu Nov 15 11:45:11 2018 +0000
+
+    added unit test project
+
+[33mcommit 622f968dff3ad4c434a1e31b66e8f7a90b3b6b58[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 22:21:58 2018 +0000
+
+    Added api account controller
+
+[33mcommit 78ced2bd6194b2b747ad264ec9422b489d53c2ce[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 20:52:47 2018 +0000
+
+    namespace change
+
+[33mcommit 20543997ded3027c1155d0fee2fae1401adc7d55[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 20:51:34 2018 +0000
+
+    Changing get user by Id to get by email
+
+[33mcommit ef787a321550f86d0185b2e87f3be96502eb8701[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 20:49:07 2018 +0000
+
+    Adding user
+
+[33mcommit 25bc1ac41b5bfe2466dff83434300f7671186059[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 18:50:12 2018 +0000
+
+    Added not found exception
+
+[33mcommit deb856897a60c18413c19195b70603faaa6ab1f7[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 18:45:48 2018 +0000
+
+    Removed register user
+
+[33mcommit a1847479aff8acef830d7c0a693875bcdfb155cb[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Tue Nov 13 18:45:29 2018 +0000
+
+    Added get user by account Id
+
+[33mcommit 86825739d355e1b4640e236290bde3b2faa18108[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 10 17:54:22 2018 +0000
+
+    Full solution code cleanup
+
+[33mcommit e18bdc2b72cce7dd93ec753a663880a4dbadfdc7[m
+Author: Ryan Stuart <ryan_7229@hotmail.co.uk>
+Date:   Sat Nov 10 17:10:32 2018 +0000
+
+    Initial Commit

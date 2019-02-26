@@ -4,7 +4,6 @@ using MvvmCross.Base;
 using MvvmCross.IoC;
 using MvvmCross.Plugin.Json;
 using MvvmCross.ViewModels;
-using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
 using TyreKlicker.XF.Core.Services.RequestProvider;
 using TyreKlicker.XF.Core.Services.User;
@@ -37,10 +36,10 @@ namespace TyreKlicker.XF.Core
             //ToDo Test if the token is actually valid.
             //RegisterAppStart<TestingViewModel>();
 
-            if (string.IsNullOrEmpty(Settings.AccessToken))
-                RegisterAppStart<ViewModels.LoginViewModel>();
-            else
-                RegisterAppStart<ViewModels.SplitRootViewModel>();
+            //if (string.IsNullOrEmpty(Settings.AccessToken))
+            //    RegisterAppStart<ViewModels.LoginViewModel>();
+            //else
+            RegisterAppStart<ViewModels.SplitRootViewModel>();
         }
     }
 }
