@@ -1,15 +1,9 @@
-﻿
-
-
-
-
-using System.Collections.Specialized;
-using System.Windows.Input;
-using Android.App;
+﻿using Android.App;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Binding.BindingContext;
 using MvvmCross.IoC;
+using System.Collections.Specialized;
+using System.Windows.Input;
 
 namespace TyreKlicker.XF.Droid
 {
@@ -102,10 +96,10 @@ namespace TyreKlicker.XF.Droid
             };
         }
 
-        public void Include(MvxTaskBasedBindingContext context)
+        public void Include(MvvmCross.Binding.BindingContext.MvxTaskBasedBindingContext context)
         {
             context.Dispose();
-            var context2 = new MvxTaskBasedBindingContext();
+            var context2 = new MvvmCross.Binding.BindingContext.MvxTaskBasedBindingContext();
             context2.Dispose();
         }
     }

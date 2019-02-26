@@ -19,9 +19,9 @@
         <PackageReference Include="IdentityModel" Version="4.0.0-bruichladdich" />
         <PackageReference Include="Microsoft.NETCore.Platforms" Version="2.2.0" />
         <PackageReference Include="Microsoft.NETCore.Targets" Version="2.1.0" />
-        <PackageReference Include="MvvmCross" Version="6.2.3" />
-        <PackageReference Include="MvvmCross.Forms" Version="6.2.3" />
-        <PackageReference Include="MvvmCross.Plugin.Json" Version="6.2.3" />
+        <PackageReference Include="MvvmCross" Version="6.1.2" />
+        <PackageReference Include="MvvmCross.Forms" Version="6.1.2" />
+        <PackageReference Include="MvvmCross.Plugin.Json" Version="6.1.2" />
         <PackageReference Include="NETStandard.Library" Version="2.0.3" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
         <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" developmentDependency="true" />
