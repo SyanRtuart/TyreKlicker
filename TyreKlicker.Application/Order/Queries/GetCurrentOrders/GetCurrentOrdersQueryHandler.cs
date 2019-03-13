@@ -21,7 +21,8 @@ namespace TyreKlicker.Application.Order.Queries.GetCurrentOrders
             var model = new CurrentOrdersListViewModel
             {
                 Orders = await _context.Order
-                    .Where(x => x.Complete == false)
+                    .Where(x => x.Complete == false
+                                && x.AcceptedByUserId == request.UserId)
                     .Select(OrderDto.Projection)
                     .OrderBy(o => o.Registration)
                     .ToListAsync(cancellationToken)

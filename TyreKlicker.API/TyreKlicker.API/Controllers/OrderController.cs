@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Order.Command.AcceptOrder;
 using TyreKlicker.Application.Order.Command.CreateOrder;
-using TyreKlicker.Application.Order.Queries.GetAllPendingOrders;
 
 namespace TyreKlicker.API.Controllers
 {
@@ -13,12 +12,6 @@ namespace TyreKlicker.API.Controllers
     //[Authorize]
     public class OrderController : BaseController
     {
-        [HttpGet]
-        public Task<OrderListViewModel> GetAll()
-        {
-            return Mediator.Send(new GetAllPendingOrdersQuery());
-        }
-
         [HttpPost]
         public async Task<IActionResult> Order(CreateOrderCommand command)
         {

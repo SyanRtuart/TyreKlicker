@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersCreatedByUser;
+using TyreKlicker.Application.Order.Queries.GetCurrentOrders;
 using TyreKlicker.Application.User.Queries.GetUserByEmail;
 
 namespace TyreKlicker.API.Controllers
@@ -30,6 +31,13 @@ namespace TyreKlicker.API.Controllers
         public Task<UserViewModel> Email(string email)
         {
             return Mediator.Send(new GetUserByEmailQuery() { Email = email });
+        }
+
+        [Route("~/api/{userId:guid}/[action]")]
+        [HttpGet]
+        public async Task<CurrentOrdersListViewModel> Orders([FromRoute] Guid userId)
+        {
+            return await Mediator.Send(new GetCurrentOrdersQuery() { UserId = userId });
         }
     }
 }
