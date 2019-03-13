@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TyreKlicker.Application.Order.Command.AcceptOrder;
 using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Application.Order.Queries.GetAllPendingOrders;
+using TyreKlicker.Application.Order.Queries.GetOrder;
 
 namespace TyreKlicker.API.Controllers
 {
@@ -17,6 +18,12 @@ namespace TyreKlicker.API.Controllers
         public async Task<OrderListViewModel> GetAll()
         {
             return await Mediator.Send(new GetAllPendingOrdersQuery());
+        }
+
+        [HttpGet, Route("{id:guid}")]
+        public async Task<Application.Order.Queries.GetOrder.OrderDto> GetOrder([FromRoute] Guid id)
+        {
+            return await Mediator.Send(new GetOrderQuery() { Id = id });
         }
 
         [HttpPost]

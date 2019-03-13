@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using System;
 
 namespace TyreKlicker.Application.Order.Queries.GetOrder
 {
     public class GetOrderQuery : IRequest<OrderDto>
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }
