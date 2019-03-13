@@ -34,7 +34,7 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<ObservableCollection<Models.Order.Order>> GetOrders(string token, Guid userId)
         {
-            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.OrderEndpoint,
+            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.UserEndPoint + $"/{userId}/orders",
                 Settings.AccessToken);
 
             if (orders?.Orders != null)

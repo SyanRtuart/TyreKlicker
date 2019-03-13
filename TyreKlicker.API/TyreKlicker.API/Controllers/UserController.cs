@@ -12,19 +12,19 @@ namespace TyreKlicker.API.Controllers
     //[Route("[controller]/[action]")]
     public class UserController : BaseController
     {
-        [HttpGet, Route("~/api/users/{userId:guid}/[action]")]
+        [HttpGet, Route("~/api/user/{userId:guid}/[action]")]
         public Task<OrderCreatedByUserListViewModel> OrdersCreated(Guid userId)
         {
             return Mediator.Send(new GetAllOrdersCreatedByUserQuery() { UserId = userId });
         }
 
-        [HttpGet, Route("~/api/users/{userId:guid}/[action]")]
+        [HttpGet, Route("~/api/user/{userId:guid}/[action]")]
         public Task<OrderAcceptedByUserListViewModel> OrdersAccepted(Guid userId)
         {
             return Mediator.Send(new GetAllOrdersAcceptedByUserQuery() { UserId = userId });
         }
 
-        [HttpGet, Route("~/api/users/[action]")]
+        [HttpGet, Route("~/api/user/[action]")]
         public Task<UserViewModel> Email(string email)
         {
             return Mediator.Send(new GetUserByEmailQuery() { Email = email });
