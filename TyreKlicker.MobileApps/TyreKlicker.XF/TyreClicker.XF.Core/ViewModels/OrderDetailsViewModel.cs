@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Threading.Tasks;
+using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
 
@@ -43,7 +44,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-
+            Order = await _orderService.GetOrder(Settings.AccessToken, _order.Id);
             // do the heavy work here
         }
     }

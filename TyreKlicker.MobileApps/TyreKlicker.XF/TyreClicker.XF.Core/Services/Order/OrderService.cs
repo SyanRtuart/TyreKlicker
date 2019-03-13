@@ -45,6 +45,14 @@ namespace TyreKlicker.XF.Core.Services.Order
             return new ObservableCollection<Models.Order.Order>();
         }
 
+        public async Task<Models.Order.Order> GetOrder(string token, Guid orderId)
+        {
+            var order = await _requestProvider.GetAsync<Models.Order.Order>(
+                GlobalSetting.Instance.OrderEndpoint + $"/{orderId}", Settings.AccessToken);
+            //ToDo better exception handling
+            return order ?? new Models.Order.Order();
+        }
+
         public async Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command)
         {
             var uri = UriHelper.CombineUri(GlobalSetting.Instance.OrderEndpoint, $"/{command.OrderId}/AcceptOrder");

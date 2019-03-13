@@ -19,10 +19,12 @@ namespace TyreKlicker.Application.Order.Queries.GetOrder
         public async Task<OrderDto> Handle(GetOrderQuery request, CancellationToken cancellationToken)
         {
             var orderInDb = await _context.Order
-                .Where(o => !o.AcceptedByUserId.HasValue)
+                .Where(o => o.Id == request.Id)
                 .Select(OrderDto.Projection)
                 .OrderBy(o => o.Registration)
                 .FirstOrDefaultAsync(cancellationToken);
+
+            var myOrder = await _context.Order.ToListAsync(cancellationToken: cancellationToken);
 
             return orderInDb;
         }
