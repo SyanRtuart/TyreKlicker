@@ -20,9 +20,9 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<ObservableCollection<Models.Order.Order>> GetAllPendingOrdersAsync(string token)
         {
-            var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}");
+            //var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}");
 
-            var orders = await _requestProvider.GetAsync<OrderList>(uri,
+            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.OrdersEndpoint,
                 Settings.AccessToken);
 
             if (orders?.Orders != null)
@@ -35,7 +35,7 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command)
         {
-            var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}/{command.OrderId}/AcceptOrder");
+            var uri = UriHelper.CombineUri(GlobalSetting.Instance.OrdersEndpoint, $"/{command.OrderId}/AcceptOrder");
 
             var result = await _requestProvider.PostAsync(uri, command, Settings.AccessToken);
 
@@ -44,9 +44,7 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<CreateNewPendingOrderCommand> CreateNewPendingOrder(string token, CreateNewPendingOrderCommand command)
         {
-            var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}");
-
-            var result = await _requestProvider.PostAsync(uri, command, Settings.AccessToken);
+            var result = await _requestProvider.PostAsync(GlobalSetting.Instance.OrdersEndpoint, command, Settings.AccessToken);
 
             return result;
         }

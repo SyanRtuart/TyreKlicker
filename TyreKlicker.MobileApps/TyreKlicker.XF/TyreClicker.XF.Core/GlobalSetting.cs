@@ -56,8 +56,8 @@ namespace TyreKlicker.XF.Core
             var connectBaseEndpoint = $"{endpoint}/connect";
             AuthorizeEndpoint = $"{endpoint}/authorize";
             TokenEndpoint = $"{endpoint}/api/account/tokenlogin";
-            OrdersEndpoint = $"{endpoint}/api/orders";
-            UsersEndpoint = $"{endpoint}/api/users";
+            OrdersEndpoint = $"{endpoint}/api/order";
+            UsersEndpoint = $"{endpoint}/api/user";
         }
     }
 }
