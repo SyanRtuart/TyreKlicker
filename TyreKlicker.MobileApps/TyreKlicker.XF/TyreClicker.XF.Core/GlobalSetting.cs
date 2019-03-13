@@ -45,9 +45,11 @@ namespace TyreKlicker.XF.Core
 
         public string TokenEndpoint { get; set; }
 
+        public string OrderEndpoint { get; set; }
         public string OrdersEndpoint { get; set; }
 
-        public string UsersEndpoint { get; set; }
+        public string UserEndPoint { get; set; }
+        public string UsersEndPoint { get; set; }
 
         public string EncryptionPassword => "ThisWillBeChanged";
 
@@ -56,8 +58,10 @@ namespace TyreKlicker.XF.Core
             var connectBaseEndpoint = $"{endpoint}/connect";
             AuthorizeEndpoint = $"{endpoint}/authorize";
             TokenEndpoint = $"{endpoint}/api/account/tokenlogin";
+            OrderEndpoint = $"{endpoint}/api/order";
             OrdersEndpoint = $"{endpoint}/api/order";
-            UsersEndpoint = $"{endpoint}/api/user";
+            UserEndPoint = $"{endpoint}/api/user";
+            UsersEndPoint = $"{endpoint}/api/users";
         }
     }
 }
