@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Models.Order;
 
@@ -7,6 +8,8 @@ namespace TyreKlicker.XF.Core.Services.Order
     public interface IOrderService
     {
         Task<ObservableCollection<Models.Order.Order>> GetAllPendingOrdersAsync(string token);
+
+        Task<ObservableCollection<Models.Order.Order>> GetOrders(string token, Guid userId);
 
         Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command);
 

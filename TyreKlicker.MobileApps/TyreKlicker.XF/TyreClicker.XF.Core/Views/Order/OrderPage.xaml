@@ -10,7 +10,7 @@
                     Icon="hamburger.png">
 
     <StackLayout BackgroundColor="Red">
-        <Button Text="GET ORDERS" Command="{Binding GetCurrentOrdersCommand,Mode=TwoWay}" />
+        <Button Text="GET ORDERS" Command="{Binding GetOrdersCommand,Mode=TwoWay}" />
         <Button Text="GO TO DETAILS" Command="{Binding NavigateTest,Mode=TwoWay}" />
         <ListView
                 ItemsSource="{Binding OrderItems}"

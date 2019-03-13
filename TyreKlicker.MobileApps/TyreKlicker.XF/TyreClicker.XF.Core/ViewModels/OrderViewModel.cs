@@ -3,6 +3,7 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
 
@@ -18,7 +19,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             IOrderService orderService) : base(logProvider, navigationService)
         {
             _orderService = orderService;
-            GetCurrentOrdersCommand = new MvxAsyncCommand(async () => await GetCurrentOrdersAsync());
+            GetOrdersCommand = new MvxAsyncCommand(async () => await GetOrdersAsync());
         }
 
         public ObservableCollection<Order> OrderItems
@@ -31,7 +32,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand GetCurrentOrdersCommand { get; }
+        public IMvxAsyncCommand GetOrdersCommand { get; }
 
         public IMvxAsyncCommand<Order> OpenOrderDetailsCommand => new MvxAsyncCommand<Order>(async (order) => await OpenOrderDetailsAsync(order));
 
@@ -40,9 +41,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             await NavigationService.Navigate<OrderDetailsViewModel, Order>(order);
         }
 
-        private async Task GetCurrentOrdersAsync()
+        private async Task GetOrdersAsync()
         {
-            //OrderItems = await _orderService.GetAllPendingOrdersAsync(Settings.AccessToken);
+            OrderItems = await _orderService.GetOrders(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
         }
     }
 }
