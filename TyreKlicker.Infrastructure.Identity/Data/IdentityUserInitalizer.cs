@@ -37,6 +37,7 @@ namespace TyreKlicker.Infrastructure.Identity.Data
 
                 if (result.Succeeded)
                 {
+                    //Todo bugfix Admin role does not exist
                     userManager.AddToRoleAsync(user,
                                         "Administrator").Wait();
                 }

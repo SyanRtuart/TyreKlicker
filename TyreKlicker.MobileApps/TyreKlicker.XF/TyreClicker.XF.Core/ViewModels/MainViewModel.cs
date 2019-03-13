@@ -2,7 +2,6 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Collections.Generic;
-using Xamarin.Essentials;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -33,11 +32,11 @@ namespace TyreKlicker.XF.Core.ViewModels
                 await _navigationService.Navigate<SecondViewModel, Dictionary<string, string>>(param);
             });
 
-        public IMvxCommand OpenUrlCommand =>
-            new MvxAsyncCommand<string>(async (url) =>
-            {
-                await Browser.OpenAsync(url, BrowserLaunchType.External);
-            });
+        //public IMvxCommand OpenUrlCommand =>
+        //    new MvxAsyncCommand<string>(async (url) =>
+        //    {
+        //        await Browser.OpenAsync(url, BrowserLaunchType.External);
+        //    });
 
         public string ButtonText { get; set; }
 

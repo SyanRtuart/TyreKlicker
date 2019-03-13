@@ -50,11 +50,17 @@ namespace TyreKlicker.API
             services.AddMediatR(typeof(Application.Order.Queries.GetAllOrders.GetAllOrdersQuery).GetTypeInfo().Assembly);
 
             // Add DbContext using SQL Server Provider
+            //services.AddDbContext<TyreKlickerDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TyreKlicker.Persistence")));
+
+            //services.AddDbContext<AppIdentityDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+
             services.AddDbContext<TyreKlickerDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TyreKlicker.Persistence")));
+                options.UseSqlServer("Server=tyreklicker.cnyuhkntm7cx.eu-west-2.rds.amazonaws.com;Database=TyreKlicker;User Id=TyreKlickerAdmin;Password=Tyre_Klicker1;", b => b.MigrationsAssembly("TyreKlicker.Persistence")));
 
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+                options.UseSqlServer("Server=tyreklicker.cnyuhkntm7cx.eu-west-2.rds.amazonaws.com;Database=TyreKlicker.Identity;User Id=TyreKlickerAdmin;Password=Tyre_Klicker1;"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
