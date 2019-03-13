@@ -14,9 +14,9 @@ namespace TyreKlicker.API.Controllers
     public class OrderController : BaseController
     {
         [HttpGet]
-        public Task<OrderListViewModel> GetAll()
+        public async Task<OrderListViewModel> GetAll()
         {
-            return Mediator.Send(new GetAllPendingOrdersQuery());
+            return await Mediator.Send(new GetAllPendingOrdersQuery());
         }
 
         [HttpPost]
