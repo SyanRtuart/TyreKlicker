@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Extensions;
 using TyreKlicker.XF.Core.Helpers;
@@ -20,9 +21,20 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<ObservableCollection<Models.Order.Order>> GetAllPendingOrdersAsync(string token)
         {
-            //var uri = UriHelper.CombineUri(GlobalSetting.Instance.BaseIdentityEndpoint, $"{ApiUrlBase}");
+            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.OrderEndpoint,
+                Settings.AccessToken);
 
-            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.OrdersEndpoint,
+            if (orders?.Orders != null)
+            {
+                return orders?.Orders.ToObservableCollection();
+            }
+
+            return new ObservableCollection<Models.Order.Order>();
+        }
+
+        public async Task<ObservableCollection<Models.Order.Order>> GetOrders(string token, Guid userId)
+        {
+            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.OrderEndpoint,
                 Settings.AccessToken);
 
             if (orders?.Orders != null)
@@ -35,7 +47,7 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command)
         {
-            var uri = UriHelper.CombineUri(GlobalSetting.Instance.OrdersEndpoint, $"/{command.OrderId}/AcceptOrder");
+            var uri = UriHelper.CombineUri(GlobalSetting.Instance.OrderEndpoint, $"/{command.OrderId}/AcceptOrder");
 
             var result = await _requestProvider.PostAsync(uri, command, Settings.AccessToken);
 
@@ -44,7 +56,7 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         public async Task<CreateNewPendingOrderCommand> CreateNewPendingOrder(string token, CreateNewPendingOrderCommand command)
         {
-            var result = await _requestProvider.PostAsync(GlobalSetting.Instance.OrdersEndpoint, command, Settings.AccessToken);
+            var result = await _requestProvider.PostAsync(GlobalSetting.Instance.OrderEndpoint, command, Settings.AccessToken);
 
             return result;
         }
