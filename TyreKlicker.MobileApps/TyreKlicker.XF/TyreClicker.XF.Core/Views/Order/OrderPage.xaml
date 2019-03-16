@@ -9,7 +9,7 @@
                     Title="Order"
                     Icon="hamburger.png">
 
-    <StackLayout BackgroundColor="Red">
+    <StackLayout>
         <Button Text="GET ORDERS" Command="{Binding GetOrdersCommand,Mode=TwoWay}" />
         <ListView
                 ItemsSource="{Binding OrderItems}"
