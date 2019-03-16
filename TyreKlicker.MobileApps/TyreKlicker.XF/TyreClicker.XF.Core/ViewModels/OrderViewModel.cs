@@ -21,6 +21,13 @@ namespace TyreKlicker.XF.Core.ViewModels
             _orderService = orderService;
         }
 
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            await GetOrdersCommand.ExecuteAsync();
+            // do the heavy work here
+        }
+
         public ObservableCollection<Order> OrderItems
         {
             get { return _orderItems; }

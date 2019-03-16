@@ -19,7 +19,12 @@ namespace TyreKlicker.XF.Core.ViewModels
             IOrderService orderService) : base(logProvider, navigationService)
         {
             _orderService = orderService;
-            //NavigateToAddNewPendingOrderPageCommand = new MvxAsyncCommand(async () => await NavigateToAddNewPendingOrderPageAsync());
+        }
+
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            await GetPendingOrdersCommand.ExecuteAsync();
         }
 
         public ObservableCollection<Order> PendingOrders
@@ -41,20 +46,11 @@ namespace TyreKlicker.XF.Core.ViewModels
             IsBusy = false;
         });
 
-        //public IMvxAsyncCommand NavigateToAddNewPendingOrderPageCommand { get; }
-
         public IMvxAsyncCommand NavigateToAddNewPendingOrderPageCommand
             => new MvxAsyncCommand(async () => await NavigateToAddNewPendingOrderPageAsync());
 
         public IMvxAsyncCommand<Order> NavigateToPendingOrderDetailsCommand
             => new MvxAsyncCommand<Order>(async (pendingOrder) => await NavigateToOrderDetailsAsync(pendingOrder));
-
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-            await GetPendingOrdersCommand.ExecuteAsync();
-            // do the heavy work here
-        }
 
         private async Task NavigateToOrderDetailsAsync(Order pendingOrder)
         {
