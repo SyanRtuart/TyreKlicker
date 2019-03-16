@@ -13,8 +13,6 @@ namespace TyreKlicker.XF.Core.ViewModels
 {
     public class SelectVehicalViewModel : MvxNavigationViewModel<CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>
     {
-        private readonly IOrderService _orderService;
-
         private readonly ITyreService _tyreService;
 
         private ObservableCollection<Make> _makes;
@@ -40,9 +38,15 @@ namespace TyreKlicker.XF.Core.ViewModels
             base(logProvider, navigationService)
         {
             _tyreService = tyreService;
-            _orderService = orderService;
+        }
 
-            GetMakesCommand.ExecuteAsync();
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            await GetMakesCommand.ExecuteAsync();
+
+            //var list = new ObservableCollection<Make>();
+            //Makes = list;
         }
 
         public CreateNewPendingOrderCommand Order
@@ -305,19 +309,11 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public override void Prepare()
         {
-            // first callback. Initialize parameter-agnostic stuff here
         }
 
         public override void Prepare(CreateNewPendingOrderCommand order)
         {
             _order = order;
-        }
-
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-
-            // do the heavy work here
         }
     }
 }

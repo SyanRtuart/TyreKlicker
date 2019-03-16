@@ -5,7 +5,8 @@
     x:Class="TyreKlicker.XF.Core.FormsApp"
     xmlns:mvx="clr-namespace:MvvmCross.Forms.Core;assembly=MvvmCross.Forms"
     xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-    xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core">
+    xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+    xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core">
     <mvx:MvxFormsApplication.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#2196F3</Color>
@@ -54,6 +55,9 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <converters:CountToBoolConverter x:Key="CountToBoolConverter" />
+            <!--<converters:CombiningConverter x:Key="negatedBoolToVisibilityConverter" Converter1="{StaticResource NegatedBooleanConverter}" Converter2="{StaticResource BoolToVisibilityConverter}" />-->
 
             <Style TargetType="views:MvxNavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
