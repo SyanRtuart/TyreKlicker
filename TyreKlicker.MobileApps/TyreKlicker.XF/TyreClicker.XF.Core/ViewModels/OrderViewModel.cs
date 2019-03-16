@@ -3,9 +3,11 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
+using Xamarin.Forms;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -19,7 +21,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             IOrderService orderService) : base(logProvider, navigationService)
         {
             _orderService = orderService;
-            GetOrdersCommand = new MvxAsyncCommand(async () => await GetOrdersAsync());
+            //GetOrdersCommand = new MvxAsyncCommand(async () => await GetOrdersAsync());
         }
 
         public ObservableCollection<Order> OrderItems
@@ -32,7 +34,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand GetOrdersCommand { get; }
+        // public IMvxAsyncCommand GetOrdersCommand { get; }
 
         public IMvxAsyncCommand<Order> OpenOrderDetailsCommand => new MvxAsyncCommand<Order>(async (order) => await OpenOrderDetailsAsync(order));
 
@@ -41,10 +43,29 @@ namespace TyreKlicker.XF.Core.ViewModels
             await NavigationService.Navigate<OrderDetailsViewModel, Order>(order);
         }
 
+        public ICommand GetOrdersCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsBusy = true;
+
+                    await GetOrdersAsync();
+
+                    IsBusy = false;
+                });
+            }
+        }
+
         private async Task GetOrdersAsync()
         {
-            OrderItems = await _orderService.GetOrders(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            //GetOrdersCommand.CanExecute(false);
             //ToDo if there are 0 items show something on the screen
+            OrderItems = await _orderService.GetOrders(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            await Task.Delay(10);
+
+            //GetOrdersCommand.CanExecute(true);
         }
     }
 }

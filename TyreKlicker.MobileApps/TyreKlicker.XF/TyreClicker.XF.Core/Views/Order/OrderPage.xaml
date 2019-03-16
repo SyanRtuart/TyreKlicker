@@ -12,6 +12,9 @@
     <StackLayout>
         <Button Text="GET ORDERS" Command="{Binding GetOrdersCommand,Mode=TwoWay}" />
         <ListView
+                RefreshCommand="{Binding GetOrdersCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                IsPullToRefreshEnabled="True"
                 ItemsSource="{Binding OrderItems}"
                 HasUnevenRows="True"
                 SeparatorVisibility="None"
