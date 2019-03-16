@@ -44,6 +44,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         private async Task GetOrdersAsync()
         {
             OrderItems = await _orderService.GetOrders(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            //ToDo if there are 0 items show something on the screen
         }
     }
 }
