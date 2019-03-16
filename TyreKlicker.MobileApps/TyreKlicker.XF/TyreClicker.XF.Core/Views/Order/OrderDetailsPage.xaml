@@ -10,7 +10,15 @@
             <Label
                 Text="{Binding Order.Registration}" />
             <Label
-                Text="{Binding Order.Description}" />
+                Text="{Binding Order.Make}" />
+            <Label
+                Text="{Binding Order.Model}" />
+            <Label
+                Text="{Binding Order.Year}" />
+            <Label
+                Text="{Binding Order.Trim}" />
+            <Label
+                Text="{Binding Order.Tyre}" />
         </StackLayout>
     </ContentPage.Content>
 </views:MvxContentPage>
