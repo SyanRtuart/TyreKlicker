@@ -10,5 +10,7 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
         Task<UserToken> GetTokenAsync(LoginRequest loginRequest);
 
         Task<UserToken> RefreshTokenAsync(string token);
+
+        Task Register(RegisterRequest registerRequest);
     }
 }

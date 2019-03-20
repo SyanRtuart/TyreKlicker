@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.RequestProvider;
@@ -22,7 +21,6 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
 
         public async Task<UserToken> GetTokenAsync(LoginRequest loginRequest)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
             var token = await _requestProvider.PostAsync<UserToken, LoginRequest>(GlobalSetting.Instance.TokenEndpoint, loginRequest);
 
             GlobalSetting.Instance.AuthToken = token.AccessToken;
@@ -38,6 +36,19 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
         public Task<UserToken> GetTokenAsync(string code)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task Register(RegisterRequest registerRequest)
+        {
+            try
+            {
+                await _requestProvider.PostAsync(GlobalSetting.Instance.AuthenticationEndpoint, registerRequest);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

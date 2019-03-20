@@ -1,14 +1,123 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MvxContentPage x:TypeArguments="viewModels:RegistrationViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TyreKlicker.XF.Core.Pages.RegistrationPage"
             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-            xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core">
+            xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+            xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Register your account here!"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
+
+            <Entry Text="{Binding Email.Value, Mode=TwoWay}"  Placeholder="Email" FontSize="Default">
+                <Entry.Style>
+                    <OnPlatform x:TypeArguments="Style">
+                        <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                    </OnPlatform>
+                </Entry.Style>
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidateEmailCommand}" />
+                </Entry.Behaviors>
+                <Entry.Triggers>
+                    <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding Email.IsValid}"
+                        Value="False">
+                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry  Text="{Binding Password.Value, Mode=TwoWay}" Placeholder="Password" FontSize="Default">
+                <Entry.Style>
+                    <OnPlatform x:TypeArguments="Style">
+                        <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                    </OnPlatform>
+                </Entry.Style>
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidatePasswordCommand}" />
+                </Entry.Behaviors>
+                <Entry.Triggers>
+                    <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding Password.IsValid}"
+                        Value="False">
+                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry  Text="{Binding ConfirmPassword.Value, Mode=TwoWay}" Placeholder="Confirm Password" FontSize="Default">
+                <Entry.Style>
+                    <OnPlatform x:TypeArguments="Style">
+                        <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                    </OnPlatform>
+                </Entry.Style>
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidateConfirmPasswordCommand}" />
+                </Entry.Behaviors>
+                <Entry.Triggers>
+                    <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding ConfirmPassword.IsValid}"
+                        Value="False">
+                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry Text="{Binding FirstName.Value, Mode=TwoWay}" Placeholder="First Name" FontSize="Default">
+                <Entry.Style>
+                    <OnPlatform x:TypeArguments="Style">
+                        <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                    </OnPlatform>
+                </Entry.Style>
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidateFirstNameCommand}" />
+                </Entry.Behaviors>
+                <Entry.Triggers>
+                    <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding FirstName.IsValid}"
+                        Value="False">
+                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry Text="{Binding LastName.Value, Mode=TwoWay}" Placeholder="Last Name" FontSize="Default">
+                <Entry.Style>
+                    <OnPlatform x:TypeArguments="Style">
+                        <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                    </OnPlatform>
+                </Entry.Style>
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidateLastNameCommand}" />
+                </Entry.Behaviors>
+                <Entry.Triggers>
+                    <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding LastName.IsValid}"
+                        Value="False">
+                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Button Text="Register" Command="{Binding RegisterCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </views:MvxContentPage>

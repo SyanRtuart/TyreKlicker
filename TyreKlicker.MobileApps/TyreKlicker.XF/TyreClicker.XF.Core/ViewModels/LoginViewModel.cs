@@ -57,7 +57,12 @@ namespace TyreKlicker.XF.Core.ViewModels
         }
 
         public IMvxAsyncCommand LoginCommand { get; }
+
         public IMvxAsyncCommand NavigateToRegistrationPageCommand { get; }
+
+        public IMvxCommand ValidateEmailCommand => new MvxCommand(() => ValidateEmail());
+
+        public IMvxCommand ValidatePasswordCommand => new MvxCommand(() => ValidatePassword());
 
         private async Task LoginAsync()
         {
@@ -82,13 +87,13 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private bool Validate()
         {
-            var isValidUser = ValidateUserName();
+            var isValidUser = ValidateEmail();
             var isValidPassword = ValidatePassword();
 
             return isValidUser && isValidPassword;
         }
 
-        private bool ValidateUserName()
+        private bool ValidateEmail()
         {
             return _email.Validate();
         }
