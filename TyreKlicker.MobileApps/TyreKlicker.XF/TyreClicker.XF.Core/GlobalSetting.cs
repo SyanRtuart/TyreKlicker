@@ -56,7 +56,7 @@ namespace TyreKlicker.XF.Core
         private void UpdateEndpoint(string endpoint)
         {
             var connectBaseEndpoint = $"{endpoint}/connect";
-            AuthenticationEndpoint = $"{endpoint}/api/apiaccount";
+            AuthenticationEndpoint = $"{endpoint}/api/account";
             TokenEndpoint = $"{endpoint}/api/account/tokenlogin";
             OrderEndpoint = $"{endpoint}/api/order";
             OrdersEndpoint = $"{endpoint}/api/order";

@@ -42,9 +42,9 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
         {
             try
             {
-                await _requestProvider.PostAsync(GlobalSetting.Instance.AuthenticationEndpoint, registerRequest);
+                await _requestProvider.PostAsync(GlobalSetting.Instance.AuthenticationEndpoint + "/register", registerRequest);
             }
-            catch (Exception e)
+            catch (HttpRequestExceptionEx e)
             {
                 Console.WriteLine(e);
                 throw;

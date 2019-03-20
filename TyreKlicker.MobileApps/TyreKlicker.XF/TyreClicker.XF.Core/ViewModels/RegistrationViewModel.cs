@@ -117,10 +117,11 @@ namespace TyreKlicker.XF.Core.ViewModels
                 {
                     Email = _email.Value,
                     Password = _password.Value,
+                    ConfirmPassword = _confirmPassword.Value,
                     LastName = _lastName.Value,
                     FirstName = _firstName.Value
                 };
-
+                //ToDo Throwing exception to fix
                 await _authenticationService.Register(registerRequest);
             }
         }
