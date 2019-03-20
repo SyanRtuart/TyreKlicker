@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using TyreKlicker.API.Middlewear;
 using TyreKlicker.API.Services;
 using TyreKlicker.API.Services.Token;
 using TyreKlicker.API.Services.UserToken;
@@ -121,6 +122,7 @@ namespace TyreKlicker.API
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseHttpStatusCodeExceptionMiddleware();
 
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger();
@@ -131,12 +133,16 @@ namespace TyreKlicker.API
             }
             else
             {
+                app.UseHttpStatusCodeExceptionMiddleware();
+
                 app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseMvc(routes =>
             {

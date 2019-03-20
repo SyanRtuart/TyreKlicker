@@ -40,15 +40,7 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
 
         public async Task Register(RegisterRequest registerRequest)
         {
-            try
-            {
-                await _requestProvider.PostAsync(GlobalSetting.Instance.AuthenticationEndpoint + "/register", registerRequest);
-            }
-            catch (HttpRequestExceptionEx e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            await _requestProvider.PostAsync(GlobalSetting.Instance.AuthenticationEndpoint + "/register", registerRequest);
         }
     }
 }

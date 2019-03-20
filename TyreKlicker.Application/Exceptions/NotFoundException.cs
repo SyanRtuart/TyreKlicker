@@ -8,5 +8,9 @@ namespace TyreKlicker.Application.Exceptions
             : base($"Entity \"{name}\" ({key}) was not found.")
         {
         }
+
+        public NotFoundException()
+        {
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using TyreKlicker.API.Models;
 using TyreKlicker.API.Models.AccountViewModels;
 using TyreKlicker.API.Services;
 using TyreKlicker.API.Services.Token;
+using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Application.User.Command.CreateUser;
 using TyreKlicker.Infrastructure.Identity.Models;
 
@@ -120,10 +122,11 @@ namespace TyreKlicker.API.Controllers
                     return Ok();
                 }
                 AddErrors(result);
+                throw new HttpStatusCodeException(StatusCodes.Status400BadRequest, @"Email already exists.");
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest();
+            return BadRequest(ModelState);
         }
 
         [HttpPost]
