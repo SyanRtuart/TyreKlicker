@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using System;
+using System.Net;
 using System.Threading.Tasks;
-using TyreKlicker.Application.Exceptions;
+using TyreKlicker.API.Exceptions;
+using TyreKlicker.API.Models;
 
 namespace TyreKlicker.API.Middlewear
 {
@@ -24,21 +29,36 @@ namespace TyreKlicker.API.Middlewear
             {
                 await _next(context);
             }
-            catch (HttpStatusCodeException ex)
+            catch (BaseException ex)
             {
+                var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+
+                if (ex is BadRequestException) code = HttpStatusCode.BadRequest;
+
                 if (context.Response.HasStarted)
                 {
                     _logger.LogWarning("The response has already started, the http status code middleware will not be executed.");
                     throw;
                 }
 
-                context.Response.Clear();
-                context.Response.StatusCode = ex.StatusCode;
-                context.Response.ContentType = ex.ContentType;
+                var serializerSettings = new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                    NullValueHandling = NullValueHandling.Ignore,
+                };
+                serializerSettings.Converters.Add(new StringEnumConverter());
 
-                await context.Response.WriteAsync(ex.Message);
+                var error = new ErrorDetails
+                {
+                    Message = ex.ErrorScenario,
+                    Code = ex.Code
+                };
 
-                return;
+                var serialized = JsonConvert.SerializeObject(error, serializerSettings);
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)code;
+                await context.Response.WriteAsync(serialized);
             }
         }
     }

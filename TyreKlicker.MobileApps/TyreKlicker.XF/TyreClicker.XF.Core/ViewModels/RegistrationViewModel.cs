@@ -2,9 +2,11 @@
 using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
+using TyreKlicker.XF.Core.Services.RequestProvider;
 using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
@@ -122,7 +124,16 @@ namespace TyreKlicker.XF.Core.ViewModels
                     FirstName = _firstName.Value
                 };
                 //ToDo Throwing exception to fix
-                await _authenticationService.Register(registerRequest);
+
+                try
+                {
+                    await _authenticationService.Register(registerRequest);
+                }
+                catch (HttpRequestExceptionEx e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
         }
 

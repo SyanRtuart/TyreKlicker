@@ -5,7 +5,7 @@
 
 <h2>@ViewData["Title"]</h2>
 <hr />
-<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+<p>Your login is protected with an authenticator app. Enter your authenticator statusCode below.</p>
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
@@ -32,7 +32,7 @@
 </div>
 <p>
     Don't have access to your authenticator device? You can
-    <a asp-action="LoginWithRecoveryCode" asp-route-returnUrl="@ViewData["ReturnUrl"]">log in with a recovery code</a>.
+    <a asp-action="LoginWithRecoveryCode" asp-route-returnUrl="@ViewData["ReturnUrl"]">log in with a recovery statusCode</a>.
 </p>
 
 @section Scripts {

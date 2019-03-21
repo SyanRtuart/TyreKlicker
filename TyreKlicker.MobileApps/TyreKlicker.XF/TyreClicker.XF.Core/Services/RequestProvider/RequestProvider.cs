@@ -145,7 +145,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
                     throw new ServiceAuthenticationException(content);
                 }
 
-                throw new HttpRequestExceptionEx(response.StatusCode, content);
+                //throw new HttpRequestExceptionEx(response.StatusCode, content);
             }
         }
     }
