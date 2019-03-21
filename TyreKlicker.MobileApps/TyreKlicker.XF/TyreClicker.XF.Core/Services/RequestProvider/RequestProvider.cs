@@ -24,11 +24,11 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
                 NullValueHandling = NullValueHandling.Ignore,
-                Error = (s, a) =>
-                {
-                    a.ErrorContext.Handled = true;
-                    errors.Add(a.ErrorContext.Error.Message);
-                }
+                //Error = (s, a) =>
+                //{
+                //    a.ErrorContext.Handled = true;
+                //    errors.Add(a.ErrorContext.Error.Message);
+                //}
             };
             _serializerSettings.Converters.Add(new StringEnumConverter());
         }
@@ -145,7 +145,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
                     throw new ServiceAuthenticationException(content);
                 }
 
-                //throw new HttpRequestExceptionEx(response.StatusCode, content);
+                throw new HttpResponseEx(response.StatusCode, content);
             }
         }
     }

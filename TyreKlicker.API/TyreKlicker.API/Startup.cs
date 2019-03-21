@@ -142,8 +142,6 @@ namespace TyreKlicker.API
 
             app.UseAuthentication();
 
-            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

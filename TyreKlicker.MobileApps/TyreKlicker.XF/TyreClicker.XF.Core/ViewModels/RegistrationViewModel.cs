@@ -4,9 +4,9 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System;
 using System.Threading.Tasks;
+using TyreKlicker.XF.Core.Exceptions;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
-using TyreKlicker.XF.Core.Services.RequestProvider;
 using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
@@ -123,13 +123,12 @@ namespace TyreKlicker.XF.Core.ViewModels
                     LastName = _lastName.Value,
                     FirstName = _firstName.Value
                 };
-                //ToDo Throwing exception to fix
 
                 try
                 {
                     await _authenticationService.Register(registerRequest);
                 }
-                catch (HttpRequestExceptionEx e)
+                catch (HttpResponseEx e)
                 {
                     Console.WriteLine(e);
                     throw;

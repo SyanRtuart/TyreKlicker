@@ -51,7 +51,7 @@ namespace TyreKlicker.API.Middlewear
 
                 var error = new ErrorDetails
                 {
-                    Message = ex.ErrorScenario,
+                    Scenario = ex.ErrorScenario,
                     Code = ex.Code
                 };
 
