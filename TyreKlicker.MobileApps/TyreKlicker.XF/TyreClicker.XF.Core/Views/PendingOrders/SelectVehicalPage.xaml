@@ -13,7 +13,7 @@
             <Picker ItemsSource="{Binding Makes}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Make"
-                    SelectedItem="{Binding SelectedMake, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedMake.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetModelsCommand}" />
@@ -25,7 +25,7 @@
                     ItemsSource="{Binding Models}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Model"
-                    SelectedItem="{Binding SelectedModel, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedModel.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetYearsCommand}" />
@@ -37,7 +37,7 @@
                     ItemsSource="{Binding Years}"
                     ItemDisplayBinding="{Binding Name}"
                     Title="Select Year"
-                    SelectedItem="{Binding SelectedYear, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedYear.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetVehiclesCommand}" />
@@ -49,7 +49,7 @@
                     ItemsSource="{Binding Trims}"
                     ItemDisplayBinding="{Binding Trim}"
                     Title="Select Vehicle"
-                    SelectedItem="{Binding SelectedVehicleTrim, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedVehicleTrim.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetTyresCommand}" />
@@ -61,7 +61,7 @@
                     ItemsSource="{Binding Tyres}"
                     ItemDisplayBinding="{Binding Tire}"
                     Title="Select Tyre Size"
-                    SelectedItem="{Binding SelectedTyre, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedTyre.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetWheelPairsCommand}" />

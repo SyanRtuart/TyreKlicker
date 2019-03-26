@@ -8,6 +8,7 @@ using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Models.Tyre;
 using TyreKlicker.XF.Core.Services.Order;
 using TyreKlicker.XF.Core.Services.Tyre;
+using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -23,12 +24,12 @@ namespace TyreKlicker.XF.Core.ViewModels
         private ObservableCollection<Wheel> _tyres;
 
         private CreateNewPendingOrderCommand _order;
-        private Make _selectedMake;
-        private Model _selectedModel;
-        private Years _selectedYear;
-        private Vehicle _selectedVehicle;
-        private Wheel _selectedTyre;
-        private VehicleTrim _selectedVehicleTrim;
+        private ValidatableObject<Make> _selectedMake;
+        private ValidatableObject<Model> _selectedModel;
+        private ValidatableObject<Years> _selectedYear;
+        private ValidatableObject<Vehicle> _selectedVehicle;
+        private ValidatableObject<Wheel> _selectedTyre;
+        private ValidatableObject<VehicleTrim> _selectedVehicleTrim;
 
         public SelectVehicalViewModel
         (IMvxLogProvider logProvider,
@@ -38,15 +39,20 @@ namespace TyreKlicker.XF.Core.ViewModels
             base(logProvider, navigationService)
         {
             _tyreService = tyreService;
+
+            _selectedMake = new ValidatableObject<Make>();
+            _selectedModel = new ValidatableObject<Model>();
+            _selectedYear = new ValidatableObject<Years>();
+            _selectedTyre = new ValidatableObject<Wheel>();
+            _selectedVehicleTrim = new ValidatableObject<VehicleTrim>();
+
+            AddValidations();
         }
 
         public override async Task Initialize()
         {
             await base.Initialize();
             await GetMakesCommand.ExecuteAsync();
-
-            //var list = new ObservableCollection<Make>();
-            //Makes = list;
         }
 
         public CreateNewPendingOrderCommand Order
@@ -119,40 +125,37 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public Make SelectedMake
+        public ValidatableObject<Make> SelectedMake
         {
             get { return _selectedMake; }
             set
             {
                 _selectedMake = value;
-                _order.Make = value.Name;
                 RaisePropertyChanged(() => SelectedMake);
             }
         }
 
-        public Model SelectedModel
+        public ValidatableObject<Model> SelectedModel
         {
             get { return _selectedModel; }
             set
             {
                 _selectedModel = value;
-                _order.Model = value.Name;
                 RaisePropertyChanged(() => SelectedModel);
             }
         }
 
-        public Years SelectedYear
+        public ValidatableObject<Years> SelectedYear
         {
             get { return _selectedYear; }
             set
             {
                 _selectedYear = value;
-                _order.Year = value.Name;
                 RaisePropertyChanged(() => SelectedYear);
             }
         }
 
-        public Vehicle SelectedVehicle
+        public ValidatableObject<Vehicle> SelectedVehicle
         {
             get { return _selectedVehicle; }
             set
@@ -162,29 +165,27 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public VehicleTrim SelectedVehicleTrim
+        public ValidatableObject<VehicleTrim> SelectedVehicleTrim
         {
             get { return _selectedVehicleTrim; }
             set
             {
                 _selectedVehicleTrim = value;
-                _order.Trim = value.Trim;
                 RaisePropertyChanged(() => SelectedVehicleTrim);
             }
         }
 
-        public Wheel SelectedTyre
+        public ValidatableObject<Wheel> SelectedTyre
         {
             get { return _selectedTyre; }
             set
             {
                 _selectedTyre = value;
-                _order.Tyre = value.Tire;
                 RaisePropertyChanged(() => SelectedTyre);
             }
         }
 
-        public IMvxAsyncCommand OkCommand => new MvxAsyncCommand(async () => await NavigateBack());
+        public IMvxAsyncCommand OkCommand => new MvxAsyncCommand(async () => await OkAsync());
 
         public IMvxAsyncCommand GetMakesCommand => new MvxAsyncCommand(async () => await GetMakesAsync());
 
@@ -205,22 +206,22 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             ClearSelection(true);
 
-            Models = await _tyreService.GetModels(_selectedMake);
+            Models = await _tyreService.GetModels(_selectedMake.Value);
         }
 
         private async Task GetYearsAsync()
         {
             ClearSelection(years: true, trims: true, tyres: true);
 
-            Years = await _tyreService.GetYears(_selectedMake);
+            Years = await _tyreService.GetYears(_selectedMake.Value);
         }
 
         private async Task GetVehiclesAsync()
         {
-            if (_selectedMake == null || _selectedModel == null || _selectedYear == null)
+            if (_selectedMake.Value == null || _selectedModel.Value == null || _selectedYear.Value == null)
                 return;
 
-            var vehicles = await _tyreService.GetVehicles(_selectedMake, _selectedModel, _selectedYear);
+            var vehicles = await _tyreService.GetVehicles(_selectedMake.Value, _selectedModel.Value, _selectedYear.Value);
             Vehicles = vehicles;
             GetTrims(vehicles);
         }
@@ -240,7 +241,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             if (SelectedVehicleTrim == null) return;
 
-            var vehicles = Vehicles.Where(x => x.Trim == SelectedVehicleTrim.Trim).ToList();
+            var vehicles = Vehicles.Where(x => x.Trim == SelectedVehicleTrim.Value.Trim).ToList();
             Tyres = new ObservableCollection<Wheel>();
             foreach (var vehicle in vehicles)
             {
@@ -260,51 +261,50 @@ namespace TyreKlicker.XF.Core.ViewModels
             if (makes)
             {
                 Models = null;
-                SelectedModel = null;
+                SelectedModel = new ValidatableObject<Model>();
             }
 
             if (models)
             {
                 Years = null;
-                SelectedYear = null;
+                SelectedYear = new ValidatableObject<Years>();
             }
 
             if (years)
             {
                 Vehicles = null;
-                SelectedVehicle = null;
+                SelectedVehicle = new ValidatableObject<Vehicle>();
             }
 
             if (trims)
             {
                 Trims = null;
-                SelectedVehicleTrim = null;
+                SelectedVehicleTrim = new ValidatableObject<VehicleTrim>();
             }
 
             if (tyres)
             {
                 Tyres = null;
-                SelectedTyre = null;
+                SelectedTyre = new ValidatableObject<Wheel>();
             }
+
+            AddValidations();
         }
 
         private void ClearSelection(bool all)
         {
             Models = null;
-            SelectedModel = null;
+            SelectedModel = new ValidatableObject<Model>();
             Years = null;
-            SelectedYear = null;
+            SelectedYear = new ValidatableObject<Years>();
             Vehicles = null;
-            SelectedVehicle = null;
+            SelectedVehicle = new ValidatableObject<Vehicle>();
             Trims = null;
-            SelectedVehicleTrim = null;
+            SelectedVehicleTrim = new ValidatableObject<VehicleTrim>();
             Tyres = null;
-            SelectedTyre = null;
-        }
+            SelectedTyre = new ValidatableObject<Wheel>();
 
-        private async Task NavigateBack()
-        {
-            await NavigationService.Close(this, _order);
+            AddValidations();
         }
 
         public override void Prepare()
@@ -314,6 +314,66 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override void Prepare(CreateNewPendingOrderCommand order)
         {
             _order = order;
+        }
+
+        private async Task OkAsync()
+        {
+            if (Validate())
+            {
+                _order.Make = SelectedMake.Value.Name;
+                _order.Model = SelectedModel.Value.Name;
+                _order.Year = SelectedYear.Value.Name;
+                _order.Trim = SelectedVehicleTrim.Value.Trim;
+                _order.Tyre = SelectedTyre.Value.Tire;
+
+                await NavigationService.Close(this, _order);
+            }
+        }
+
+        private bool Validate()
+        {
+            var isValidSelectedMake = ValidateSelectedMake();
+            var isValidSelectedModel = ValidateSelectedModel();
+            var isValidSelectedYear = ValidateSelectedYear();
+            var isValidSelectedTyre = ValidateSelectedTyre();
+            var isValidSelectedVehicleTrim = ValidateSelectedVehicleTrim();
+
+            return isValidSelectedMake && isValidSelectedModel && isValidSelectedYear && isValidSelectedTyre &&
+                   isValidSelectedVehicleTrim;
+        }
+
+        private bool ValidateSelectedMake()
+        {
+            return _selectedMake.Validate();
+        }
+
+        private bool ValidateSelectedModel()
+        {
+            return _selectedModel.Validate();
+        }
+
+        private bool ValidateSelectedYear()
+        {
+            return _selectedYear.Validate();
+        }
+
+        private bool ValidateSelectedTyre()
+        {
+            return _selectedTyre.Validate();
+        }
+
+        private bool ValidateSelectedVehicleTrim()
+        {
+            return _selectedVehicleTrim.Validate();
+        }
+
+        private void AddValidations()
+        {
+            _selectedMake.Validations.Add(new IsMakeValidRule<Make> { ValidationMessage = "An make is required." });
+            _selectedModel.Validations.Add(new IsModelValidRule<Model> { ValidationMessage = "An model is required." });
+            _selectedYear.Validations.Add(new IsYearsValidRule<Years> { ValidationMessage = "An model is required." });
+            _selectedTyre.Validations.Add(new IsWheelValidRule<Wheel> { ValidationMessage = "An tyre is required." });
+            _selectedVehicleTrim.Validations.Add(new IsVehicleTrimValidRule<VehicleTrim> { ValidationMessage = "An model is required." });
         }
     }
 }
