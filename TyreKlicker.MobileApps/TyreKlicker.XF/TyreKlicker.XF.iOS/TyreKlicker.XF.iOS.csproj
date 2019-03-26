@@ -93,6 +93,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services\LocalizeService.cs" />
+    <Compile Include="Services\Messages\MessageService.cs" />
     <Compile Include="Setup.cs" />
     <BundleResource Include="Resources\Icon-60%402x.png" />
     <BundleResource Include="Resources\Icon-72.png" />
@@ -122,14 +123,14 @@
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
-    <None Include="packages.config" />
     <BundleResource Include="Resources\Font Awesome 5 Brands-Regular-400.otf" />
     <BundleResource Include="Resources\Font Awesome 5 Free-Regular-400.otf" />
     <BundleResource Include="Resources\Font Awesome 5 Free-Solid-900.otf" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Acr.Support.2.1.0\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
+      <HintPath>..\..\..\packages\Acr.Support.2.1.0\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Acr.UserDialogs.7.0.3\lib\xamarinios10\Acr.UserDialogs.dll</HintPath>
@@ -137,17 +138,16 @@
     <Reference Include="Behaviors, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Behaviors.Forms.1.4.0\lib\netstandard1.0\Behaviors.dll</HintPath>
       <Private>True</Private>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="BTProgressHUD">
-      <HintPath>..\..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="BTProgressHUD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
     <Reference Include="IdentityModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\TyreClicker\packages\IdentityModel.4.0.0-bruichladdich\lib\netstandard2.0\IdentityModel.dll</HintPath>
+      <HintPath>..\..\..\packages\IdentityModel.4.0.0-bruichladdich\lib\netstandard2.0\IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="ImageCircle.Forms.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xam.Plugins.Forms.ImageCircle.3.0.0.5\lib\xamarinios10\ImageCircle.Forms.Plugin.dll</HintPath>
+      <HintPath>..\..\..\packages\Xam.Plugins.Forms.ImageCircle.3.0.0.5\lib\xamarinios10\ImageCircle.Forms.Plugin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -161,11 +161,9 @@
     </Reference>
     <Reference Include="MvvmCross, Version=6.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.6.1.2\lib\xamarinios10\MvvmCross.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Core, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.Core.5.7.0\lib\Xamarin.iOS10\MvvmCross.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Forms, Version=6.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.Forms.6.1.2\lib\xamarinios10\MvvmCross.Forms.dll</HintPath>
@@ -173,19 +171,15 @@
     </Reference>
     <Reference Include="MvvmCross.iOS, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.Core.5.7.0\lib\Xamarin.iOS10\MvvmCross.iOS.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Platform, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.Platform.5.7.0\lib\Xamarin.iOS10\MvvmCross.Platform.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Platform.iOS, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.Platform.5.7.0\lib\Xamarin.iOS10\MvvmCross.Platform.iOS.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Plugin.Json, Version=6.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MvvmCross.Plugin.Json.6.1.2\lib\netstandard2.0\MvvmCross.Plugin.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
@@ -215,7 +209,7 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\TyreClicker\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+      <HintPath>..\..\..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -261,9 +255,11 @@
     <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.props'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Xamarin.Forms.3.5.0.169047\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Xamarin.Forms.3.5.0.169047\build\Xamarin.Forms.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Xamarin.Forms.3.5.0.169047\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Xamarin.Forms.3.5.0.169047\build\Xamarin.Forms.targets'))" />
   </Target>
   <Import Project="..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets')" />
+  <Import Project="..\..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\..\..\packages\Xamarin.Forms.3.5.0.169047\build\Xamarin.Forms.targets" Condition="Exists('..\..\..\packages\Xamarin.Forms.3.5.0.169047\build\Xamarin.Forms.targets')" />
 </Project>

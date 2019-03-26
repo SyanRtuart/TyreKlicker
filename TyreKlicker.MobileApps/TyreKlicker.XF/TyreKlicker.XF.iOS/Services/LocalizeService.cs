@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-using Foundation;
+﻿using Foundation;
 using System;
 using System.Globalization;
 

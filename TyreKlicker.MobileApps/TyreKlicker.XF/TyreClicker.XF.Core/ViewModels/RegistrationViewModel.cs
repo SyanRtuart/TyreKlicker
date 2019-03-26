@@ -2,12 +2,13 @@
 using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Exceptions;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
+using TyreKlicker.XF.Core.Services.Messages;
 using TyreKlicker.XF.Core.Validators;
+using Xamarin.Forms;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -115,23 +116,23 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             if (Validate())
             {
-                var registerRequest = new RegisterRequest
-                {
-                    Email = _email.Value,
-                    Password = _password.Value,
-                    ConfirmPassword = _confirmPassword.Value,
-                    LastName = _lastName.Value,
-                    FirstName = _firstName.Value
-                };
-
                 try
                 {
+                    var registerRequest = new RegisterRequest
+                    {
+                        Email = _email.Value,
+                        Password = _password.Value,
+                        ConfirmPassword = _confirmPassword.Value,
+                        LastName = _lastName.Value,
+                        FirstName = _firstName.Value
+                    };
+
                     await _authenticationService.Register(registerRequest);
                 }
-                catch (HttpResponseEx e)
+                catch (HttpResponseEx ex)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    //ToDo show errors
+                    DependencyService.Get<IMessage>().LongAlert(ex.Scenario, System.Drawing.Color.Red);
                 }
             }
         }
