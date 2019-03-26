@@ -5,7 +5,11 @@
              x:Class="TyreKlicker.XF.Core.Pages.RegistrationPage"
             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
             xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-            xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core">
+            xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+            xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core">
+    <ContentPage.Resources>
+        <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Register your account here!"
@@ -33,6 +37,10 @@
                 </Entry.Triggers>
             </Entry>
 
+            <Label
+                Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
             <Entry  Text="{Binding Password.Value, Mode=TwoWay}" Placeholder="Password" FontSize="Default">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
@@ -53,6 +61,10 @@
                     </DataTrigger>
                 </Entry.Triggers>
             </Entry>
+
+            <Label
+                Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
 
             <Entry  Text="{Binding ConfirmPassword.Value, Mode=TwoWay}" Placeholder="Confirm Password" FontSize="Default">
                 <Entry.Style>
@@ -75,6 +87,10 @@
                 </Entry.Triggers>
             </Entry>
 
+            <Label
+                Text="{Binding ConfirmPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
             <Entry Text="{Binding FirstName.Value, Mode=TwoWay}" Placeholder="First Name" FontSize="Default">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
@@ -96,6 +112,10 @@
                 </Entry.Triggers>
             </Entry>
 
+            <Label
+                Text="{Binding FirstName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
             <Entry Text="{Binding LastName.Value, Mode=TwoWay}" Placeholder="Last Name" FontSize="Default">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
@@ -116,6 +136,10 @@
                     </DataTrigger>
                 </Entry.Triggers>
             </Entry>
+
+            <Label
+                Text="{Binding LastName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
 
             <Button Text="Register" Command="{Binding RegisterCommand}"></Button>
         </StackLayout>

@@ -128,10 +128,12 @@ namespace TyreKlicker.XF.Core.ViewModels
                     };
 
                     await _authenticationService.Register(registerRequest);
+                    DependencyService.Get<IMessage>().LongAlert("Please check your email for conformation.", System.Drawing.Color.Empty);
+                    //ToDo Pass back email to login VM
+                    await _navigationService.Close(this);
                 }
                 catch (HttpResponseEx ex)
                 {
-                    //ToDo show errors
                     DependencyService.Get<IMessage>().LongAlert(ex.Scenario, System.Drawing.Color.Red);
                 }
             }
@@ -160,9 +162,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private bool ValidateConfirmPassword()
         {
-            var valid = _password.Value == _confirmPassword.Value;
-            _confirmPassword.IsValid = valid;
-            return valid;
+            return _confirmPassword.Validate();
         }
 
         private bool ValidateLastName()
@@ -178,8 +178,9 @@ namespace TyreKlicker.XF.Core.ViewModels
         private void AddValidations()
         {
             //ToDo add password & email Validators
-            _email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A username is required." });
+            _email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "An email is required." });
             _password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
+            _confirmPassword.Validations.Add(new MustMatchRule<string>(_password) { ValidationMessage = "password must match" });
             _firstName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A first name is required." });
             _lastName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A last name is required." });
         }
