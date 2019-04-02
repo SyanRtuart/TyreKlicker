@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace TyreKlicker.Application.Order.Command.AcceptOrder
             var order = _context.Order.FirstOrDefault(x => x.Id == request.OrderId);
             if (order == null) throw new NotFoundException(nameof(order), request.OrderId);
 
-            if (order.AcceptedByUser != null)
+            if (order.AcceptedByUserId.HasValue && order.AcceptedByUserId != Guid.Empty)
                 throw new AlreadyAcceptedException(nameof(order), request.OrderId, order.AcceptedByUserId.Value);
 
             var user = _context.User.FirstOrDefault(x => x.Id == request.UserId);

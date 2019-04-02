@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using Shouldly;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Shouldly;
 using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Application.Order.Command.AcceptOrder;
 using TyreKlicker.Application.Tests.Infrastructure;
@@ -29,8 +27,8 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         {
             var sut = new AcceptOrderCommandHandler(_fixtures.Context);
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.Order.Id, UserId = UserIdInDb }, CancellationToken.None);
-            var orderInDb = await _fixtures.Context.Order.SingleOrDefaultAsync(o => o.Id == _fixtures.Order.Id, CancellationToken.None);
+            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.PendingOrder.Id, UserId = UserIdInDb }, CancellationToken.None);
+            var orderInDb = await _fixtures.Context.Order.SingleOrDefaultAsync(o => o.Id == _fixtures.PendingOrder.Id, CancellationToken.None);
 
             orderInDb.AcceptedByUserId.ShouldBe(UserIdInDb);
         }
@@ -42,7 +40,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
             var orderId = Guid.NewGuid();
 
             await sut.Handle(new AcceptOrderCommand { OrderId = orderId, UserId = UserIdInDb }, CancellationToken.None)
-                
+
             .ShouldThrowAsync<NotFoundException>();
         }
 
@@ -51,7 +49,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         {
             var sut = new AcceptOrderCommandHandler(_fixtures.Context);
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = Guid.Empty , UserId = UserIdInDb }, CancellationToken.None)
+            await sut.Handle(new AcceptOrderCommand { OrderId = Guid.Empty, UserId = UserIdInDb }, CancellationToken.None)
 
             .ShouldThrowAsync<NotFoundException>();
         }
@@ -60,9 +58,9 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         public async Task AcceptOrderCommand_UserDoesNotExist_ShouldThrowException()
         {
             var sut = new AcceptOrderCommandHandler(_fixtures.Context);
-            _fixtures.Order.AcceptedByUserId = Guid.Empty;
+            _fixtures.AcceptedOrder.AcceptedByUserId = Guid.Empty;
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.Order.Id, UserId = Guid.NewGuid() }, CancellationToken.None)
+            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.AcceptedOrder.Id, UserId = Guid.NewGuid() }, CancellationToken.None)
 
             .ShouldThrowAsync<NotFoundException>();
         }
@@ -71,9 +69,9 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         public async Task AcceptOrderCommand_UserIdIsEmpty_ShouldThrowException()
         {
             var sut = new AcceptOrderCommandHandler(_fixtures.Context);
-            _fixtures.Order.AcceptedByUserId = Guid.Empty;
+            _fixtures.AcceptedOrder.AcceptedByUserId = Guid.Empty;
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.Order.Id, UserId = Guid.Empty}, CancellationToken.None)
+            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.AcceptedOrder.Id, UserId = Guid.Empty }, CancellationToken.None)
 
             .ShouldThrowAsync<NotFoundException>();
         }
@@ -83,7 +81,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
         {
             var sut = new AcceptOrderCommandHandler(_fixtures.Context);
 
-            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.Order.Id , UserId = UserIdInDb }, CancellationToken.None)
+            await sut.Handle(new AcceptOrderCommand { OrderId = _fixtures.AcceptedOrder.Id, UserId = UserIdInDb }, CancellationToken.None)
 
             .ShouldThrowAsync<AlreadyAcceptedException>();
         }
@@ -93,25 +91,31 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
     public class AcceptOrderTestsFixture : IDisposable
     {
         public TyreKlickerDbContext Context { get; set; }
-        public Domain.Entities.Order Order;
+        public Domain.Entities.Order AcceptedOrder;
+        public Domain.Entities.Order PendingOrder;
 
         public AcceptOrderTestsFixture(QueryTestFixture fixture)
         {
             Context = fixture.Context;
 
-            Order = new Domain.Entities.Order()
+            AcceptedOrder = new Domain.Entities.Order()
             {
                 Id = Guid.NewGuid(),
                 AcceptedByUserId = Guid.NewGuid()
             };
-            Context.Order.Add(Order);
+            PendingOrder = new Domain.Entities.Order()
+            {
+                Id = Guid.NewGuid(),
+            };
+
+            Context.Order.Add(AcceptedOrder);
+            Context.Order.Add(PendingOrder);
             Context.SaveChanges();
         }
 
         public void Dispose()
         {
-            Context.Order.RemoveRange(Order);
+            Context.Order.RemoveRange(AcceptedOrder);
         }
-
     }
 }

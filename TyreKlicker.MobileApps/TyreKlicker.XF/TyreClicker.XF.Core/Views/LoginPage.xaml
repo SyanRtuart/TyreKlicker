@@ -7,11 +7,11 @@
                 xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
                 xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
                 NavigationPage.HasNavigationBar="False"
-                BackgroundImage="LoginScreenTire.jpg"
                 x:Class="TyreKlicker.XF.Core.Pages.LoginPage">
+    <!--BackgroundImage="LoginScreenTire.jpg"-->
 
     <ContentPage.Content>
-        <Grid>
+        <Grid  BackgroundColor="{StaticResource BackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <RowDefinition Height="*" />
@@ -34,7 +34,7 @@
 
                 <!--<Entry Grid.Row="1"  Text="{Binding Email.Value, Mode=TwoWay}" TextColor="White"  Placeholder="Email" PlaceholderColor="White" FontSize="Default" />-->
 
-                <Entry Grid.Row="1" Text="{Binding Email.Value, Mode=TwoWay}" TextColor="White" PlaceholderColor="White" FontSize="Default">
+                <Entry Grid.Row="1" Text="{Binding Email.Value, Mode=TwoWay}">
                     <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
                             <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -55,9 +55,7 @@
                     </Entry.Triggers>
                 </Entry>
 
-                <Entry Grid.Row="2" TextColor="White" PlaceholderColor="White" FontSize="Default"
-                    IsPassword="True"
-                    Text="{Binding Password.Value, Mode=TwoWay}">
+                <Entry Grid.Row="2" Text="{Binding Password.Value, Mode=TwoWay}" IsPassword="True">
                     <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
                             <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -78,13 +76,13 @@
                     </Entry.Triggers>
                 </Entry>
 
-                <Label Grid.Row="3" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" >FORGOT PASSWORD?</Label>
+                <Label Grid.Row="3"  HorizontalTextAlignment="Center" FontAttributes="Bold" >FORGOT PASSWORD?</Label>
                 <Button Grid.Row="4"  Command="{Binding LoginCommand,Mode=TwoWay}"  Text="LOGIN" HeightRequest="40" VerticalOptions="Start" />
             </Grid>
 
             <StackLayout Grid.Row="2">
                 <Label HeightRequest="2" />
-                <Label TextColor="White"  Text="CREATE AN ACCOUNT" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                <Label Text="CREATE AN ACCOUNT" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToRegistrationPageCommand}"></TapGestureRecognizer>
                     </Label.GestureRecognizers>
