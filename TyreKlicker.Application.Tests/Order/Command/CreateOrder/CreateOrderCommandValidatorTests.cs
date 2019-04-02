@@ -3,7 +3,6 @@ using FluentValidation.TestHelper;
 using Shouldly;
 using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Application.Tests.Infrastructure;
-using TyreKlicker.Persistence;
 using Xunit;
 
 namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
@@ -27,12 +26,6 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
                 Registration = "aaa",
             });
             validationResult.IsValid.ShouldBe(true);
-        }
-
-        [Fact]
-        public void CreateOrderCommandValidator_DescriptionIsEmpty_ShouldHaveValidationError()
-        {
-            _validator.ShouldHaveValidationErrorFor(o => o.Description, "");
         }
 
         [Fact]

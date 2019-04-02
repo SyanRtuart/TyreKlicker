@@ -84,11 +84,5 @@ namespace TyreKlicker.Application.Tests.User.Command.CreateUser
         {
             _validator.ShouldNotHaveValidationErrorFor(u => u.LastName, lastName);
         }
-
-        [Fact]
-        public void CreateUserCommandValidator_PhoneNumberIsEmpty_ShouldHaveValidationError()
-        {
-            _validator.ShouldHaveValidationErrorFor(u => u.PhoneNumber, "");
-        }
     }
 }

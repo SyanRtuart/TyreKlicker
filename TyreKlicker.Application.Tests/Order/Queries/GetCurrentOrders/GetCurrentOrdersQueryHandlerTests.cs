@@ -14,19 +14,19 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetCurrentOrders
     [Collection("QueryCollection")]
     public class GetCurrentOrdersQueryHandlerTests : IClassFixture<GetCurrentOrdersFixture>
     {
-        private readonly TyreKlickerDbContext _context;
+        private readonly GetCurrentOrdersFixture _fixture;
 
-        public GetCurrentOrdersQueryHandlerTests(QueryTestFixture fixture)
+        public GetCurrentOrdersQueryHandlerTests(GetCurrentOrdersFixture fixture)
         {
-            _context = fixture.Context;
+            _fixture = fixture;
         }
 
         [Fact]
         public async Task GetCurrentOrders_WhenCalled_ShouldReturnCountOfCurrentOrders()
         {
-            var sut = new GetCurrentOrdersQueryHandler(_context);
+            var sut = new GetCurrentOrdersQueryHandler(_fixture.Context);
 
-            var result = await sut.Handle(new GetCurrentOrdersQuery(), CancellationToken.None);
+            var result = await sut.Handle(new GetCurrentOrdersQuery() { UserId = _fixture.CurrentUser.Id }, CancellationToken.None);
             var resultCount = result.Orders.Count();
 
             result.ShouldBeOfType<CurrentOrdersListViewModel>();
@@ -39,15 +39,21 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetCurrentOrders
     {
         public TyreKlickerDbContext Context { get; set; }
         public List<Domain.Entities.Order> Orders { get; set; }
+        public Domain.Entities.User CurrentUser { get; set; }
 
         public GetCurrentOrdersFixture(QueryTestFixture fixture)
         {
             Context = fixture.Context;
 
+            CurrentUser = new Domain.Entities.User
+            {
+                Id = Guid.NewGuid()
+            };
+            Context.User.Add(CurrentUser);
             Orders = new List<Domain.Entities.Order>
             {
-                new Domain.Entities.Order { Id = Guid.NewGuid(), Complete = false},
-                new Domain.Entities.Order { Id = Guid.NewGuid(), Complete = false},
+                new Domain.Entities.Order { Id = Guid.NewGuid(), Complete = false , AcceptedByUser = CurrentUser},
+                new Domain.Entities.Order { Id = Guid.NewGuid(), Complete = false, AcceptedByUser = CurrentUser},
                 new Domain.Entities.Order { Id = Guid.NewGuid(), Complete = true}
             };
             Context.Order.AddRange(Orders);
