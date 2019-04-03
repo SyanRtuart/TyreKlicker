@@ -19,6 +19,8 @@ namespace TyreKlicker.Persistence
 
         public DbSet<Order> Order { get; set; }
 
+        public DbSet<Address> Address { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Order>()
