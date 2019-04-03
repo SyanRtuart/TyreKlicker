@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Shouldly;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Shouldly;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersCreatedByUser;
 using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Persistence;
@@ -15,7 +14,9 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersCreatedByUser
     [Collection("QueryCollection")]
     public class GetAllOrdersCreatedByUserQueryHandlerTests
     {
+        //ToDo Fix this unit test
         private readonly TyreKlickerDbContext _context;
+
         private static readonly Guid CreatedByUserIdToTest = Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5");
 
         public GetAllOrdersCreatedByUserQueryHandlerTests(QueryTestFixture fixture)
@@ -49,7 +50,6 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersCreatedByUser
 
             var result = await sut.Handle(new GetAllOrdersCreatedByUserQuery() { UserId = CreatedByUserIdToTest }, CancellationToken.None);
             var resultCount = result.Orders.Count();
-
 
             resultCount.ShouldBe(createdOrdersInDb);
         }
