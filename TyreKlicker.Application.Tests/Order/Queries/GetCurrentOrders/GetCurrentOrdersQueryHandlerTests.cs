@@ -63,6 +63,7 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetCurrentOrders
         public void Dispose()
         {
             Context.Order.RemoveRange(Orders);
+            Context.User.Remove(CurrentUser);
         }
     }
 }
