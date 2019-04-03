@@ -18,11 +18,13 @@ namespace TyreKlicker.Application.Address.Command.SetPrimaryAddress
 
         public async Task<Unit> Handle(SetPrimaryAddressCommand request, CancellationToken cancellationToken)
         {
-            var address = _context.Address.FirstOrDefault(x => x.Id == request.Id);
+            var address = _context.Address.FirstOrDefault(x => x.Id == request.Id &&
+                                                               x.UserId == request.UserId);
+
             if (address == null) throw new NotFoundException(nameof(address), request.Id);
 
             var currentPrimaryAddress = _context.Address.FirstOrDefault(x =>
-                x.Id == request.Id &&
+                x.UserId == request.UserId &&
                 x.PrimaryAddress);
 
             if (currentPrimaryAddress != null) currentPrimaryAddress.PrimaryAddress = false;

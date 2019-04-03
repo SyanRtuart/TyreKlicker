@@ -7,6 +7,8 @@ namespace TyreKlicker.Application.Address.Command.SetPrimaryAddress
     {
         public Guid Id { get; set; }
 
+        public Guid UserId { get; set; }
+
         public bool IsPrimary { get; set; }
     }
 }
