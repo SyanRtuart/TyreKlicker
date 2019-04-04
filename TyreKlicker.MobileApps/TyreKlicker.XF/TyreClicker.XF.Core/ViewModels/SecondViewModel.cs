@@ -11,16 +11,14 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class SecondViewModel : MvxViewModel<Dictionary<string, string>>
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly Services.IAppSettings _settings;
         private readonly IUserDialogs _userDialogs;
 
         private Dictionary<string, string> _parameter;
         private readonly ILocalizeService _localizeService;
 
-        public SecondViewModel(IMvxNavigationService navigationService, Services.IAppSettings settings, IUserDialogs userDialogs, ILocalizeService localizeService)
+        public SecondViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, ILocalizeService localizeService)
         {
             _navigationService = navigationService;
-            _settings = settings;
             _userDialogs = userDialogs;
             _localizeService = localizeService;
 
@@ -43,12 +41,6 @@ namespace TyreKlicker.XF.Core.ViewModels
 
             if (_parameter != null && _parameter.ContainsKey("ButtonText"))
                 MainPageButtonText = "ButtonText";
-        }
-
-        public int SuperNumber
-        {
-            get { return _settings.SuperNumber; }
-            set { _settings.SuperNumber = value; }
         }
     }
 }

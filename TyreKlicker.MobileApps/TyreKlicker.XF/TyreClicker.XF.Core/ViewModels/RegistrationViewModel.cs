@@ -16,7 +16,6 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class RegistrationViewModel : MvxNavigationViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly Services.IAppSettings _settings;
         private readonly IAuthenticationService _authenticationService;
 
         private ValidatableObject<string> _email;
@@ -27,12 +26,10 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public RegistrationViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            Services.IAppSettings settings,
             IAuthenticationService authenticationService)
             : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
-            _settings = settings;
             _authenticationService = authenticationService;
 
             _email = new ValidatableObject<string>();

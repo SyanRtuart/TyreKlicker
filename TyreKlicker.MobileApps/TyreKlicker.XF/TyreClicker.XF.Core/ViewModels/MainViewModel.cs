@@ -8,12 +8,10 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class MainViewModel : MvxViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly Services.IAppSettings _settings;
 
-        public MainViewModel(IMvxNavigationService navigationService, Services.IAppSettings settings)
+        public MainViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
-            _settings = settings;
 
             ButtonText = Resources.AppResources.MainPageButton;
         }
@@ -39,11 +37,5 @@ namespace TyreKlicker.XF.Core.ViewModels
         //    });
 
         public string ButtonText { get; set; }
-
-        public int SuperNumber
-        {
-            get { return _settings.SuperNumber; }
-            set { _settings.SuperNumber = value; }
-        }
     }
 }
