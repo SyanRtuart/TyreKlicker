@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using TyreKlicker.API.Exceptions;
 using TyreKlicker.Application.Address.Command.CreateAddress;
 using TyreKlicker.Application.Address.Query.GetAddress;
-using TyreKlicker.Application.Address.Query.GetAddresses;
 using AddressDto = TyreKlicker.Application.Address.Query.GetAddress.AddressDto;
 
 namespace TyreKlicker.API.Controllers
@@ -12,16 +11,10 @@ namespace TyreKlicker.API.Controllers
     [ApiController]
     public class AddressController : BaseController
     {
-        [HttpGet]
-        public async Task<AddressDto> Address(Guid id)
+        [HttpGet, Route("{id:guid}")]
+        public async Task<AddressDto> Address([FromRoute] Guid id)
         {
             return await Mediator.Send(new GetAddressQuery() { Id = id });
-        }
-
-        [HttpGet]
-        public async Task<AddressListViewModel> Addresses(Guid userId)
-        {
-            return await Mediator.Send(new GetAddressesQuery() { UserId = userId });
         }
 
         [HttpPost]

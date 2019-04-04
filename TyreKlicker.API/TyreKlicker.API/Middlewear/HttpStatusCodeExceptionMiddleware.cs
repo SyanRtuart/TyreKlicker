@@ -42,7 +42,7 @@ namespace TyreKlicker.API.Middlewear
                     _logger.LogWarning("The response has already started, the http status code middleware will not be executed.");
                     throw;
                 }
-
+                //ToDo: Inject the searlizer settings
                 var serializerSettings = new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),

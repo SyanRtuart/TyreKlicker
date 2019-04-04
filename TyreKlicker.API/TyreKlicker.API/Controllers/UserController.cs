@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using TyreKlicker.Application.Address.Query.GetAddresses;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersCreatedByUser;
 using TyreKlicker.Application.User.Queries.GetUserByEmail;
@@ -8,25 +9,31 @@ using TyreKlicker.Application.User.Queries.GetUserByEmail;
 namespace TyreKlicker.API.Controllers
 {
     [ApiController]
-    //[Route("[controller]/[action]")]
+    [Route("~/api/[controller]/")]
     public class UserController : BaseController
     {
-        [HttpGet, Route("~/api/user/{userId:guid}/[action]")]
+        [HttpGet, Route("{userId:guid}/[action]")]
         public Task<OrderCreatedByUserListViewModel> OrdersCreated(Guid userId)
         {
             return Mediator.Send(new GetAllOrdersCreatedByUserQuery() { UserId = userId });
         }
 
-        [HttpGet, Route("~/api/user/{userId:guid}/[action]")]
+        [HttpGet, Route("{userId:guid}/[action]")]
         public Task<OrderAcceptedByUserListViewModel> Orders(Guid userId)
         {
             return Mediator.Send(new GetAllOrdersAcceptedByUserQuery() { UserId = userId });
         }
 
-        [HttpGet, Route("~/api/user/[action]")]
+        [HttpGet, Route("[action]")]
         public Task<UserViewModel> Email(string email)
         {
             return Mediator.Send(new GetUserByEmailQuery() { Email = email });
+        }
+
+        [HttpGet, Route("{userId:guid}")]
+        public async Task<AddressListViewModel> Addresses([FromRoute] Guid userId)
+        {
+            return await Mediator.Send(new GetAddressesQuery() { UserId = userId });
         }
 
         //[HttpGet, Route("~/api/{userId:guid}/[action]")]
