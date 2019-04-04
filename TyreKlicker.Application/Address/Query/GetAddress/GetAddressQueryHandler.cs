@@ -24,7 +24,7 @@ namespace TyreKlicker.Application.Address.Query.GetAddress
                 .Select(AddressDto.Projection)
                 .FirstOrDefaultAsync(cancellationToken);
 
-            if (addressInDb == null) throw new NotFoundException(nameof(addressInDb), request.Id);
+            if (addressInDb == null) throw new NotFoundException(nameof(addressInDb), request.Id.ToString());
 
             return addressInDb;
         }

@@ -21,6 +21,8 @@ namespace TyreKlicker.Application.Order.Command.CreateOrder
 
         public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
+            //ToDo Check if user exists
+
             var entity = new TyreKlicker.Domain.Entities.Order
             {
                 CreatedByUserId = request.CreatedByUserId,

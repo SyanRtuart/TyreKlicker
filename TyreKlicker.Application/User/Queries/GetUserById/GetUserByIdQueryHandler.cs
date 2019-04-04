@@ -24,7 +24,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserById
                 .Select(UserViewModel.Projection)
                 .SingleOrDefaultAsync(cancellationToken);
 
-            if (user == null) throw new NotFoundException(nameof(user), request.Id);
+            if (user == null) throw new NotFoundException(nameof(user), request.Id.ToString());
 
             return user;
         }

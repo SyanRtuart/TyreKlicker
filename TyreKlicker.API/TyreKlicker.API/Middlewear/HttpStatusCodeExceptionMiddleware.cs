@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using TyreKlicker.API.Exceptions;
 using TyreKlicker.API.Models;
+using TyreKlicker.Application.Exceptions;
 
 namespace TyreKlicker.API.Middlewear
 {
@@ -34,6 +35,7 @@ namespace TyreKlicker.API.Middlewear
                 var code = HttpStatusCode.InternalServerError; // 500 if unexpected
 
                 if (ex is BadRequestException) code = HttpStatusCode.BadRequest;
+                if (ex is NotFoundException) code = HttpStatusCode.NotFound;
 
                 if (context.Response.HasStarted)
                 {

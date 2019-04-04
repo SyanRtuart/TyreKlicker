@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace TyreKlicker.Application.Exceptions
+﻿namespace TyreKlicker.Application.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : BaseException
     {
-        public NotFoundException(string name, object key)
-            : base($"Entity \"{name}\" ({key}) was not found.")
+        public NotFoundException(string errorCode, string errorScenario) : base(errorCode, errorScenario)
         {
         }
     }

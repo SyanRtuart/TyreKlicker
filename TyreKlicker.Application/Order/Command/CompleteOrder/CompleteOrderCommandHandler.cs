@@ -21,7 +21,7 @@ namespace TyreKlicker.Application.Order.Command.CompleteOrder
             var order = _context.Order
                 .SingleOrDefault(o => o.Id == request.OrderId);
 
-            if (order == null) throw new NotFoundException(nameof(order), request.OrderId);
+            if (order == null) throw new NotFoundException(nameof(order), request.OrderId.ToString());
 
             order.Complete = request.Complete;
 

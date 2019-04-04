@@ -12,7 +12,7 @@ using Xunit;
 
 namespace TyreKlicker.Application.Tests.Address.Command.SetPrimaryAddress
 {
-    [Collection("QueryCollection")]
+    [Collection("SetPrimaryAddressCommandHandlerFixture")]
     public class SetPrimaryAddressCommandHandlerTests : IClassFixture<SetPrimaryAddressCommandHandlerFixture>
     {
         private readonly SetPrimaryAddressCommandHandlerFixture _fixture;
@@ -30,6 +30,7 @@ namespace TyreKlicker.Application.Tests.Address.Command.SetPrimaryAddress
             await sut.Handle(new SetPrimaryAddressCommand()
             {
                 Id = _fixture.Addresses.First().Id,
+                UserId = _fixture.CurrentUserId,
                 IsPrimary = true
             }, CancellationToken.None);
 
@@ -68,17 +69,18 @@ namespace TyreKlicker.Application.Tests.Address.Command.SetPrimaryAddress
         }
     }
 
-    [Collection("QueryCollection")]
-    public class SetPrimaryAddressCommandHandlerFixture
+    [Collection("SetPrimaryAddressCommandHandlerFixture")]
+    public class SetPrimaryAddressCommandHandlerFixture : IDisposable
     {
         public TyreKlickerDbContext Context { get; set; }
         public List<Domain.Entities.Address> Addresses { get; set; }
         public Guid CurrentUserId { get; set; }
         public Domain.Entities.Address CurrentPrimaryAddress { get; set; }
 
-        public SetPrimaryAddressCommandHandlerFixture(QueryTestFixture fixture)
+        public SetPrimaryAddressCommandHandlerFixture()
         {
-            Context = fixture.Context;
+            Context = TyreKlickerContextFactory.Create();
+
             CurrentUserId = Guid.NewGuid();
             CurrentPrimaryAddress = new Domain.Entities.Address { UserId = CurrentUserId, PrimaryAddress = true };
 
@@ -93,5 +95,13 @@ namespace TyreKlicker.Application.Tests.Address.Command.SetPrimaryAddress
 
             Context.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            TyreKlickerContextFactory.Destroy(Context);
+        }
     }
+
+    [CollectionDefinition("SetPrimaryAddressCommandHandlerCollection")]
+    public class SetPrimaryAddressCommandHandlerCollection : ICollectionFixture<SetPrimaryAddressCommandHandlerFixture> { }
 }
