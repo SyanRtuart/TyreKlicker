@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using TyreKlicker.API.Exceptions;
 using TyreKlicker.API.Models;
+using TyreKlicker.Application.Exceptions;
 
 namespace TyreKlicker.API.Middlewear
 {
@@ -34,13 +35,14 @@ namespace TyreKlicker.API.Middlewear
                 var code = HttpStatusCode.InternalServerError; // 500 if unexpected
 
                 if (ex is BadRequestException) code = HttpStatusCode.BadRequest;
+                if (ex is NotFoundException) code = HttpStatusCode.NotFound;
 
                 if (context.Response.HasStarted)
                 {
                     _logger.LogWarning("The response has already started, the http status code middleware will not be executed.");
                     throw;
                 }
-
+                //ToDo: Inject the searlizer settings
                 var serializerSettings = new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),

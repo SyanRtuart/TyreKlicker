@@ -1,8 +1,12 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using TyreKlicker.XF.Core.Helpers;
+using TyreKlicker.XF.Core.Models.Address;
+using TyreKlicker.XF.Core.Services.Address;
 using TyreKlicker.XF.Core.Services.Tyre;
 
 namespace TyreKlicker.XF.Core.ViewModels
@@ -10,13 +14,15 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class TestingViewModel : MvxNavigationViewModel
     {
         private readonly ITyreService _tyreService;
+        private readonly IAddressService _addressService;
 
         public TestingViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            ITyreService tyreService)
+            ITyreService tyreService, IAddressService addressService)
             : base(logProvider, navigationService)
         {
             _tyreService = tyreService;
+            _addressService = addressService;
             Button1Command = new MvxAsyncCommand(async () => await Button1Execute());
             Button2Command = new MvxAsyncCommand(async () => await Button2Execute());
             Button3Command = new MvxAsyncCommand(async () => await Button3Execute());
@@ -42,17 +48,29 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task Button2Execute()
         {
-            throw new System.NotImplementedException();
+            var result = await _addressService.GetAddressAsync(Settings.AccessToken, Guid.NewGuid());
         }
 
         private async Task Button3Execute()
         {
-            throw new System.NotImplementedException();
+            var command = new CreateAddressCommand
+            {
+                UserId = GlobalSetting.Instance.CurrentLoggedInUserId,
+                Street = "street",
+                City = "city",
+                Postcode = "PC",
+                PhoneNumber = "0101401401",
+                PrimaryAddress = true
+            };
+            var result = await _addressService.CreateAddress(Settings.AccessToken, command);
+
+            var john = result.UserId;
         }
 
         private async Task Button4Execute()
         {
-            throw new System.NotImplementedException();
+            var result = await _addressService.GetAddressesAsync(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            var asdas = "";
         }
 
         private async Task Button5Execute()

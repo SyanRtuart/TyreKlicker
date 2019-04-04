@@ -35,7 +35,7 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetCurrentOrders
     }
 
     [Collection("QueryCollection")]
-    public class GetCurrentOrdersFixture : IDisposable
+    public class GetCurrentOrdersFixture
     {
         public TyreKlickerDbContext Context { get; set; }
         public List<Domain.Entities.Order> Orders { get; set; }
@@ -58,11 +58,6 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetCurrentOrders
             };
             Context.Order.AddRange(Orders);
             Context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            Context.Order.RemoveRange(Orders);
         }
     }
 }
