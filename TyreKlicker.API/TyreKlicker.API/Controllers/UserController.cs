@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using TyreKlicker.Application.Address.Query.GetAddresses;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersCreatedByUser;
 using TyreKlicker.Application.User.Queries.GetUserByEmail;
@@ -28,12 +27,6 @@ namespace TyreKlicker.API.Controllers
         public Task<UserViewModel> Email(string email)
         {
             return Mediator.Send(new GetUserByEmailQuery() { Email = email });
-        }
-
-        [HttpGet, Route("{userId:guid}")]
-        public async Task<AddressListViewModel> Addresses([FromRoute] Guid userId)
-        {
-            return await Mediator.Send(new GetAddressesQuery() { UserId = userId });
         }
 
         //[HttpGet, Route("~/api/{userId:guid}/[action]")]
