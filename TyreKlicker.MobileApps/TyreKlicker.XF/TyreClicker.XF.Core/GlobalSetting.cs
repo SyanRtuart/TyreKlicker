@@ -51,6 +51,9 @@ namespace TyreKlicker.XF.Core
         public string UserEndPoint { get; set; }
         public string UsersEndPoint { get; set; }
 
+        public string AddressEndPoint { get; set; }
+        public string AddressesEndPoint { get; set; }
+
         public string EncryptionPassword => "ThisWillBeChanged";
 
         private void UpdateEndpoint(string endpoint)
@@ -62,6 +65,8 @@ namespace TyreKlicker.XF.Core
             OrdersEndpoint = $"{endpoint}/api/order";
             UserEndPoint = $"{endpoint}/api/user";
             UsersEndPoint = $"{endpoint}/api/users";
+            AddressEndPoint = $"{endpoint}/api/address";
+            AddressesEndPoint = $"{endpoint}/api/addresses";
         }
     }
 }

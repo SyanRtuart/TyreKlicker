@@ -1,7 +1,8 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
-using TyreKlicker.Application.Interfaces;
+using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Command.CreateOrder
@@ -9,19 +10,19 @@ namespace TyreKlicker.Application.Order.Command.CreateOrder
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Unit>
     {
         private readonly TyreKlickerDbContext _context;
-        private readonly INotificationService _notificationService;
 
-        public CreateOrderCommandHandler(
-            TyreKlickerDbContext context,
-            INotificationService notificationService)
+        public CreateOrderCommandHandler(TyreKlickerDbContext context)
         {
             _context = context;
-            _notificationService = notificationService;
         }
 
         public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            var entity = new TyreKlicker.Domain.Entities.Order
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == request.CreatedByUserId, cancellationToken);
+
+            if (user == null) throw new NotFoundException(nameof(user), request.CreatedByUserId.ToString());
+
+            var entity = new Domain.Entities.Order
             {
                 CreatedByUserId = request.CreatedByUserId,
                 Description = request.Description,

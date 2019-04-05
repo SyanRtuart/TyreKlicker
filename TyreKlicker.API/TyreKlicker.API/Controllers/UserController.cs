@@ -8,22 +8,22 @@ using TyreKlicker.Application.User.Queries.GetUserByEmail;
 namespace TyreKlicker.API.Controllers
 {
     [ApiController]
-    //[Route("[controller]/[action]")]
+    [Route("~/api/[controller]/")]
     public class UserController : BaseController
     {
-        [HttpGet, Route("~/api/user/{userId:guid}/[action]")]
+        [HttpGet, Route("{userId:guid}/[action]")]
         public Task<OrderCreatedByUserListViewModel> OrdersCreated(Guid userId)
         {
             return Mediator.Send(new GetAllOrdersCreatedByUserQuery() { UserId = userId });
         }
 
-        [HttpGet, Route("~/api/user/{userId:guid}/[action]")]
+        [HttpGet, Route("{userId:guid}/[action]")]
         public Task<OrderAcceptedByUserListViewModel> Orders(Guid userId)
         {
             return Mediator.Send(new GetAllOrdersAcceptedByUserQuery() { UserId = userId });
         }
 
-        [HttpGet, Route("~/api/user/[action]")]
+        [HttpGet, Route("[action]")]
         public Task<UserViewModel> Email(string email)
         {
             return Mediator.Send(new GetUserByEmailQuery() { Email = email });

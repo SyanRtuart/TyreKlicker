@@ -44,7 +44,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.CompleteOrder
     }
 
     [Collection("QueryCollection")]
-    public class CompleteOrderTestFixtures : IDisposable
+    public class CompleteOrderTestFixtures
     {
         public TyreKlickerDbContext Context { get; set; }
         public Domain.Entities.Order Order;
@@ -61,11 +61,6 @@ namespace TyreKlicker.Application.Tests.Order.Command.CompleteOrder
             };
             Context.Order.Add(Order);
             Context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            Context.Order.RemoveRange(Order);
         }
     }
 }

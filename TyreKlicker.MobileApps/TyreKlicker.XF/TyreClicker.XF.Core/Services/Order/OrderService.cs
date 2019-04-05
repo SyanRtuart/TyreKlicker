@@ -12,8 +12,6 @@ namespace TyreKlicker.XF.Core.Services.Order
     {
         private readonly IRequestProvider _requestProvider;
 
-        private const string ApiUrlBase = "api/order";
-
         public OrderService(IRequestProvider requestProvider)
         {
             _requestProvider = requestProvider;

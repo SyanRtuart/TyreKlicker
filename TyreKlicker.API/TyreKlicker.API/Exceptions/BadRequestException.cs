@@ -1,4 +1,6 @@
-﻿namespace TyreKlicker.API.Exceptions
+﻿using TyreKlicker.Application.Exceptions;
+
+namespace TyreKlicker.API.Exceptions
 {
     public class BadRequestException : BaseException
     {

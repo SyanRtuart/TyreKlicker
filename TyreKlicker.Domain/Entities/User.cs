@@ -8,6 +8,7 @@ namespace TyreKlicker.Domain.Entities
         {
             OrdersCreated = new HashSet<Order>();
             OrdersAccepted = new HashSet<Order>();
+            Addresses = new HashSet<Address>();
         }
 
         public string Email { get; set; }
@@ -20,5 +21,6 @@ namespace TyreKlicker.Domain.Entities
 
         public IEnumerable<Order> OrdersCreated { get; set; }
         public IEnumerable<Order> OrdersAccepted { get; set; }
+        public IEnumerable<Address> Addresses { get; set; }
     }
 }

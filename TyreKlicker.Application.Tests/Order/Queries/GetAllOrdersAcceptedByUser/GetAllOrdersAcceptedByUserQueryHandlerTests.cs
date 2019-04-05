@@ -1,31 +1,28 @@
-﻿using System;
+﻿using Shouldly;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shouldly;
 using TyreKlicker.Application.Order.Queries.GetAllOrdersAcceptedByUser;
 using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Persistence;
 using Xunit;
-using Xunit.Extensions;
 
 namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
 {
     [Collection("QueryCollection")]
     public class GetAllOrdersAcceptedByUserQueryHandlerTests
     {
+        //ToDo Fix this unit test
         private readonly TyreKlickerDbContext _context;
+
         private static readonly Guid AcceptedByUserIdToTest = Guid.Parse("1114e3c0-093f-4e18-be42-d7c3e178a22c");
 
         public GetAllOrdersAcceptedByUserQueryHandlerTests(QueryTestFixture fixture)
         {
             _context = fixture.Context;
-            
         }
-
 
         [Fact]
         public async Task GetAllOrdersAcceptedByUser_WhenCalled_ShouldReturnOrderAcceptedByUserListViewModel()
@@ -49,7 +46,7 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
             };
             _context.Order.AddRange(orders);
             _context.SaveChanges();
-            var acceptedOrdersInDb =  _context.Order.Count(x => x.AcceptedByUserId == AcceptedByUserIdToTest);
+            var acceptedOrdersInDb = _context.Order.Count(x => x.AcceptedByUserId == AcceptedByUserIdToTest);
 
             var result = await sut.Handle(new GetAllOrdersAcceptedByUserQuery() { UserId = AcceptedByUserIdToTest }, CancellationToken.None);
             var resultCount = result.Orders.Count();
@@ -58,15 +55,13 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersAcceptedByUser
         }
 
         public static IEnumerable<object[]> TestGuids
-        {           
+        {
             get
-            {               
-                yield return new object[] {  Guid.NewGuid() , Guid.NewGuid() };
-                yield return new object[] {  AcceptedByUserIdToTest , Guid.NewGuid() };
-                yield return new object[] {  AcceptedByUserIdToTest, AcceptedByUserIdToTest };
+            {
+                yield return new object[] { Guid.NewGuid(), Guid.NewGuid() };
+                yield return new object[] { AcceptedByUserIdToTest, Guid.NewGuid() };
+                yield return new object[] { AcceptedByUserIdToTest, AcceptedByUserIdToTest };
             }
         }
-
-  
     }
 }

@@ -88,7 +88,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
     }
 
     [Collection("QueryCollection")]
-    public class AcceptOrderTestsFixture : IDisposable
+    public class AcceptOrderTestsFixture
     {
         public TyreKlickerDbContext Context { get; set; }
         public Domain.Entities.Order AcceptedOrder;
@@ -111,11 +111,6 @@ namespace TyreKlicker.Application.Tests.Order.Command.AcceptOrder
             Context.Order.Add(AcceptedOrder);
             Context.Order.Add(PendingOrder);
             Context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            Context.Order.RemoveRange(AcceptedOrder);
         }
     }
 }
