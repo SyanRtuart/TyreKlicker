@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage
+                x:TypeArguments="viewModels:AddNewAddressViewModel"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+                xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+                xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
+                x:Class="TyreKlicker.XF.Core.Views.Address.AddAddressPage"
+                Title="Add Address">
+    <ContentPage.Resources>
+        <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Margin="24">
+                <Label
+                Text="Street"
+                Style="{StaticResource HeaderLabelStyle}" />
+                <Entry Text="{Binding Street.Value, Mode=TwoWay}">
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style">
+                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                        </OnPlatform>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidateStreet}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding Street.IsValid}"
+                        Value="False">
+                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
+                <Label
+                Text="{Binding Street.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                <Label
+                Text="City"
+                Style="{StaticResource HeaderLabelStyle}" />
+                <Entry Text="{Binding City.Value, Mode=TwoWay}">
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style">
+                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                        </OnPlatform>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidateCity}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding City.IsValid}"
+                        Value="False">
+                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
+                <Label
+                Text="{Binding City.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                <Label
+                Text="Postcode"
+                Style="{StaticResource HeaderLabelStyle}" />
+                <Entry Text="{Binding PostCode.Value, Mode=TwoWay}">
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style">
+                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                        </OnPlatform>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidatePostCode}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding PostCode.IsValid}"
+                        Value="False">
+                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
+                <Label
+                Text="{Binding PostCode.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                <Label
+                Text="Phone Number"
+                Style="{StaticResource HeaderLabelStyle}" />
+                <Entry Text="{Binding PhoneNumber.Value, Mode=TwoWay}">
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style">
+                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                        </OnPlatform>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding ValidatePhoneNumber}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
+                        TargetType="Entry"
+                        Binding="{Binding PhoneNumber.IsValid}"
+                        Value="False">
+                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
+                <Label
+                Text="{Binding PhoneNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                <Label
+                Text="Primary Address"
+                Style="{StaticResource HeaderLabelStyle}" />
+                <Switch HorizontalOptions="Start" IsToggled="{Binding PrimaryAddress}" ></Switch>
+            </StackLayout>
+            <Button
+                Grid.Row="2"
+                Command="{Binding SubmitCommand}"
+                VerticalOptions="End"
+                Padding="0"
+                Text="Submit" />
+
+            <ActivityIndicator
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Color="{StaticResource PrimaryDark}"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                <ActivityIndicator.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS, Android" Value="100" />
+                        <On Platform="UWP, WinRT, WinPhone" Value="400" />
+                    </OnPlatform>
+                </ActivityIndicator.WidthRequest>
+            </ActivityIndicator>
+        </Grid>
+    </ContentPage.Content>
+</views:MvxContentPage>

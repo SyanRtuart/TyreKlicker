@@ -37,6 +37,11 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxAsyncCommand NavigateToAddNewAddessCommand => new MvxAsyncCommand(async () => await NavigateToAddNewAddessAsync());
 
+        private async Task NavigateToAddNewAddessAsync()
+        {
+            await NavigationService.Navigate<AddNewAddressViewModel>();
+        }
+
         private async Task NavigateToAddressDetailsAsync()
         {
             throw new System.NotImplementedException();

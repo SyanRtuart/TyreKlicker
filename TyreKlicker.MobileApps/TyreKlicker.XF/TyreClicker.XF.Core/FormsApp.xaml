@@ -32,6 +32,18 @@
                 <On Platform="Android, UWP, WinRT, WinPhone" Value="12" />
             </OnPlatform>
 
+            <Style x:Key="HeaderLabelStyle"
+                   TargetType="{x:Type Label}">
+                <!--<Setter Property="FontFamily"
+                        Value="{StaticResource MontserratRegular}" />-->
+                <Setter Property="FontSize"
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource Primary}" />
+                <Setter Property="HorizontalOptions"
+                        Value="Start" />
+            </Style>
+
             <Style x:Key="EntryStyle"
                    TargetType="{x:Type Entry}">
                 <!--<Setter Property="FontFamily"
