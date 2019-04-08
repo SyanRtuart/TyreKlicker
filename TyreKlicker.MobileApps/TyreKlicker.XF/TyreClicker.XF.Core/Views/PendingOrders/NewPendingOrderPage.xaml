@@ -49,8 +49,10 @@
                        Header ="Tyre"
                        ButtonName="Select Tyre"
                        Command="{Binding SelectTyreCommand}" />
-                    <StackLayout IsVisible="{Binding Order.Make,
-                                                Converter={StaticResource StringNullOrEmptyBoolConverter}}">
+                    <StackLayout
+                        Margin="24"
+                        IsVisible="{Binding Order.Make,
+                        Converter={StaticResource StringNullOrEmptyBoolConverter}}">
                         <Label Text="{Binding Order.Make}" />
                         <Label Text="{Binding Order.Model}" />
                         <Label Text="{Binding Order.Year}" />
@@ -63,8 +65,9 @@
                         ButtonName="Select Address"
                         Command="{Binding SelectAddressCommand}" />
                     <StackLayout
-                    IsVisible="{Binding Address.Street,
-                                                Converter={StaticResource StringNullOrEmptyBoolConverter}}">
+                        Margin="24"
+                        IsVisible="{Binding Address.Street,
+                        Converter={StaticResource StringNullOrEmptyBoolConverter}}">
                         <Label Text="{Binding Address.Street}" />
                         <Label Text="{Binding Address.City}" />
                         <Label Text="{Binding Address.Postcode}" />
