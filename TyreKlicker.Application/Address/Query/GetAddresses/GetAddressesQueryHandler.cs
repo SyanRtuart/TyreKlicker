@@ -23,7 +23,7 @@ namespace TyreKlicker.Application.Address.Query.GetAddresses
                 Addresses = await _context.Address
                     .Where(x => x.UserId == request.UserId)
                     .Select(AddressDto.Projection)
-                    .OrderBy(a => a.PrimaryAddress)
+                    .OrderBy(a => !a.PrimaryAddress)
                     .ToListAsync(cancellationToken)
             };
 
