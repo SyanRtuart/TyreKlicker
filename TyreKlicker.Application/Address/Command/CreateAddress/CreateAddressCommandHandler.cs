@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Exceptions;
@@ -22,6 +23,11 @@ namespace TyreKlicker.Application.Address.Command.CreateAddress
                 u.Id == request.UserId, cancellationToken);
 
             if (user == null) throw new NotFoundException(nameof(user), request.UserId.ToString());
+
+            if (request.PrimaryAddress) _context.Address.Where(x =>
+                    x.UserId == request.UserId &&
+                    x.PrimaryAddress)
+                .ToList().ForEach(y => y.PrimaryAddress = false);
 
             var entity = new Domain.Entities.Address
             {

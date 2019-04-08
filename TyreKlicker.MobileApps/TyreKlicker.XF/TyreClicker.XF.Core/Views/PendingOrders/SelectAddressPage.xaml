@@ -34,6 +34,7 @@
                                 <Label Text="{Binding City}" />
                                 <Label Text="{Binding Postcode}" />
                                 <Label Text="{Binding PhoneNumber}" />
+                                <Label Text="{Binding PrimaryAddress}" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

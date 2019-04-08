@@ -24,11 +24,12 @@ namespace TyreKlicker.Application.Address.Command.SetPrimaryAddress
 
             if (address == null) throw new NotFoundException(nameof(address), request.Id.ToString());
 
-            var currentPrimaryAddress = _context.Address.FirstOrDefault(x =>
-                x.UserId == request.UserId &&
-                x.PrimaryAddress);
+            var currentPrimaryAddress = _context.Address.Where(x =>
+                    x.UserId == request.UserId &&
+                    x.PrimaryAddress)
+                .ToList();
 
-            if (currentPrimaryAddress != null) currentPrimaryAddress.PrimaryAddress = false;
+            currentPrimaryAddress.ForEach(x => x.PrimaryAddress = false);
 
             address.PrimaryAddress = request.IsPrimary;
 
