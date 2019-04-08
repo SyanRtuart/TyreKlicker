@@ -61,7 +61,7 @@
                     <controls:ContentCard
                         Header ="Address"
                         ButtonName="Select Address"
-                        Command="{Binding Button1Command}" />
+                        Command="{Binding SelectAddressCommand}" />
                     <StackLayout
                     IsVisible="{Binding Address.Street,
                                                 Converter={StaticResource StringNullOrEmptyBoolConverter}}">
