@@ -22,8 +22,8 @@
                 Grid.Row="0"
                 Margin="24">
                 <Label
-                Text="Street"
-                Style="{StaticResource HeaderLabelStyle}" />
+                    Text="Street"
+                    Style="{StaticResource HeaderLabelStyle}" />
                 <Entry Text="{Binding Street.Value, Mode=TwoWay}">
                     <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
@@ -46,12 +46,12 @@
                 </Entry>
 
                 <Label
-                Text="{Binding Street.Errors, Converter={StaticResource FirstValidationErrorConverter}"
-                Style="{StaticResource ValidationErrorLabelStyle}" />
+                    Text="{Binding Street.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                    Style="{StaticResource ValidationErrorLabelStyle}" />
 
                 <Label
-                Text="City"
-                Style="{StaticResource HeaderLabelStyle}" />
+                    Text="City"
+                    Style="{StaticResource HeaderLabelStyle}" />
                 <Entry Text="{Binding City.Value, Mode=TwoWay}">
                     <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
@@ -74,12 +74,12 @@
                 </Entry>
 
                 <Label
-                Text="{Binding City.Errors, Converter={StaticResource FirstValidationErrorConverter}"
-                Style="{StaticResource ValidationErrorLabelStyle}" />
+                    Text="{Binding City.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                    Style="{StaticResource ValidationErrorLabelStyle}" />
 
                 <Label
-                Text="Postcode"
-                Style="{StaticResource HeaderLabelStyle}" />
+                    Text="Postcode"
+                    Style="{StaticResource HeaderLabelStyle}" />
                 <Entry Text="{Binding PostCode.Value, Mode=TwoWay}">
                     <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
@@ -102,12 +102,12 @@
                 </Entry>
 
                 <Label
-                Text="{Binding PostCode.Errors, Converter={StaticResource FirstValidationErrorConverter}"
-                Style="{StaticResource ValidationErrorLabelStyle}" />
+                    Text="{Binding PostCode.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                    Style="{StaticResource ValidationErrorLabelStyle}" />
 
                 <Label
-                Text="Phone Number"
-                Style="{StaticResource HeaderLabelStyle}" />
+                    Text="Phone Number"
+                    Style="{StaticResource HeaderLabelStyle}" />
                 <Entry Text="{Binding PhoneNumber.Value, Mode=TwoWay}">
                     <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
@@ -130,12 +130,12 @@
                 </Entry>
 
                 <Label
-                Text="{Binding PhoneNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}"
-                Style="{StaticResource ValidationErrorLabelStyle}" />
+                    Text="{Binding PhoneNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                    Style="{StaticResource ValidationErrorLabelStyle}" />
 
                 <Label
-                Text="Primary Address"
-                Style="{StaticResource HeaderLabelStyle}" />
+                    Text="Primary Address"
+                    Style="{StaticResource HeaderLabelStyle}" />
                 <Switch HorizontalOptions="Start" IsToggled="{Binding PrimaryAddress}" ></Switch>
             </StackLayout>
             <Button
