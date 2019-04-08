@@ -320,13 +320,16 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             if (Validate())
             {
-                _order.Make = SelectedMake.Value.Name;
-                _order.Model = SelectedModel.Value.Name;
-                _order.Year = SelectedYear.Value.Name;
-                _order.Trim = SelectedVehicleTrim.Value.Trim;
-                _order.Tyre = SelectedTyre.Value.Tire;
+                var order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId)
+                {
+                    Make = SelectedMake.Value.Name,
+                    Model = SelectedModel.Value.Name,
+                    Year = SelectedYear.Value.Name,
+                    Trim = SelectedVehicleTrim.Value.Trim,
+                    Tyre = SelectedTyre.Value.Tire,
+                };
 
-                await NavigationService.Close(this, _order);
+                await NavigationService.Close(this, order);
             }
         }
 

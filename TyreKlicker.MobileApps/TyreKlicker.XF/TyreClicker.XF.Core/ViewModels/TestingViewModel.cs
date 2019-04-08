@@ -69,7 +69,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task Button4Execute()
         {
-            var result = await _addressService.GetAddressesAsync(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            var result = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
             var asdas = "";
         }
 

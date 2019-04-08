@@ -76,6 +76,9 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
+        <EmbeddedResource Update="Controls\ContentCard.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
         <EmbeddedResource Update="Views\PendingOrders\NewPendingOrderPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
@@ -148,7 +151,6 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Controls\" />
       <Folder Include="Factory\" />
       <Folder Include="Views\Templates\" />
     </ItemGroup>

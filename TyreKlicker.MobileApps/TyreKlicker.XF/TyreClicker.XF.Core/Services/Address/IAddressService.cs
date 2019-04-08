@@ -11,6 +11,8 @@ namespace TyreKlicker.XF.Core.Services.Address
 
         Task<Models.Address.Address> GetAddressAsync(string token, Guid addressId);
 
+        Task<Models.Address.Address> GetPrimaryAddressAsync(string token, Guid userId);
+
         Task<ObservableCollection<Models.Address.Address>> GetAddressesAsync(string token, Guid userId);
     }
 }

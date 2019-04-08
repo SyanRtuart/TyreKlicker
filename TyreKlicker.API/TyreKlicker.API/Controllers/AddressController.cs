@@ -5,6 +5,7 @@ using TyreKlicker.API.Exceptions;
 using TyreKlicker.Application.Address.Command.CreateAddress;
 using TyreKlicker.Application.Address.Query.GetAddress;
 using TyreKlicker.Application.Address.Query.GetAddresses;
+using TyreKlicker.Application.Address.Query.GetPrimaryAddress;
 using AddressDto = TyreKlicker.Application.Address.Query.GetAddress.AddressDto;
 
 namespace TyreKlicker.API.Controllers
@@ -31,6 +32,12 @@ namespace TyreKlicker.API.Controllers
         public async Task<AddressListViewModel> Addresses([FromRoute] Guid userId)
         {
             return await Mediator.Send(new GetAddressesQuery() { UserId = userId });
+        }
+
+        [HttpGet, Route("{userId:guid}/[action]")]
+        public async Task<Application.Address.Query.GetPrimaryAddress.AddressDto> PrimaryAddress([FromRoute] Guid userId)
+        {
+            return await Mediator.Send(new GetPrimaryAddressQuery() { UserId = userId });
         }
     }
 }

@@ -44,6 +44,24 @@ namespace TyreKlicker.XF.Core.Services.Address
             return address;
         }
 
+        public async Task<Models.Address.Address> GetPrimaryAddressAsync(string token, Guid userId)
+        {
+            var uri = UriHelper.CombineUri(GlobalSetting.Instance.AddressEndPoint + $"/{GlobalSetting.Instance.CurrentLoggedInUserId}/primaryaddress");
+
+            Models.Address.Address address;
+
+            try
+            {
+                address = await _requestProvider.GetAsync<Models.Address.Address>(uri, Settings.AccessToken);
+            }
+            catch (HttpResponseEx ex) when (ex.HttpCode == System.Net.HttpStatusCode.NotFound)
+            {
+                address = null;
+            }
+
+            return address;
+        }
+
         public async Task<ObservableCollection<Models.Address.Address>> GetAddressesAsync(string token, Guid userId)
         {
             var uri = UriHelper.CombineUri(GlobalSetting.Instance.AddressEndPoint + $"/{userId}" + "/addresses");

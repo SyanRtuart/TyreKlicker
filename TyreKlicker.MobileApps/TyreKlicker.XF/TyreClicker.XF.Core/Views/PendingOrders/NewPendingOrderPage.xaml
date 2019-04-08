@@ -6,39 +6,81 @@
             xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
             xmlns:behaviorsNuget="clr-namespace:Behaviors;assembly=Behaviors"
             xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
-
+            xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
+            xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
             x:Class="TyreKlicker.XF.Core.Views.PendingOrders.NewPendingOrderPage">
+    <ContentPage.Resources>
+        <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter" />
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Button Command="{Binding SelectTyreCommand}"
-                    Text="Select Tyre" />
 
-            <Entry Text="{Binding Registration.Value, Mode=TwoWay}"
+        <ScrollView>
+            <StackLayout>
+
+                <Entry Text="{Binding Registration.Value, Mode=TwoWay}"
                    Placeholder="Enter Registration">
-                <Entry.Style>
-                    <OnPlatform x:TypeArguments="Style">
-                        <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
-                    </OnPlatform>
-                </Entry.Style>
-                <Entry.Behaviors>
-                    <behaviors:EventToCommandBehavior
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style">
+                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                        </OnPlatform>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
                         EventName="TextChanged"
                         Command="{Binding ValidateRegistrationCommand}" />
-                </Entry.Behaviors>
-                <Entry.Triggers>
-                    <DataTrigger
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger
                         TargetType="Entry"
                         Binding="{Binding Registration.IsValid}"
                         Value="False">
-                        <Setter Property="behaviors:LineColorBehavior.LineColor"
-Value="{StaticResource ErrorColor}" />
-                    </DataTrigger>
-                </Entry.Triggers>
-            </Entry>
+                            <Setter Property="behaviors:LineColorBehavior.LineColor"
+                            Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
 
-            <Button
+                <controls:ContentCard  Header ="Tyre"
+                                   ButtonName="Select Tyre"
+                                   Command="{Binding SelectTyreCommand}" />
+                <StackLayout IsVisible="{Binding Order.Make,
+                                                Converter={StaticResource StringNullOrEmptyBoolConverter}}">
+                    <Label Text="{Binding Order.Make}" />
+                    <Label Text="{Binding Order.Model}" />
+                    <Label Text="{Binding Order.Year}" />
+                    <Label Text="{Binding Order.Trim}" />
+                    <Label Text="{Binding Order.Tyre}" />
+                </StackLayout>
+
+                <controls:ContentCard  Header ="Address"
+                                   ButtonName="Select Address"
+                                   Command="{Binding Button1Command}" />
+                <StackLayout IsVisible="{Binding Address.Street,
+                                                Converter={StaticResource StringNullOrEmptyBoolConverter}}">
+                    <Label Text="{Binding Address.Street}" />
+                    <Label Text="{Binding Address.City}" />
+                    <Label Text="{Binding Address.Postcode}" />
+                    <Label Text="{Binding Address.PhoneNumber}" />
+                </StackLayout>
+
+                <Button
                 Command="{Binding SubmitOrderCommand}"
                 Text="Submit" />
-        </StackLayout>
+
+                <ActivityIndicator
+                Color="{StaticResource PrimaryDark}"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                    <ActivityIndicator.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS, Android" Value="100" />
+                            <On Platform="UWP, WinRT, WinPhone" Value="400" />
+                        </OnPlatform>
+                    </ActivityIndicator.WidthRequest>
+                </ActivityIndicator>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </views:MvxContentPage>
