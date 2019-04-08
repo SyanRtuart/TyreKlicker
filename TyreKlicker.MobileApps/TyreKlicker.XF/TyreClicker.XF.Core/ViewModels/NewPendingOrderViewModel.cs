@@ -66,7 +66,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand SelectTyreCommand => new MvxAsyncCommand(async () => await NavigateToSelectTyrePage());
+        public IMvxAsyncCommand SelectTyreCommand => new MvxAsyncCommand(async () => await NavigateToSelectTyrePageAsync());
 
         public IMvxCommand ValidateRegistrationCommand => new MvxCommand(() => ValidateRegistration());
 
@@ -84,9 +84,10 @@ namespace TyreKlicker.XF.Core.ViewModels
             await _orderService.CreateNewPendingOrder(Settings.AccessToken, _order);
         }
 
-        private async Task NavigateToSelectTyrePage()
+        private async Task NavigateToSelectTyrePageAsync()
         {
-            Order = await NavigationService.Navigate<SelectVehicalViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
+            IsBusy = true;
+            //Order = await NavigationService.Navigate<SelectVehicalViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
         }
 
         private bool ValidateRegistration()
