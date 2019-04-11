@@ -21,11 +21,12 @@
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <StackLayout Grid.Row="0">
+
+                <controls:ContentCard
+                    Header ="Registration" />
                 <StackLayout
                     Margin="24,0,24,0">
-                    <Label
-                    Text="Registration"
-                    Style="{StaticResource HeaderLabelStyle}" />
+
                     <Entry Text="{Binding Registration.Value, Mode=TwoWay}">
                         <Entry.Style>
                             <OnPlatform x:TypeArguments="Style">
@@ -55,7 +56,8 @@
                 <controls:ContentCard
                        Header ="Tyre"
                        ButtonName="Select Tyre"
-                       Command="{Binding SelectTyreCommand}" />
+                       Command="{Binding SelectTyreCommand}"
+                       ButtonVisible="True" />
                 <StackLayout
                         IsVisible="{Binding Order.Make,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
@@ -65,9 +67,10 @@
                 <controls:ContentCard
                         Header ="Address"
                         ButtonName="Select Address"
-                        Command="{Binding SelectAddressCommand}" />
+                        Command="{Binding SelectAddressCommand}"
+                        ButtonVisible="True" />
                 <StackLayout
-                        Margin="24"
+                        Margin="24,0,24,0"
                         IsVisible="{Binding Address.Street,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
                     <Label Text="{Binding Address.Street}" />
@@ -75,6 +78,18 @@
                     <Label Text="{Binding Address.Postcode}" />
                     <Label Text="{Binding Address.PhoneNumber}" />
                 </StackLayout>
+
+                <controls:ContentCard
+                    Header ="Extra Info" />
+
+                <Editor Margin="24,0,24,0"
+                    HeightRequest="50"></Editor>
+
+                <controls:ContentCard
+                    Header ="Availability"
+                    ButtonName="Select Availability"
+                    Command="{Binding SelectAvailabilityCommand}"
+                    ButtonVisible="True" />
             </StackLayout>
 
             <Grid Grid.Row="1">

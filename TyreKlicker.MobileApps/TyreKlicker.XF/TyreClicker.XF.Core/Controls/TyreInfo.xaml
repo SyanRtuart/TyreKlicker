@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TyreKlicker.XF.Core.Controls.TyreInfo">
     <ContentView.Content>
-        <StackLayout Margin="24">
+        <StackLayout Margin="24,0,24,0">
             <Label Text="{Binding Order.Make}" />
             <Label Text="{Binding Order.Model}" />
             <Label Text="{Binding Order.Year}" />

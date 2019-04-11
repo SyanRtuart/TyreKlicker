@@ -1,21 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MvxContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              x:Class="TyreKlicker.XF.Core.Controls.ContentCard">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
         <StackLayout BackgroundColor="{StaticResource Primary}" Orientation="Horizontal">
             <Label x:Name="CardHeader"
-                    Text="{Binding Header}"
+                   Text="{Binding Header}"
                    TextColor="{StaticResource LightTextColor}"
                    FontSize="Large" Margin="10,0,0,0" />
 
             <Button x:Name="CardButton"
                     Text="{Binding ButtonName}"
                     Command="{Binding Command}"
+                    IsVisible="{Binding ButtonVisible}"
                     HorizontalOptions="EndAndExpand"
                     BackgroundColor="{StaticResource PrimaryDark}"
                     CornerRadius="50"
                     Scale="0.7" />
         </StackLayout>
     </ContentView.Content>
-</ContentView>
+</views:MvxContentView>

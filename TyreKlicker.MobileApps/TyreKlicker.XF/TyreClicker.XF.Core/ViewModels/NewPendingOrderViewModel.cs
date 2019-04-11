@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
@@ -70,6 +71,8 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxAsyncCommand SelectAddressCommand => new MvxAsyncCommand(async () => await NavigateToSelectAddressPageAsync());
 
+        public IMvxAsyncCommand SelectAvailabilityCommand => new MvxAsyncCommand(async () => await NavigateToSelectSelectAvailabilityAsync());
+
         public IMvxCommand ValidateRegistrationCommand => new MvxCommand(() => ValidateRegistration());
 
         public IMvxAsyncCommand SubmitOrderCommand => new MvxAsyncCommand(async () => await SubmitOrderAsync());
@@ -91,6 +94,11 @@ namespace TyreKlicker.XF.Core.ViewModels
         private async Task NavigateToSelectTyrePageAsync()
         {
             Order = await NavigationService.Navigate<SelectVehicalViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
+        }
+
+        private async Task NavigateToSelectSelectAvailabilityAsync()
+        {
+            throw new NotImplementedException();
         }
 
         private async Task NavigateToSelectAddressPageAsync()
