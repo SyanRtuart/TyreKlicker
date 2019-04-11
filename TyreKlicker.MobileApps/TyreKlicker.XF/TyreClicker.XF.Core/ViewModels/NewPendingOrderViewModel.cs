@@ -95,7 +95,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task NavigateToSelectAddressPageAsync()
         {
-            Address = await NavigationService.Navigate<SelectAddressViewModel, Address, Address>(_address);
+            Address = await NavigationService.Navigate<SelectAddressViewModel, Address, Address>(new Address());
         }
 
         private bool ValidateRegistration()

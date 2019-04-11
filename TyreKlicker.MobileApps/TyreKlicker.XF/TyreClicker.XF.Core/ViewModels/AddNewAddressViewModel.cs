@@ -9,7 +9,7 @@ using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
-    public class AddNewAddressViewModel : MvxNavigationViewModel
+    public class AddressViewModel : MvxNavigationViewModel<Address>
     {
         private readonly IAddressService _addressService;
 
@@ -19,7 +19,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         private ValidatableObject<string> _phoneNumber;
         private bool _primaryAddress;
 
-        public AddNewAddressViewModel(
+        public AddressViewModel(
             IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
             IAddressService addressService)
@@ -85,9 +85,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand SubmitCommand => new MvxAsyncCommand(async () => await SubmitAsync());
+        public IMvxAsyncCommand SaveCommand => new MvxAsyncCommand(async () => await SaveAsync());
 
-        private async Task SubmitAsync()
+        private async Task SaveAsync()
         {
             IsBusy = true;
 
@@ -133,6 +133,15 @@ namespace TyreKlicker.XF.Core.ViewModels
             _city.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A city is required." });
             _phoneNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A phone number is required." });
             _postCode.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A post code is required." });
+        }
+
+        public override void Prepare(Address address)
+        {
+            Street.Value = address.Street;
+            City.Value = address.City;
+            PhoneNumber.Value = address.PhoneNumber;
+            PostCode.Value = address.Postcode;
+            PrimaryAddress = address.PrimaryAddress;
         }
     }
 }

@@ -68,6 +68,9 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>AppResources.resx</DependentUpon>
         </Compile>
+        <Compile Update="Views\Address\AddressPage.xaml.cs">
+          <DependentUpon>AddressPage.xaml</DependentUpon>
+        </Compile>
         <Compile Update="Views\NavigationDrawer\SplitDetailPage.xaml.cs">
           <DependentUpon>SplitDetailPage.xaml</DependentUpon>
         </Compile>
@@ -79,7 +82,10 @@
         <EmbeddedResource Update="Controls\ContentCard.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Views\Address\AddAddressPage.xaml">
+        <EmbeddedResource Update="Controls\TyreInfo.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\Address\AddressPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="Views\PendingOrders\NewPendingOrderPage.xaml">

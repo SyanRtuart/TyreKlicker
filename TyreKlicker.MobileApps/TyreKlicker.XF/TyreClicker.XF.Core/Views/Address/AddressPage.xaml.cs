@@ -3,9 +3,9 @@
 namespace TyreKlicker.XF.Core.Views.Address
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddAddressPage
+    public partial class AddressPage
     {
-        public AddAddressPage()
+        public AddressPage()
         {
             InitializeComponent();
         }

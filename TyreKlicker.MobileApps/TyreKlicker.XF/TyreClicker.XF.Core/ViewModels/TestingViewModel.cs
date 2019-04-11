@@ -16,6 +16,18 @@ namespace TyreKlicker.XF.Core.ViewModels
         private readonly ITyreService _tyreService;
         private readonly IAddressService _addressService;
 
+        private Address _address;
+
+        public Address Address
+        {
+            get => _address;
+            set
+            {
+                _address = value;
+                RaisePropertyChanged(() => Address);
+            }
+        }
+
         public TestingViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
             ITyreService tyreService, IAddressService addressService)
@@ -29,6 +41,16 @@ namespace TyreKlicker.XF.Core.ViewModels
             Button4Command = new MvxAsyncCommand(async () => await Button4Execute());
             Button5Command = new MvxAsyncCommand(async () => await Button5Execute());
             Button6Command = new MvxAsyncCommand(async () => await Button6Execute());
+
+            Address = new Address
+            {
+                UserId = Guid.NewGuid(),
+                PrimaryAddress = true,
+                Postcode = "G23 5HU",
+                Street = "Smith Street",
+                City = "Large City",
+                PhoneNumber = "115151"
+            };
         }
 
         private async Task Button1Execute()

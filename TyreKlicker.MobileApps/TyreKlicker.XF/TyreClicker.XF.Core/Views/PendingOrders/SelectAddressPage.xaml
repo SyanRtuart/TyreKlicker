@@ -13,7 +13,7 @@
             <controls:ContentCard
                 Header ="Address List"
                 ButtonName="Add Address"
-                Command="{Binding NavigateToAddNewAddessCommand}" />
+                Command="{Binding NavigateToAddNewAddressCommand}" />
             <ListView
                 ItemsSource="{Binding Addresses}"
                 HasUnevenRows="True"
@@ -24,7 +24,7 @@
                     <behaviors:EventToCommandBehavior
                         EventName="ItemTapped"
                         Converter="{StaticResource ItemTappedEventArgsConverter}"
-                        Command="{Binding NavigateToAddressDetailsCommand}" />
+                        Command="{Binding SelectAddressCommand}" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>

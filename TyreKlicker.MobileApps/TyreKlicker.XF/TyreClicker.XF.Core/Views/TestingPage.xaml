@@ -7,13 +7,10 @@
     <ContentPage.Content>
         <StackLayout>
             <controls:ContentCard  Header ="Address" ButtonName="Add Address" Command="{Binding Button1Command}"></controls:ContentCard>
-            <Label Text="28 Myres Road"></Label>
-            <Label Text="I liv here"></Label>
 
-            <controls:ContentCard  Header ="Car"></controls:ContentCard>
-            <Label Text="Audi a4"></Label>
-            <Label Text="Black eidition"></Label>
-            <Label Text="g53 5hy"></Label>
+            <controls:ContentCard></controls:ContentCard>
+
+            <controls:AddressInfo Address="{Binding Address}"></controls:AddressInfo>
 
             <Button Text="1" Command="{Binding Button1Command}" ></Button>
             <Button Text="2" Command="{Binding Button2Command}" ></Button>

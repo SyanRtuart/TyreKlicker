@@ -33,18 +33,18 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand NavigateToAddressDetailsCommand => new MvxAsyncCommand(async () => await NavigateToAddressDetailsAsync());
+        public IMvxAsyncCommand<Address> SelectAddressCommand => new MvxAsyncCommand<Address>(async (address) => await SelectAddressAsync(address));
 
-        public IMvxAsyncCommand NavigateToAddNewAddessCommand => new MvxAsyncCommand(async () => await NavigateToAddNewAddessAsync());
+        public IMvxAsyncCommand NavigateToAddNewAddressCommand => new MvxAsyncCommand(async () => await NavigateToAddNewAddressAsync());
 
-        private async Task NavigateToAddNewAddessAsync()
+        private async Task NavigateToAddNewAddressAsync()
         {
-            await NavigationService.Navigate<AddNewAddressViewModel>();
+            await NavigationService.Navigate<AddressViewModel>();
         }
 
-        private async Task NavigateToAddressDetailsAsync()
+        private async Task SelectAddressAsync(Address address)
         {
-            throw new System.NotImplementedException();
+            await NavigationService.Close(this, address);
         }
 
         public override async Task Initialize()

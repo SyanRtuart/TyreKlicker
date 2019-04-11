@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TyreKlicker.XF.Core.Controls.TyreInfo">
+    <ContentView.Content>
+        <StackLayout Margin="24">
+            <Label Text="{Binding Order.Make}" />
+            <Label Text="{Binding Order.Model}" />
+            <Label Text="{Binding Order.Year}" />
+            <Label Text="{Binding Order.Trim}" />
+            <Label Text="{Binding Order.Tyre}" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
