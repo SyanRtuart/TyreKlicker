@@ -49,7 +49,7 @@
                         </Entry.Triggers>
                     </Entry>
                     <Label
-                    Text="{Binding Registration.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                    Text="{Binding Registration.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                     Style="{StaticResource ValidationErrorLabelStyle}" />
                 </StackLayout>
 

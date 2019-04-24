@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage
+            x:TypeArguments="viewModels:SelectAvailabilityViewModel"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+             xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
+             x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAvailabilityPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"
+                         HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="Center"
+                         BackgroundColor="Aqua">
+                <Label Text="Select your availability"
+                       HorizontalTextAlignment="Center" />
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Grid.Row="1" BackgroundColor="Aqua">
+
+                    <controls:HVScrollGridView ListOrientation="Horizontal"
+                                            ItemsSource="{Binding Addresses}"
+                                            Grid.Row="3"
+                                            VerticalOptions="Start">
+                        <controls:HVScrollGridView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                    <ContentView.Content>
+                                        <StackLayout WidthRequest="100">
+
+                                            <Label Text="{Binding City}"
+                                                   LineBreakMode="MiddleTruncation"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center" />
+                                        </StackLayout>
+                                    </ContentView.Content>
+                                </ContentView>
+                            </DataTemplate>
+                        </controls:HVScrollGridView.ItemTemplate>
+                    </controls:HVScrollGridView>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</views:MvxContentPage>

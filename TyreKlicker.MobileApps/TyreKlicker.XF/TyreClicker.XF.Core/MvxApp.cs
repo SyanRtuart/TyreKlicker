@@ -9,6 +9,7 @@ using TyreKlicker.XF.Core.Services.AuthenticationService;
 using TyreKlicker.XF.Core.Services.RequestProvider;
 using TyreKlicker.XF.Core.Services.User;
 using TyreKlicker.XF.Core.ViewModels;
+using TyreKlicker.XF.Core.Views;
 
 namespace TyreKlicker.XF.Core
 {

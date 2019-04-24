@@ -103,6 +103,9 @@
         <EmbeddedResource Update="Views\PendingOrders\SelectAddressPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
+        <EmbeddedResource Update="Views\PendingOrders\SelectAvailabilityPage.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
         <EmbeddedResource Update="Views\PendingOrders\SelectVehicalPage.xaml">
           <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>

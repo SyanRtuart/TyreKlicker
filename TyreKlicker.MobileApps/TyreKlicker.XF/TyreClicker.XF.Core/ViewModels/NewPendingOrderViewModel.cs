@@ -98,7 +98,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task NavigateToSelectSelectAvailabilityAsync()
         {
-            throw new NotImplementedException();
+            Order = await NavigationService.Navigate<SelectAvailabilityViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
         }
 
         private async Task NavigateToSelectAddressPageAsync()
