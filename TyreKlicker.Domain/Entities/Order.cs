@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TyreKlicker.Domain.Entities
 {
@@ -21,6 +22,8 @@ namespace TyreKlicker.Domain.Entities
         public string Trim { get; set; }
 
         public string Tyre { get; set; }
+
+        public IEnumerable<Availability> Availability { get; set; }
 
         public bool Complete { get; set; }
 
