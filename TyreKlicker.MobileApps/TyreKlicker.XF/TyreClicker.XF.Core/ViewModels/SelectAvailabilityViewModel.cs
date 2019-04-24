@@ -1,56 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using MvvmCross.Logging;
+﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using TyreKlicker.XF.Core.Models.Address;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Models.Order;
+using TyreKlicker.XF.Core.Services.Availability;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
     public class SelectAvailabilityViewModel : MvxNavigationViewModel<CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>
     {
         private CreateNewPendingOrderCommand _order;
+        private IAvailabilityService _availabilityService;
 
-        private List<Address> _addresses;
+        private IEnumerable<Availability> _next2Weeks;
 
-        public List<Address> Addresses
+        public IEnumerable<Availability> Next2Weeks
         {
-            get { return _addresses; }
+            get { return _next2Weeks; }
             set
             {
-                _addresses = value;
+                _next2Weeks = value;
                 RaisePropertyChanged();
             }
         }
 
-
         public SelectAvailabilityViewModel(
-            IMvxLogProvider logProvider, 
-            IMvxNavigationService navigationService) : base(logProvider, navigationService)
+            IMvxLogProvider logProvider,
+            IMvxNavigationService navigationService, IAvailabilityService availabilityService) : base(logProvider, navigationService)
         {
+            _availabilityService = availabilityService;
         }
 
         public override void Prepare(CreateNewPendingOrderCommand order)
         {
             _order = order;
-
-         
         }
 
         public override async Task Initialize()
         {
             await base.Initialize();
-            Addresses = new List<Address>();
-            for (int i = 0; i < 15; i++)
-            {
-                Addresses.Add(new Address
-                {
-                    City = $"City{i}"
-                });
-            }
+            Next2Weeks = _availabilityService.GetNext2Weeks();
         }
     }
 }
