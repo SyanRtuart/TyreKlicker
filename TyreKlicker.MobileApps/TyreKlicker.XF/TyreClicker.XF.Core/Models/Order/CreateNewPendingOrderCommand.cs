@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TyreKlicker.XF.Core.Models.Order
 {
@@ -7,6 +8,7 @@ namespace TyreKlicker.XF.Core.Models.Order
         public CreateNewPendingOrderCommand(Guid createdByUserId)
         {
             CreatedByUserId = createdByUserId;
+            Availability = new List<Availability>();
         }
 
         public Guid CreatedByUserId { get; set; }
@@ -17,5 +19,6 @@ namespace TyreKlicker.XF.Core.Models.Order
         public string Year { get; set; }
         public string Trim { get; set; }
         public string Tyre { get; set; }
+        public List<Availability> Availability { get; set; }
     }
 }

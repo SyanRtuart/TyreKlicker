@@ -3,9 +3,17 @@
     "comment" : "This file is used to help set default values when using the dotnet CLI extension Amazon.ElasticBeanstalk.Tools. For more information run \"dotnet eb --help\" from the project root.",
     "profile" : "RyanStuart",
     "region"  : "eu-west-2",
-    "application" : "TyreKlickerApp",
-    "environment" : "Tyreklickerapp-env",
+    "application" : "TyreKlickerAPI",
+    "environment" : "TyreKlickerAPI-dev",
     "iis-website" : "Default Web Site",
     "app-path"    : "/",
-    "enable-xray" : false
+    "enable-xray" : false,
+    "cname"       : "tyreklickerapi-dev",
+    "solution-stack" : "64bit Windows Server 2016 v2.0.2 running IIS 10.0",
+    "environment-type" : "SingleInstance",
+    "instance-profile" : "aws-elasticbeanstalk-ec2-role",
+    "service-role"     : "aws-elasticbeanstalk-service-role",
+    "health-check-url" : "/",
+    "instance-type"    : "t2.micro",
+    "key-pair"         : "TyreKlicker"
 }

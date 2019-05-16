@@ -2,7 +2,7 @@
 {
     public class MustMatchRule<T> : IValidationRule<T>
     {
-        private string MustMatch { get; set; }
+        public string MustMatch { get; set; }
 
         public MustMatchRule(ValidatableObject<string> mustMatchWith)
         {

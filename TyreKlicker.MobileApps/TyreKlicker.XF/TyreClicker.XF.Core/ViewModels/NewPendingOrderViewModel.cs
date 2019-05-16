@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
@@ -19,7 +19,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private CreateNewPendingOrderCommand _order;
         private Address _address;
-
+        private ObservableCollection<Availability> _availability;
         private ValidatableObject<string> _registration;
 
         public NewPendingOrderViewModel(IMvxLogProvider logProvider,
@@ -31,7 +31,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             _addressService = addressService;
 
             _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
-
             _registration = new ValidatableObject<string>();
 
             AddValidations();
@@ -67,6 +66,16 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
+        public ObservableCollection<Availability> Availability
+        {
+            get { return _availability; }
+            set
+            {
+                _availability = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public IMvxAsyncCommand SelectTyreCommand => new MvxAsyncCommand(async () => await NavigateToSelectTyrePageAsync());
 
         public IMvxAsyncCommand SelectAddressCommand => new MvxAsyncCommand(async () => await NavigateToSelectAddressPageAsync());
@@ -80,8 +89,14 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-            Address = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken,
-                GlobalSetting.Instance.CurrentLoggedInUserId);
+            try
+            {
+                Address = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken,
+                    GlobalSetting.Instance.CurrentLoggedInUserId);
+            }
+            catch
+            {
+            }
         }
 
         private async Task SubmitOrderAsync()
@@ -93,12 +108,13 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task NavigateToSelectTyrePageAsync()
         {
+            //ToDo Fix by using an actual object and not the whole order
             Order = await NavigationService.Navigate<SelectVehicalViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
         }
 
         private async Task NavigateToSelectSelectAvailabilityAsync()
         {
-            Order = await NavigationService.Navigate<SelectAvailabilityViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
+            Availability = await NavigationService.Navigate<SelectAvailabilityViewModel, ObservableCollection<Availability>, ObservableCollection<Availability>>(new ObservableCollection<Availability>());
         }
 
         private async Task NavigateToSelectAddressPageAsync()

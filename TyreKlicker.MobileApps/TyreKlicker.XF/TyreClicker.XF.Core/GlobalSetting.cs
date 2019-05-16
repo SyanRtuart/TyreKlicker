@@ -7,6 +7,7 @@ namespace TyreKlicker.XF.Core
     public class GlobalSetting
     {
         public const string DefaultEndpoint = "http://192.168.0.6:45455";
+        //public const string DefaultEndpoint = "http://tyreklickerapi-dev.eu-west-2.elasticbeanstalk.com";
 
         private string _baseIdentityEndpoint;
 

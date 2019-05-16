@@ -6,39 +6,58 @@
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
              xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
              x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAvailabilityPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="TimeSlotListStyle"
+                   TargetType="{x:Type ListView}">
+                <Setter Property="Margin"
+                        Value="20" />
+            </Style>
+
+            <Style x:Key="AvailabilityLabelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="LineBreakMode"
+                        Value="MiddleTruncation" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="0"
                          HorizontalOptions="CenterAndExpand"
-                         VerticalOptions="Center"
-                         BackgroundColor="Aqua">
-                <Label Text="Select your availability"
+                         VerticalOptions="Center">
+                <Label Text="Select your availability &#x0a; (Please select all available times)"
                        HorizontalTextAlignment="Center" />
             </StackLayout>
             <ScrollView Grid.Row="1">
-                <StackLayout Grid.Row="1" BackgroundColor="Aqua">
-
+                <StackLayout>
                     <controls:HVScrollGridView ListOrientation="Horizontal"
-                                            ItemsSource="{Binding Addresses}"
-                                            Grid.Row="3"
-                                            VerticalOptions="Start">
+                                               ItemsSource="{Binding Next2Weeks}"
+                                               VerticalOptions="Start"
+                                               SelectedCommand="{Binding ItemSelectedCommand}">
                         <controls:HVScrollGridView.ItemTemplate>
                             <DataTemplate>
                                 <ContentView>
                                     <ContentView.Content>
                                         <StackLayout WidthRequest="100">
-
-                                            <Label Text="{Binding City}"
-                                                   LineBreakMode="MiddleTruncation"
-                                                   HorizontalTextAlignment="Center"
-                                                   VerticalTextAlignment="Center" />
+                                            <Label Text="{Binding Start.DayOfWeek}"
+                                                   Style="{StaticResource AvailabilityLabelStyle}" />
+                                            <Label Text="{Binding Start.Date.Day}"
+                                                   Style="{StaticResource AvailabilityLabelStyle}" />
                                         </StackLayout>
                                     </ContentView.Content>
                                 </ContentView>
@@ -47,6 +66,42 @@
                     </controls:HVScrollGridView>
                 </StackLayout>
             </ScrollView>
+
+            <StackLayout Grid.Row="2">
+                <ListView ItemsSource="{Binding SelectedAvailability.TimeSlots}"
+                          ItemTapped="ListView_OnItemTapped"
+                          Style="{StaticResource TimeSlotListStyle}"
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True">
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="ItemTapped"
+                            Command="{Binding TimeSlotSelectedCommand}"
+                            Converter="{StaticResource ItemTappedEventArgsConverter}" />
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout HorizontalOptions="Center"
+                                                 Orientation="Horizontal">
+                                        <Label Text="{Binding TimeSlotString}"
+                                               VerticalTextAlignment="Center"
+                                               FontSize="{StaticResource LargeSize}" />
+                                    </StackLayout>
+                                    <Switch IsToggled="{Binding IsSelected}" Grid.Column="1" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Text="Ok"
+                        Command="{Binding OkCommand}" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </views:MvxContentPage>

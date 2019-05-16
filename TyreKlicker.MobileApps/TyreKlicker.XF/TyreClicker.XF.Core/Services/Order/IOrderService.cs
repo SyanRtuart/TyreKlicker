@@ -11,7 +11,7 @@ namespace TyreKlicker.XF.Core.Services.Order
 
         Task<ObservableCollection<Models.Order.Order>> GetOrders(string token, Guid userId);
 
-        Task<Models.Order.Order> GetOrder(string token, Guid OrderId);
+        Task<Models.Order.Order> GetOrder(string token, Guid orderId);
 
         Task<AcceptOrderCommand> AcceptOrder(string token, AcceptOrderCommand command);
 

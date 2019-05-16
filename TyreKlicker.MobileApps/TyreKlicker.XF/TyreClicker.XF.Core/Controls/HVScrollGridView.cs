@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -86,7 +85,7 @@ namespace TyreKlicker.XF.Core.Controls
             _innerSelectedCommand = new Command<View>(view =>
             {
                 SelectedItem = view.BindingContext;
-                SelectedItem = null; // Allowing item second time selection
+                //SelectedItem = null; // Allowing item second time selection
             });
 
             _itemsStackLayout.Orientation = ListOrientation;

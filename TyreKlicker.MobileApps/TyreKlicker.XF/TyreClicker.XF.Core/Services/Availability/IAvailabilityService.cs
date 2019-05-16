@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace TyreKlicker.XF.Core.Services.Availability
 {
     public interface IAvailabilityService
     {
-        IEnumerable<Models.Availability.Availability> GetNext2Weeks();
+        ObservableCollection<Models.Order.Availability> GetNext2Weeks();
     }
 }

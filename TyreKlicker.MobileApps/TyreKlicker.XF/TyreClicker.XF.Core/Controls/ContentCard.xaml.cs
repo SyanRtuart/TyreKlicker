@@ -9,10 +9,10 @@ namespace TyreKlicker.XF.Core.Controls
     public partial class ContentCard : MvxContentView
     {
         public static readonly BindableProperty HeaderProperty =
-            BindableProperty.Create("Header", typeof(string), typeof(ContentCard));
+            BindableProperty.Create(nameof(Header), typeof(string), typeof(ContentCard));
 
         public static readonly BindableProperty ButtonNameProperty =
-            BindableProperty.Create("ButtonName", typeof(string), typeof(ContentCard));
+            BindableProperty.Create(nameof(ButtonName), typeof(string), typeof(ContentCard));
 
         public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(IMvxAsyncCommand), typeof(ContentCard), null);

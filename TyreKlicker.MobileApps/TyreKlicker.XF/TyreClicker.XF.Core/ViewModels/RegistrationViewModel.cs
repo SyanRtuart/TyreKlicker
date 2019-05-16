@@ -38,11 +38,11 @@ namespace TyreKlicker.XF.Core.ViewModels
             _firstName = new ValidatableObject<string>();
             _lastName = new ValidatableObject<string>();
 
-            _email.Value = "Test@Test.co.uk";
-            _password.Value = "Test123!";
-            _confirmPassword.Value = "Test123!";
-            _firstName.Value = "Test1";
-            _lastName.Value = "23232323";
+            _email.Value = "ryan@theinternet.com";
+            //_password.Value = "Test123!";
+            //_confirmPassword.Value = "Test123!";
+            _firstName.Value = "Ryan";
+            _lastName.Value = "Stuart";
 
             AddValidations();
         }
@@ -177,7 +177,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             //ToDo add password & email Validators
             _email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "An email is required." });
             _password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
-            _confirmPassword.Validations.Add(new MustMatchRule<string>(_password) { ValidationMessage = "password must match" });
+            // _confirmPassword.Validations.Add(new MustMatchRule<string>(_password) { ValidationMessage = "password must match" });
             _firstName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A first name is required." });
             _lastName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A last name is required." });
         }

@@ -4,20 +4,18 @@
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
              x:Class="TyreKlicker.XF.Core.Views.TestingPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <controls:ContentCard  Header ="Address" ButtonName="Add Address" Command="{Binding Button1Command}"></controls:ContentCard>
+  <ContentPage.Content>
+    <StackLayout>
+      <controls:ContentCard  Header ="Address" ButtonName="Add Address" Command="{Binding Button1Command}"></controls:ContentCard>
 
-            <controls:ContentCard></controls:ContentCard>
+      <controls:ContentCard></controls:ContentCard>
 
-            <controls:AddressInfo Address="{Binding Address}"></controls:AddressInfo>
-
-            <Button Text="1" Command="{Binding Button1Command}" ></Button>
-            <Button Text="2" Command="{Binding Button2Command}" ></Button>
-            <Button Text="3" Command="{Binding Button3Command}" ></Button>
-            <Button Text="4" Command="{Binding Button4Command}" ></Button>
-            <Button Text="5" Command="{Binding Button5Command}" ></Button>
-            <Button Text="6" Command="{Binding Button6Command}" ></Button>
-        </StackLayout>
-    </ContentPage.Content>
+      <Button Text="1" Command="{Binding Button1Command}" ></Button>
+      <Button Text="2" Command="{Binding Button2Command}" ></Button>
+      <Button Text="3" Command="{Binding Button3Command}" ></Button>
+      <Button Text="4" Command="{Binding Button4Command}" ></Button>
+      <Button Text="5" Command="{Binding Button5Command}" ></Button>
+      <Button Text="6" Command="{Binding Button6Command}" ></Button>
+    </StackLayout>
+  </ContentPage.Content>
 </views:MvxContentPage>

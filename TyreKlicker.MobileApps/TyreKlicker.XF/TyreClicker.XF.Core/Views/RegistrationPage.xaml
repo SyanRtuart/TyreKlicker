@@ -86,7 +86,6 @@
                     </DataTrigger>
                 </Entry.Triggers>
             </Entry>
-
             <Label
                 Text="{Binding ConfirmPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                 Style="{StaticResource ValidationErrorLabelStyle}" />

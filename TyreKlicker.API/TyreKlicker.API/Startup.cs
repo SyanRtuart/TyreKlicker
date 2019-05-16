@@ -50,7 +50,7 @@ namespace TyreKlicker.API
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddMediatR(typeof(Application.Order.Queries.GetAllOrders.GetAllOrdersQuery).GetTypeInfo().Assembly);
 
-            // Add DbContext using SQL Server Provider
+            //// Add DbContext using SQL Server Provider
             services.AddDbContext<TyreKlickerDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TyreKlicker.Persistence")));
 

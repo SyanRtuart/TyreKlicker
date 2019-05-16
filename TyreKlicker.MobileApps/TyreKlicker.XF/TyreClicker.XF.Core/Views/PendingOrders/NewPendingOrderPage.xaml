@@ -81,7 +81,6 @@
 
                 <controls:ContentCard
                     Header ="Extra Info" />
-
                 <Editor Margin="24,0,24,0"
                     HeightRequest="50"></Editor>
 
@@ -90,6 +89,45 @@
                     ButtonName="Select Availability"
                     Command="{Binding SelectAvailabilityCommand}"
                     ButtonVisible="True" />
+
+                <ListView ItemsSource="{Binding Availability,Converter={StaticResource AvailabilityConverter}}"
+                          HasUnevenRows="True"
+                          SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <ScrollView>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}"></Label>
+
+                                            <!--<Label Text="{Binding Start.DayOfWeek}" />
+                                            <Label Text="{Binding Start, StringFormat='{0:MMMM dd, HH:mm:ss}'}" />
+
+                                            <Label Text=" - "></Label>
+                                            <Label Text="{Binding Finish, StringFormat='{0:HH:mm:ss}'}" />-->
+                                        </StackLayout>
+                                    </ScrollView>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!--<controls:AvailabilityInfo ItemsSource="{Binding Availability}">
+                    <controls:AvailabilityInfo.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <ContentView.Content>
+                                    <StackLayout>
+                                        <Label Text="{Binding DateTime.TimeOfDay}" />
+                                        <Label Text="{Binding DateTime.Date}" />
+                                    </StackLayout>
+                                </ContentView.Content>
+                            </ContentView>
+                        </DataTemplate>
+                    </controls:AvailabilityInfo.ItemTemplate>
+                </controls:AvailabilityInfo>-->
             </StackLayout>
 
             <Grid Grid.Row="1">

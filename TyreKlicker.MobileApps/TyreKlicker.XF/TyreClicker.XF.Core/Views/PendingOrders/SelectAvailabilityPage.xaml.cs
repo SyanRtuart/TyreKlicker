@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MvvmCross.Forms.Views;
-using TyreKlicker.XF.Core.Models.Order;
-using TyreKlicker.XF.Core.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TyreKlicker.XF.Core.Views.PendingOrders
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SelectAvailabilityPage 
+    public partial class SelectAvailabilityPage
     {
         public SelectAvailabilityPage()
         {
             InitializeComponent();
+        }
+
+        private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null) return;
+
+            // Deselect the item.
+            if (sender is ListView lv) lv.SelectedItem = null;
         }
     }
 }
