@@ -30,6 +30,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             _orderService = orderService;
             _addressService = addressService;
 
+            _address = new Address();
             _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
             _registration = new ValidatableObject<string>();
 

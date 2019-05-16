@@ -56,7 +56,7 @@ namespace TyreKlicker.XF.Core.Services.Address
             }
             catch (HttpResponseEx ex) when (ex.HttpCode == System.Net.HttpStatusCode.NotFound)
             {
-                address = null;
+                address = new Models.Address.Address();
             }
 
             return address;

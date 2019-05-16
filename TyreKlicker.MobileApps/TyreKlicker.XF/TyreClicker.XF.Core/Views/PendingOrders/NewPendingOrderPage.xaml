@@ -26,7 +26,6 @@
                     Header ="Registration" />
                 <StackLayout
                     Margin="24,0,24,0">
-
                     <Entry Text="{Binding Registration.Value, Mode=TwoWay}">
                         <Entry.Style>
                             <OnPlatform x:TypeArguments="Style">
@@ -35,22 +34,22 @@
                         </Entry.Style>
                         <Entry.Behaviors>
                             <behaviors:EventToCommandBehavior
-                        EventName="TextChanged"
-                        Command="{Binding ValidateRegistrationCommand}" />
+                                EventName="TextChanged"
+                                Command="{Binding ValidateRegistrationCommand}" />
                         </Entry.Behaviors>
                         <Entry.Triggers>
                             <DataTrigger
-                        TargetType="Entry"
-                        Binding="{Binding Registration.IsValid}"
-                        Value="False">
+                                TargetType="Entry"
+                                Binding="{Binding Registration.IsValid}"
+                                Value="False">
                                 <Setter Property="behaviors:LineColorBehavior.LineColor"
-                            Value="{StaticResource ErrorColor}" />
+                                        Value="{StaticResource ErrorColor}" />
                             </DataTrigger>
                         </Entry.Triggers>
                     </Entry>
                     <Label
-                    Text="{Binding Registration.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                    Style="{StaticResource ValidationErrorLabelStyle}" />
+                        Text="{Binding Registration.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        Style="{StaticResource ValidationErrorLabelStyle}" />
                 </StackLayout>
 
                 <controls:ContentCard
@@ -61,7 +60,7 @@
                 <StackLayout
                         IsVisible="{Binding Order.Make,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <controls:TyreInfo Order="{Binding Order}"></controls:TyreInfo>
+                    <controls:TyreInfo Order="{Binding Order}" />
                 </StackLayout>
 
                 <controls:ContentCard
@@ -82,31 +81,32 @@
                 <controls:ContentCard
                     Header ="Extra Info" />
                 <Editor Margin="24,0,24,0"
-                    HeightRequest="50"></Editor>
-
+                        HeightRequest="50" />
                 <controls:ContentCard
                     Header ="Availability"
                     ButtonName="Select Availability"
                     Command="{Binding SelectAvailabilityCommand}"
                     ButtonVisible="True" />
-
-                <ListView ItemsSource="{Binding Availability,Converter={StaticResource AvailabilityConverter}}"
+                <StackLayout Margin="24,0,24,0"
+                             IsVisible="{Binding Availability ,Converter={StaticResource CountToBoolConverter}}">
+                    <ListView ItemsSource="{Binding Availability,Converter={StaticResource AvailabilityConverter}}"
                           HasUnevenRows="True"
                           SeparatorVisibility="None">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <ScrollView>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}"></Label>
-                                        </StackLayout>
-                                    </ScrollView>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <ScrollView>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}" />
+                                            </StackLayout>
+                                        </ScrollView>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </StackLayout>
 
             <Grid Grid.Row="1">
