@@ -100,12 +100,6 @@
                                     <ScrollView>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}"></Label>
-
-                                            <!--<Label Text="{Binding Start.DayOfWeek}" />
-                                            <Label Text="{Binding Start, StringFormat='{0:MMMM dd, HH:mm:ss}'}" />
-
-                                            <Label Text=" - "></Label>
-                                            <Label Text="{Binding Finish, StringFormat='{0:HH:mm:ss}'}" />-->
                                         </StackLayout>
                                     </ScrollView>
                                 </ViewCell.View>
@@ -113,21 +107,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-                <!--<controls:AvailabilityInfo ItemsSource="{Binding Availability}">
-                    <controls:AvailabilityInfo.ItemTemplate>
-                        <DataTemplate>
-                            <ContentView>
-                                <ContentView.Content>
-                                    <StackLayout>
-                                        <Label Text="{Binding DateTime.TimeOfDay}" />
-                                        <Label Text="{Binding DateTime.Date}" />
-                                    </StackLayout>
-                                </ContentView.Content>
-                            </ContentView>
-                        </DataTemplate>
-                    </controls:AvailabilityInfo.ItemTemplate>
-                </controls:AvailabilityInfo>-->
             </StackLayout>
 
             <Grid Grid.Row="1">
