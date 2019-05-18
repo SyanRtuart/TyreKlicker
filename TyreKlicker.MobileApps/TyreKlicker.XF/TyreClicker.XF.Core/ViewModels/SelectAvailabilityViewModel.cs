@@ -7,17 +7,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Availability;
+using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
-    public class SelectAvailabilityViewModel : MvxNavigationViewModel<ObservableCollection<Availability>, ObservableCollection<Availability>>
+    public class SelectAvailabilityViewModel : MvxNavigationViewModel<ValidatableObject<ObservableCollection<Availability>>, ValidatableObject<ObservableCollection<Availability>>>
     {
         //private CreateNewPendingOrderCommand _order;
         private readonly IAvailabilityService _availabilityService;
 
         private ObservableCollection<Availability> _next2Weeks;
         private Availability _selectedAvailability;
-        private ObservableCollection<Availability> _availability;
+        private ObservableCollection<TimeSlot> _selectedTimeSlots;
+        private TimeSlot _selectedTimeSlot;
+        private ValidatableObject<ObservableCollection<Availability>> _availability;
 
         public ObservableCollection<Availability> Next2Weeks
         {
@@ -39,7 +42,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public ObservableCollection<Availability> Availability
+        public ValidatableObject<ObservableCollection<Availability>> Availability
         {
             get { return _availability; }
             set
@@ -54,10 +57,20 @@ namespace TyreKlicker.XF.Core.ViewModels
             IMvxNavigationService navigationService, IAvailabilityService availabilityService) : base(logProvider, navigationService)
         {
             _availabilityService = availabilityService;
+            //_availability = new ValidatableObject<ObservableCollection<Availability>>();
+            //_availability.Value = new ObservableCollection<Availability>();
+        }
+
+        private void AddValidation()
+        {
+            _availability.Validations.Add(new IsCountNotZeroRule<ObservableCollection<Availability>> { ValidationMessage = "At least 1 time slot is required." });
         }
 
         public MvxCommand<Availability> ItemSelectedCommand => new MvxCommand<Availability>(ItemSelected);
+
         public IMvxAsyncCommand OkCommand => new MvxAsyncCommand(async () => await OkAsync());
+
+        //public IMvxCommand ValidateAvailabilityCommand => new MvxCommand(() => ValidateAvailability());
 
         private async Task OkAsync()
         {
@@ -66,7 +79,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             {
                 timeSlotList.AddRange(from x in availability.TimeSlots.Where(x => x.IsSelected) select x);
             }
-
             foreach (var timeSlot in timeSlotList)
             {
                 var newAvailability = new Availability
@@ -74,20 +86,34 @@ namespace TyreKlicker.XF.Core.ViewModels
                     Start = timeSlot.Start,
                     Finish = timeSlot.Finish
                 };
-                _availability.Add(newAvailability);
+                _availability.Value.Add(newAvailability);
             }
 
+            //if (Validate())
+            //{
             await NavigationService.Close(this, _availability);
+            //}
         }
+
+        //private bool Validate()
+        //{
+        //    var isAvailabilityValid = ValidateAvailability();
+
+        //    return isAvailabilityValid;
+        //}
+
+        //private bool ValidateAvailability() => _availability.Validate();
 
         private void ItemSelected(Availability availability)
         {
             SelectedAvailability = availability;
         }
 
-        public override void Prepare(ObservableCollection<Availability> parameter)
+        public override void Prepare(ValidatableObject<ObservableCollection<Availability>> parameter)
         {
             _availability = parameter;
+
+            // AddValidation();
         }
 
         public override async Task Initialize()

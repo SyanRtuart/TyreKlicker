@@ -8,6 +8,7 @@
              xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+             xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
              x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAvailabilityPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -27,6 +28,8 @@
                 <Setter Property="VerticalTextAlignment"
                         Value="Center" />
             </Style>
+
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -69,15 +72,15 @@
 
             <StackLayout Grid.Row="2">
                 <ListView ItemsSource="{Binding SelectedAvailability.TimeSlots}"
-                          ItemTapped="ListView_OnItemTapped"
-                          Style="{StaticResource TimeSlotListStyle}"
+                          SelectedItem="{Binding SelectedTimeSlot}"
                           SeparatorVisibility="None"
                           HasUnevenRows="True">
                     <ListView.Behaviors>
                         <behaviors:EventToCommandBehavior
                             EventName="ItemTapped"
-                            Command="{Binding TimeSlotSelectedCommand}"
-                            Converter="{StaticResource ItemTappedEventArgsConverter}" />
+                            Command="{Binding ToggleTimeSlotCommand}"
+                            Converter="{StaticResource ItemTappedEventArgsConverter}">
+                        </behaviors:EventToCommandBehavior>
                     </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -93,12 +96,20 @@
                                                VerticalTextAlignment="Center"
                                                FontSize="{StaticResource LargeSize}" />
                                     </StackLayout>
-                                    <Switch IsToggled="{Binding IsSelected}" Grid.Column="1" />
+                                    <Switch IsToggled="{Binding IsSelected}" Grid.Column="1">
+                                        <Switch.Behaviors>
+                                            <behaviors:EventToCommandBehavior
+                                                EventName="Toggled"
+                                                Command="{Binding ValidateAvailabilityCommand}">
+                                            </behaviors:EventToCommandBehavior>
+                                        </Switch.Behaviors>
+                                    </Switch>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
                 <Button Text="Ok"
                         Command="{Binding OkCommand}" />
             </StackLayout>
