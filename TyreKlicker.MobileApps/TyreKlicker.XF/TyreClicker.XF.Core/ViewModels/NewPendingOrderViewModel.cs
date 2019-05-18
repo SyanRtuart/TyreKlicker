@@ -2,7 +2,6 @@
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
@@ -20,7 +19,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         private readonly IAddressService _addressService;
         private readonly IMapper _mapper;
 
-        private ValidatableObject<CreateNewPendingOrderCommand> _order;
+        private CreateNewPendingOrderCommand _order;
         private ValidatableObject<Address> _address;
         private ValidatableObject<Vehicle> _vehicle;
         private ValidatableObject<ObservableCollection<Availability>> _availability;
@@ -35,12 +34,12 @@ namespace TyreKlicker.XF.Core.ViewModels
             _addressService = addressService;
             _mapper = mapper;
 
-            _order = new ValidatableObject<CreateNewPendingOrderCommand>
-            {
-                Value = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId)
-            };
+            _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
             _address = new ValidatableObject<Address>();
-            //_vehicle = new ValidatableObject<Vehicle>();
+            _vehicle = new ValidatableObject<Vehicle>
+            {
+                Value = new Vehicle()
+            };
             _registration = new ValidatableObject<string>();
             _availability = new ValidatableObject<ObservableCollection<Availability>>
             {
@@ -70,7 +69,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public ValidatableObject<CreateNewPendingOrderCommand> Order
+        public CreateNewPendingOrderCommand Order
         {
             get => _order;
             set
@@ -145,12 +144,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task NavigateToSelectTyrePageAsync()
         {
-            Order = new CreateNewPendingOrderCommand(Guid.NewGuid())
-            {
-                Make = "rs"
-            };
-
-            //Vehicle.Value = await NavigationService.Navigate<SelectVehicalViewModel, Vehicle, Vehicle>(new Vehicle());
+            Vehicle.Value = await NavigationService.Navigate<SelectVehicalViewModel, Vehicle, Vehicle>(new Vehicle());
         }
 
         private async Task NavigateToSelectSelectAvailabilityAsync()
