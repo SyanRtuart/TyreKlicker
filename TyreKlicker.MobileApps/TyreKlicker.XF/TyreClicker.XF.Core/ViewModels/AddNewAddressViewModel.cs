@@ -9,7 +9,7 @@ using TyreKlicker.XF.Core.Validators;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
-    public class AddressViewModel : MvxNavigationViewModel<Address>
+    public class AddressViewModel : MvxNavigationViewModel<Address, Address>
     {
         private readonly IAddressService _addressService;
 
@@ -104,6 +104,15 @@ namespace TyreKlicker.XF.Core.ViewModels
                 };
 
                 await _addressService.CreateAddress(Settings.AccessToken, createAddressCommand);
+                await NavigationService.Close(this, new Address
+                {
+                    City = _city.Value,
+                    PhoneNumber = _phoneNumber.Value,
+                    UserId = GlobalSetting.Instance.CurrentLoggedInUserId,
+                    Postcode = _postCode.Value,
+                    Street = _street.Value,
+                    PrimaryAddress = PrimaryAddress
+                });
             }
 
             IsBusy = false;

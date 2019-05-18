@@ -26,6 +26,9 @@ namespace TyreKlicker.XF.Core
             //    .AsTypes()
             //    .RegisterAsLazySingleton();
 
+            //Add AutoMapper
+            Mvx.RegisterSingleton(Services.AutoMapper.MapService.ConfigureMapper());
+
             Mvx.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
             Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
             Mvx.RegisterType<IRequestProvider, RequestProvider>();

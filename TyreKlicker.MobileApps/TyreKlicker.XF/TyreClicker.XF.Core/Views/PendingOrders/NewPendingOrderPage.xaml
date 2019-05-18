@@ -58,9 +58,17 @@
                        Command="{Binding SelectTyreCommand}"
                        ButtonVisible="True" />
                 <StackLayout
-                        IsVisible="{Binding Order.Make,
+                        Margin="24,0,24,0"
+                        IsVisible="{Binding Vehicle.Value.Make,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <controls:TyreInfo Order="{Binding Order}" />
+                    <Label Text="{Binding Vehicle.Value.Make}" />
+                    <Label Text="{Binding Vehicle.Value.Model}" />
+                    <Label Text="{Binding Vehicle.Value.Year}" />
+                    <Label Text="{Binding Vehicle.Value.Trim}" />
+                    <Label Text="{Binding Vehicle.Value.Tyre}" />
+                    <Label
+                        Text="{Binding Vehicle.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        Style="{StaticResource ValidationErrorLabelStyle}" />
                 </StackLayout>
 
                 <controls:ContentCard
@@ -70,12 +78,12 @@
                         ButtonVisible="True" />
                 <StackLayout
                         Margin="24,0,24,0"
-                        IsVisible="{Binding Address.Street,
+                        IsVisible="{Binding Address.Value.Street,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <Label Text="{Binding Address.Street}" />
-                    <Label Text="{Binding Address.City}" />
-                    <Label Text="{Binding Address.Postcode}" />
-                    <Label Text="{Binding Address.PhoneNumber}" />
+                    <Label Text="{Binding Address.Value.Street}" />
+                    <Label Text="{Binding Address.Value.City}" />
+                    <Label Text="{Binding Address.Value.Postcode}" />
+                    <Label Text="{Binding Address.Value.PhoneNumber}" />
                 </StackLayout>
 
                 <controls:ContentCard
@@ -88,8 +96,8 @@
                     Command="{Binding SelectAvailabilityCommand}"
                     ButtonVisible="True" />
                 <StackLayout Margin="24,0,24,0"
-                             IsVisible="{Binding Availability ,Converter={StaticResource CountToBoolConverter}}">
-                    <ListView ItemsSource="{Binding Availability,Converter={StaticResource AvailabilityConverter}}"
+                             IsVisible="{Binding Availability.Value ,Converter={StaticResource CountToBoolConverter}}">
+                    <ListView ItemsSource="{Binding Availability.Value,Converter={StaticResource AvailabilityConverter}}"
                           HasUnevenRows="True"
                           SeparatorVisibility="None">
                         <ListView.ItemTemplate>
@@ -107,6 +115,9 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
+                <Label
+                    Text="{Binding Availability.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    Style="{StaticResource ValidationErrorLabelStyle}" />
             </StackLayout>
 
             <Grid Grid.Row="1">

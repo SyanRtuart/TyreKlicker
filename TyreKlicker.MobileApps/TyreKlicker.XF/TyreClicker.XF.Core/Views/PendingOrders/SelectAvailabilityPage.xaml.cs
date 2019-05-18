@@ -1,5 +1,4 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace TyreKlicker.XF.Core.Views.PendingOrders
 {
@@ -11,12 +10,12 @@ namespace TyreKlicker.XF.Core.Views.PendingOrders
             InitializeComponent();
         }
 
-        private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null) return;
+        //private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        //{
+        //    if (e.Item == null) return;
 
-            // Deselect the item.
-            if (sender is ListView lv) lv.SelectedItem = null;
-        }
+        //    // Deselect the item.
+        //    if (sender is ListView lv) lv.SelectedItem = null;
+        //}
     }
 }

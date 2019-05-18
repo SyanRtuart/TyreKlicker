@@ -7,39 +7,36 @@
                 xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                 xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
                 xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
-                x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAddressPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <controls:ContentCard
-                Header ="Address List"
-                ButtonName="Add Address"
-                Command="{Binding NavigateToAddNewAddressCommand}" />
-            <ListView
+                x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAddressPage"
+                Title="Select Address">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding NavigateToAddNewAddressCommand,Mode=TwoWay}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <ListView
                 ItemsSource="{Binding Addresses}"
                 HasUnevenRows="True"
                 SeparatorVisibility="Default"
                 VerticalOptions="FillAndExpand"
                 CachingStrategy="RecycleElement">
-                <ListView.Behaviors>
-                    <behaviors:EventToCommandBehavior
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior
                         EventName="ItemTapped"
                         Converter="{StaticResource ItemTappedEventArgsConverter}"
                         Command="{Binding SelectAddressCommand}" />
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Margin="24,0,0,0">
-                                <Label Text="{Binding Street}" />
-                                <Label Text="{Binding City}" />
-                                <Label Text="{Binding Postcode}" />
-                                <Label Text="{Binding PhoneNumber}" />
-                                <Label Text="{Binding PrimaryAddress}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ContentPage.Content>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="24,0,0,0">
+                            <Label Text="{Binding Street}" />
+                            <Label Text="{Binding City}" />
+                            <Label Text="{Binding Postcode}" />
+                            <Label Text="{Binding PhoneNumber}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </views:MvxContentPage>
