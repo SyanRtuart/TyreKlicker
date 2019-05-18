@@ -58,9 +58,9 @@
                        Command="{Binding SelectTyreCommand}"
                        ButtonVisible="True" />
                 <StackLayout
-                        IsVisible="{Binding Vehicle.Value.Tyre,
+                        IsVisible="{Binding Order.Make,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <controls:TyreInfo Vehicle="{Binding Vehicle.Value}" />
+                    <controls:TyreInfo Order="{Binding Order}" />
                     <Label
                         Text="{Binding Vehicle.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                         Style="{StaticResource ValidationErrorLabelStyle}" />

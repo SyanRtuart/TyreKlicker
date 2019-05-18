@@ -4,12 +4,11 @@
              x:Class="TyreKlicker.XF.Core.Controls.TyreInfo">
   <ContentView.Content>
     <StackLayout Margin="24,0,24,0">
-        <Label> rs</Label>
-      <Label Text="{Binding Vehicle.Make}" />
-      <Label Text="{Binding Vehicle.Model}" />
-      <Label Text="{Binding Vehicle.Year}" />
-      <Label Text="{Binding Vehicle.Trim}" />
-      <Label Text="{Binding Vehicle.Tyre}" />
+      <Label Text="{Binding Order.Make}" />
+      <Label Text="{Binding Order.Model}" />
+      <Label Text="{Binding Order.Year}" />
+      <Label Text="{Binding Order.Trim}" />
+      <Label Text="{Binding Order.Tyre}" />
     </StackLayout>
   </ContentView.Content>
 </ContentView>
