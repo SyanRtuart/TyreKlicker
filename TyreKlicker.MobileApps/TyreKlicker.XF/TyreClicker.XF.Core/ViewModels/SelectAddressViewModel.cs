@@ -39,7 +39,8 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task NavigateToAddNewAddressAsync()
         {
-            await NavigationService.Navigate<AddressViewModel>();
+            var address = await NavigationService.Navigate<AddressViewModel, Address, Address>(new Address());
+            Addresses.Add(address);
         }
 
         private async Task SelectAddressAsync(Address address)
