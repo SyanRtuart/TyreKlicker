@@ -7,13 +7,13 @@ namespace TyreKlicker.XF.Core.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TyreInfo : ContentView
     {
-        public static readonly BindableProperty OrderProperty =
-            BindableProperty.Create(nameof(Order), typeof(Order), typeof(TyreInfo), null);
+        public static readonly BindableProperty VehicleProperty =
+            BindableProperty.Create(nameof(Vehicle), typeof(Vehicle), typeof(TyreInfo), null);
 
-        public Order Order
+        public Vehicle Vehicle
         {
-            get { return (Order)GetValue(OrderProperty); }
-            set { SetValue(OrderProperty, value); }
+            get { return (Vehicle)GetValue(VehicleProperty); }
+            set { SetValue(VehicleProperty, value); }
         }
 
         public TyreInfo()

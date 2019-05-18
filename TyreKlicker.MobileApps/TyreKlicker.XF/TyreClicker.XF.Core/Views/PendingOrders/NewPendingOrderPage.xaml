@@ -58,9 +58,12 @@
                        Command="{Binding SelectTyreCommand}"
                        ButtonVisible="True" />
                 <StackLayout
-                        IsVisible="{Binding Order.Make,
+                        IsVisible="{Binding Vehicle.Value.Tyre,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <controls:TyreInfo Order="{Binding Order}" />
+                    <controls:TyreInfo Vehicle="{Binding Vehicle.Value}" />
+                    <Label
+                        Text="{Binding Vehicle.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        Style="{StaticResource ValidationErrorLabelStyle}" />
                 </StackLayout>
 
                 <controls:ContentCard
@@ -70,12 +73,12 @@
                         ButtonVisible="True" />
                 <StackLayout
                         Margin="24,0,24,0"
-                        IsVisible="{Binding Address.Street,
+                        IsVisible="{Binding Address.Value.Street,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <Label Text="{Binding Address.Street}" />
-                    <Label Text="{Binding Address.City}" />
-                    <Label Text="{Binding Address.Postcode}" />
-                    <Label Text="{Binding Address.PhoneNumber}" />
+                    <Label Text="{Binding Address.Value.Street}" />
+                    <Label Text="{Binding Address.Value.City}" />
+                    <Label Text="{Binding Address.Value.Postcode}" />
+                    <Label Text="{Binding Address.Value.PhoneNumber}" />
                 </StackLayout>
 
                 <controls:ContentCard

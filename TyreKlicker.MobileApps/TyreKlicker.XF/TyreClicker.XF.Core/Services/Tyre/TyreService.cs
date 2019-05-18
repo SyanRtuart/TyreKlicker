@@ -63,7 +63,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
             return response;
         }
 
-        public async Task<ObservableCollection<Vehicle>> GetVehicles(Make make, Model model, Years year)
+        public async Task<ObservableCollection<ApiVehicle>> GetVehicles(Make make, Model model, Years year)
         {
             var values = new NameValueCollection
             {
@@ -75,7 +75,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
 
-            var response = await _requestProvider.GetAsync<ObservableCollection<Vehicle>>(uri);
+            var response = await _requestProvider.GetAsync<ObservableCollection<ApiVehicle>>(uri);
 
             return response;
         }
@@ -92,7 +92,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
             var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
 
-            var response = await _requestProvider.GetAsync<ObservableCollection<Vehicle>>(uri);
+            var response = await _requestProvider.GetAsync<ObservableCollection<ApiVehicle>>(uri);
 
             var myWheelPairs = new ObservableCollection<WheelPair>();
 

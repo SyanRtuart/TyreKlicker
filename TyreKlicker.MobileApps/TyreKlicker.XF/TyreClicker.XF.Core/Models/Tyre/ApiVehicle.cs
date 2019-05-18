@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TyreKlicker.XF.Core.Models.Tyre
 {
-    public class Vehicle
+    public class ApiVehicle
     {
         public Market Market { get; set; }
 
