@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using AutoMapper;
+using Shouldly;
 using System;
 using System.Linq;
 using System.Threading;
@@ -15,16 +16,18 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
     public class CreateOrderCommandHandlerTests
     {
         private readonly CreateOrderCommandHandlerFixture _fixture;
+        private readonly IMapper _mapper;
 
         public CreateOrderCommandHandlerTests(CreateOrderCommandHandlerFixture fixture)
         {
             _fixture = fixture;
+            _mapper = fixture.Mapper;
         }
 
         [Fact]
         public async Task CreateOrderCommand_AfterModelHasBeenValidated_OrderCountShouldIncrementBy1()
         {
-            var sut = new CreateOrderCommandHandler(_fixture.Context);
+            var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
             var orderCountBeforeAct = _fixture.Context.Order.ToList().Count;
 
             await sut.Handle(new CreateOrderCommand { CreatedByUserId = _fixture.CurrentUser.Id }, CancellationToken.None);
@@ -37,7 +40,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
         [Fact]
         public async Task CreateOrderCommand_UserDoesNotExist_ShouldThrowException()
         {
-            var sut = new CreateOrderCommandHandler(_fixture.Context);
+            var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
 
             await sut.Handle(new CreateOrderCommand { CreatedByUserId = Guid.NewGuid() }, CancellationToken.None)
 
@@ -50,10 +53,12 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
     {
         public TyreKlickerDbContext Context { get; set; }
         public Domain.Entities.User CurrentUser { get; set; }
+        public IMapper Mapper { get; }
 
         public CreateOrderCommandHandlerFixture()
         {
             Context = TyreKlickerContextFactory.Create();
+            Mapper = AutoMapperFactory.Create();
             CurrentUser = new Domain.Entities.User();
             Context.Add(CurrentUser);
             Context.SaveChanges();
