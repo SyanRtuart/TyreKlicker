@@ -149,7 +149,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         private void AddValidations()
         {
             _registration.Validations.Add(new VehicleRegistrationRule<string> { ValidationMessage = "A valid UK vehical registration is required." });
-            _address.Validations.Add((new IsNotNullOrEmptyRule<Address> { ValidationMessage = "A valid address is required." }));
+            _address.Validations.Add((new IsValidAddressRule<Address> { ValidationMessage = "A valid address is required." }));
             _availability.Validations.Add(new IsCountNotZeroRule<ObservableCollection<Availability>> { ValidationMessage = "At least 1 time slot is required." });
         }
     }
