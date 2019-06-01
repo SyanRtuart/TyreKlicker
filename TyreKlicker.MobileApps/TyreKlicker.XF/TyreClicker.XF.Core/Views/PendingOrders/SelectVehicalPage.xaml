@@ -48,7 +48,7 @@
             <Picker IsVisible="{Binding Trims.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
                     ItemsSource="{Binding Trims}"
                     ItemDisplayBinding="{Binding Trim}"
-                    Title="Select Vehicle"
+                    Title="Select ApiVehicle"
                     SelectedItem="{Binding SelectedVehicleTrim.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">

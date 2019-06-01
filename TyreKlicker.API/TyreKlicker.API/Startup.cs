@@ -1,4 +1,5 @@
-﻿using FluentValidation.AspNetCore;
+﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,6 +19,7 @@ using TyreKlicker.API.Services;
 using TyreKlicker.API.Services.Token;
 using TyreKlicker.API.Services.UserToken;
 using TyreKlicker.Application.Infrastructure;
+using TyreKlicker.Application.Infrastructure.AutoMapper;
 using TyreKlicker.Application.Interfaces;
 using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Infrastructure;
@@ -42,7 +44,8 @@ namespace TyreKlicker.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<INotificationService, NotificationService>();
+            // Add AutoMapper
+            services.AddAutoMapper(typeof(AutoMapperProfile).GetTypeInfo().Assembly);
 
             // Add MediatR
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
@@ -98,6 +101,7 @@ namespace TyreKlicker.API
             services.AddTransient<IRefreshTokenService, RefreshTokenService>();
             services.AddTransient<IUserTokenService, UserTokenService>();
             services.AddTransient<IRefreshTokenRepository, Infrastructure.Identity.Service.RefreshToken.RefreshTokenRepository>();
+            services.AddTransient<INotificationService, NotificationService>();
 
             services
                 .AddMvc()

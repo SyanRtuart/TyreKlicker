@@ -1,4 +1,5 @@
-﻿using MvvmCross.Commands;
+﻿using AutoMapper;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
@@ -16,22 +17,29 @@ namespace TyreKlicker.XF.Core.ViewModels
     {
         private readonly IOrderService _orderService;
         private readonly IAddressService _addressService;
+        private readonly IMapper _mapper;
 
         private CreateNewPendingOrderCommand _order;
         private ValidatableObject<Address> _address;
+        private ValidatableObject<Vehicle> _vehicle;
         private ValidatableObject<ObservableCollection<Availability>> _availability;
         private ValidatableObject<string> _registration;
 
         public NewPendingOrderViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            IOrderService orderService, IAddressService addressService) :
+            IOrderService orderService, IAddressService addressService, IMapper mapper) :
             base(logProvider, navigationService)
         {
             _orderService = orderService;
             _addressService = addressService;
+            _mapper = mapper;
 
-            _address = new ValidatableObject<Address>();
             _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
+            _address = new ValidatableObject<Address>();
+            _vehicle = new ValidatableObject<Vehicle>
+            {
+                Value = new Vehicle()
+            };
             _registration = new ValidatableObject<string>();
             _availability = new ValidatableObject<ObservableCollection<Availability>>
             {
@@ -83,6 +91,16 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxCommand SelectTyreCommand => new MvxCommand(async () => await NavigateToSelectTyrePageAsync());
 
+        public ValidatableObject<Vehicle> Vehicle
+        {
+            get { return _vehicle; }
+            set
+            {
+                _vehicle = value;
+                RaisePropertyChanged(() => Vehicle);
+            }
+        }
+
         public IMvxCommand SelectAddressCommand => new MvxCommand(async () => await NavigateToSelectAddressPageAsync());
 
         public IMvxCommand SelectAvailabilityCommand => new MvxCommand(async () => await NavigateToSelectSelectAvailabilityAsync());
@@ -126,8 +144,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task NavigateToSelectTyrePageAsync()
         {
-            //ToDo Fix by using an actual object and not the whole order
-            Order = await NavigationService.Navigate<SelectVehicalViewModel, CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>(_order);
+            Vehicle.Value = await NavigationService.Navigate<SelectVehicalViewModel, Vehicle, Vehicle>(new Vehicle());
         }
 
         private async Task NavigateToSelectSelectAvailabilityAsync()

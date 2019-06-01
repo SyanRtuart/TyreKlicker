@@ -4,30 +4,29 @@ using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Models.Tyre;
 using TyreKlicker.XF.Core.Services.Order;
 using TyreKlicker.XF.Core.Services.Tyre;
 using TyreKlicker.XF.Core.Validators;
+using Vehicle = TyreKlicker.XF.Core.Models.Order.Vehicle;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
-    public class SelectVehicalViewModel : MvxNavigationViewModel<CreateNewPendingOrderCommand, CreateNewPendingOrderCommand>
+    public class SelectVehicalViewModel : MvxNavigationViewModel<Vehicle, Vehicle>
     {
         private readonly ITyreService _tyreService;
 
         private ObservableCollection<Make> _makes;
         private ObservableCollection<Model> _models;
         private ObservableCollection<Years> _years;
-        private ObservableCollection<Vehicle> _vehicle;
+        private ObservableCollection<ApiVehicle> _vehicle;
         private ObservableCollection<VehicleTrim> _trims;
         private ObservableCollection<Wheel> _tyres;
 
-        private CreateNewPendingOrderCommand _order;
         private ValidatableObject<Make> _selectedMake;
         private ValidatableObject<Model> _selectedModel;
         private ValidatableObject<Years> _selectedYear;
-        private ValidatableObject<Vehicle> _selectedVehicle;
+        private ValidatableObject<ApiVehicle> _selectedVehicle;
         private ValidatableObject<Wheel> _selectedTyre;
         private ValidatableObject<VehicleTrim> _selectedVehicleTrim;
 
@@ -53,16 +52,6 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             await base.Initialize();
             await GetMakesAsync();
-        }
-
-        public CreateNewPendingOrderCommand Order
-        {
-            get => _order;
-            set
-            {
-                _order = value;
-                RaisePropertyChanged(() => Order);
-            }
         }
 
         public ObservableCollection<Make> Makes
@@ -95,7 +84,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public ObservableCollection<Vehicle> Vehicles
+        public ObservableCollection<ApiVehicle> Vehicles
         {
             get { return _vehicle; }
             set
@@ -155,7 +144,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public ValidatableObject<Vehicle> SelectedVehicle
+        public ValidatableObject<ApiVehicle> SelectedVehicle
         {
             get { return _selectedVehicle; }
             set
@@ -226,7 +215,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             GetTrims(vehicles);
         }
 
-        private void GetTrims(ObservableCollection<Vehicle> vehicles)
+        private void GetTrims(ObservableCollection<ApiVehicle> vehicles)
         {
             if (!vehicles.Any()) return;
 
@@ -273,7 +262,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             if (years)
             {
                 Vehicles = null;
-                SelectedVehicle = new ValidatableObject<Vehicle>();
+                SelectedVehicle = new ValidatableObject<ApiVehicle>();
             }
 
             if (trims)
@@ -298,7 +287,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             Years = null;
             SelectedYear = new ValidatableObject<Years>();
             Vehicles = null;
-            SelectedVehicle = new ValidatableObject<Vehicle>();
+            SelectedVehicle = new ValidatableObject<ApiVehicle>();
             Trims = null;
             SelectedVehicleTrim = new ValidatableObject<VehicleTrim>();
             Tyres = null;
@@ -307,29 +296,26 @@ namespace TyreKlicker.XF.Core.ViewModels
             AddValidations();
         }
 
-        public override void Prepare()
+        public override void Prepare(Vehicle parameter)
         {
         }
 
-        public override void Prepare(CreateNewPendingOrderCommand order)
+        public override void Prepare()
         {
-            _order = order;
         }
 
         private async Task OkAsync()
         {
             if (Validate())
             {
-                var order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId)
+                await NavigationService.Close(this, new Vehicle
                 {
                     Make = SelectedMake.Value.Name,
                     Model = SelectedModel.Value.Name,
                     Year = SelectedYear.Value.Name,
                     Trim = SelectedVehicleTrim.Value.Trim,
                     Tyre = SelectedTyre.Value.Tire,
-                };
-
-                await NavigationService.Close(this, order);
+                });
             }
         }
 

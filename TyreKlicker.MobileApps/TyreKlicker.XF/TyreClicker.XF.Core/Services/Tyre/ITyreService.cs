@@ -12,7 +12,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 
         Task<ObservableCollection<Years>> GetYears(Make make);
 
-        Task<ObservableCollection<Vehicle>> GetVehicles(Make make, Model model, Years year);
+        Task<ObservableCollection<ApiVehicle>> GetVehicles(Make make, Model model, Years year);
 
         Task<ObservableCollection<WheelPair>> GetWheelPairs(Make make, Model model, Years year);
     }

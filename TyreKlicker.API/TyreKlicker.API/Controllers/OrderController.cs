@@ -8,7 +8,6 @@ using TyreKlicker.Application.Order.Queries.GetOrder;
 
 namespace TyreKlicker.API.Controllers
 {
-    //[Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize]
