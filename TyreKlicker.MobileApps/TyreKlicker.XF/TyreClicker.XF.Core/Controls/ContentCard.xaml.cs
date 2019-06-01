@@ -15,7 +15,7 @@ namespace TyreKlicker.XF.Core.Controls
             BindableProperty.Create(nameof(ButtonName), typeof(string), typeof(ContentCard));
 
         public static readonly BindableProperty CommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(IMvxAsyncCommand), typeof(ContentCard), null);
+            BindableProperty.Create(nameof(Command), typeof(IMvxCommand), typeof(ContentCard), null);
 
         public static readonly BindableProperty ButtonVisibleProperty =
             BindableProperty.Create(nameof(ButtonVisible), typeof(bool), typeof(ContentCard), false);
@@ -32,9 +32,9 @@ namespace TyreKlicker.XF.Core.Controls
             set { SetValue(ButtonNameProperty, value); }
         }
 
-        public IMvxAsyncCommand Command
+        public IMvxCommand Command
         {
-            get { return (IMvxAsyncCommand)GetValue(CommandProperty); }
+            get { return (IMvxCommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 

@@ -97,7 +97,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand RegisterCommand => new MvxAsyncCommand(async () => await RegisterAsync());
+        public IMvxCommand RegisterCommand => new MvxCommand(async () => await RegisterAsync());
 
         public IMvxCommand ValidateEmailCommand => new MvxCommand(() => ValidateEmail());
 

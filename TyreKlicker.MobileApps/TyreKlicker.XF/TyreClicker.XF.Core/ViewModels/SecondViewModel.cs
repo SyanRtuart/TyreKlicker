@@ -27,7 +27,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public string MainPageButtonText { get; set; }
 
-        public IMvxAsyncCommand BackCommand => new MvxAsyncCommand(async () =>
+        public IMvxCommand BackCommand => new MvxCommand(async () =>
         {
             var localizedText = _localizeService.Translate("SecondPage_ByeBye_Localization");
 

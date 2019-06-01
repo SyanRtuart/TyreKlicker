@@ -33,9 +33,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand<Address> SelectAddressCommand => new MvxAsyncCommand<Address>(async (address) => await SelectAddressAsync(address));
+        public IMvxCommand<Address> SelectAddressCommand => new MvxCommand<Address>(async (address) => await SelectAddressAsync(address));
 
-        public IMvxAsyncCommand NavigateToAddNewAddressCommand => new MvxAsyncCommand(async () => await NavigateToAddNewAddressAsync());
+        public IMvxCommand NavigateToAddNewAddressCommand => new MvxCommand(async () => await NavigateToAddNewAddressAsync());
 
         private async Task NavigateToAddNewAddressAsync()
         {

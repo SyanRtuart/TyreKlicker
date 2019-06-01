@@ -85,7 +85,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand SaveCommand => new MvxAsyncCommand(async () => await SaveAsync());
+        public IMvxCommand SaveCommand => new MvxCommand(async () => await SaveAsync());
 
         private async Task SaveAsync()
         {

@@ -81,15 +81,15 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand SelectTyreCommand => new MvxAsyncCommand(async () => await NavigateToSelectTyrePageAsync());
+        public IMvxCommand SelectTyreCommand => new MvxCommand(async () => await NavigateToSelectTyrePageAsync());
 
-        public IMvxAsyncCommand SelectAddressCommand => new MvxAsyncCommand(async () => await NavigateToSelectAddressPageAsync());
+        public IMvxCommand SelectAddressCommand => new MvxCommand(async () => await NavigateToSelectAddressPageAsync());
 
-        public IMvxAsyncCommand SelectAvailabilityCommand => new MvxAsyncCommand(async () => await NavigateToSelectSelectAvailabilityAsync());
+        public IMvxCommand SelectAvailabilityCommand => new MvxCommand(async () => await NavigateToSelectSelectAvailabilityAsync());
 
         public IMvxCommand ValidateRegistrationCommand => new MvxCommand(() => ValidateRegistration());
 
-        public IMvxAsyncCommand SubmitOrderCommand => new MvxAsyncCommand(async () => await SubmitOrderAsync());
+        public IMvxCommand SubmitOrderCommand => new MvxCommand(async () => await SubmitOrderAsync());
 
         public override async Task Initialize()
         {

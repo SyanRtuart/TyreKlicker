@@ -24,7 +24,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-            await GetOrdersCommand.ExecuteAsync();
+            await GetOrdersAsync();
             // do the heavy work here
         }
 
@@ -38,9 +38,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand<Order> OpenOrderDetailsCommand => new MvxAsyncCommand<Order>(async (order) => await OpenOrderDetailsAsync(order));
+        public IMvxCommand<Order> OpenOrderDetailsCommand => new MvxCommand<Order>(async (order) => await OpenOrderDetailsAsync(order));
 
-        public IMvxAsyncCommand GetOrdersCommand => new MvxAsyncCommand(async () =>
+        public IMvxCommand GetOrdersCommand => new MvxCommand(async () =>
         {
             IsBusy = true;
 

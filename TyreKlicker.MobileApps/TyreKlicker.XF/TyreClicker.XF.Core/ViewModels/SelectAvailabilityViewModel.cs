@@ -68,7 +68,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public MvxCommand<Availability> ItemSelectedCommand => new MvxCommand<Availability>(ItemSelected);
 
-        public IMvxAsyncCommand OkCommand => new MvxAsyncCommand(async () => await OkAsync());
+        public IMvxCommand OkCommand => new MvxCommand(async () => await OkAsync());
 
         //public IMvxCommand ValidateAvailabilityCommand => new MvxCommand(() => ValidateAvailability());
 

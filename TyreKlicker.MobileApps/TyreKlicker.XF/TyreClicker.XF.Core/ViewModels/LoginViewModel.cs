@@ -23,8 +23,8 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             _authenticationService = authenticationService;
 
-            NavigateToRegistrationPageCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
-            LoginCommand = new MvxAsyncCommand(async () => await LoginAsync());
+            NavigateToRegistrationPageCommand = new MvxCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
+            LoginCommand = new MvxCommand(async () => await LoginAsync());
 
             _email = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();
@@ -56,9 +56,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand LoginCommand { get; }
+        public IMvxCommand LoginCommand { get; }
 
-        public IMvxAsyncCommand NavigateToRegistrationPageCommand { get; }
+        public IMvxCommand NavigateToRegistrationPageCommand { get; }
 
         public IMvxCommand ValidateEmailCommand => new MvxCommand(() => ValidateEmail());
 

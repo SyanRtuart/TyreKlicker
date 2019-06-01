@@ -10,10 +10,10 @@ namespace TyreKlicker.XF.Core.ViewModels
     {
         public AccountViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            LogoutCommand = new MvxAsyncCommand(async () => await LogoutAsync());
+            LogoutCommand = new MvxCommand(async () => await LogoutAsync());
         }
 
-        public IMvxAsyncCommand LogoutCommand { get; }
+        public IMvxCommand LogoutCommand { get; }
 
         private async Task LogoutAsync()
         {

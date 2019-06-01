@@ -8,12 +8,12 @@ namespace TyreKlicker.XF.Core.ViewModels
     {
         public SplitDetailViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //ShowChildCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<SplitDetailNavViewModel>());
-            //ShowTabsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<TabsRootBViewModel>());
+            //ShowChildCommand = new MvxCommand(async () => await NavigationService.Navigate<SplitDetailNavViewModel>());
+            //ShowTabsCommand = new MvxCommand(async () => await NavigationService.Navigate<TabsRootBViewModel>());
         }
 
-        public IMvxAsyncCommand ShowChildCommand { get; private set; }
-        public IMvxAsyncCommand ShowTabsCommand { get; private set; }
+        public IMvxCommand ShowChildCommand { get; private set; }
+        public IMvxCommand ShowTabsCommand { get; private set; }
 
         public string ContentText => "Text for the Content Area";
 

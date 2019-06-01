@@ -20,7 +20,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             : base(logProvider, navigationService)
         {
             _orderService = orderService;
-            AcceptOrderCommand = new MvxAsyncCommand(async () => await AcceptOrderAsync());
+            AcceptOrderCommand = new MvxCommand(async () => await AcceptOrderAsync());
         }
 
         private async Task AcceptOrderAsync()
@@ -40,7 +40,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand AcceptOrderCommand { get; }
+        public IMvxCommand AcceptOrderCommand { get; }
 
         public override void Prepare()
         {

@@ -24,7 +24,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         }
 
         public IMvxCommand OpenUrlCommand =>
-            new MvxAsyncCommand<MenuItem>(async (menuItem) =>
+            new MvxCommand<MenuItem>(async (menuItem) =>
             {
                 switch (menuItem.Label)
                 {

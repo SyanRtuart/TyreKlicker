@@ -22,8 +22,8 @@ namespace TyreKlicker.XF.Core.ViewModels
                 ButtonText = Resources.AppResources.MainPageButtonPressed;
             });
 
-        public IMvxAsyncCommand GoToSecondPageCommand =>
-            new MvxAsyncCommand(async () =>
+        public IMvxCommand GoToSecondPageCommand =>
+            new MvxCommand(async () =>
             {
                 var param = new Dictionary<string, string> { { "ButtonText", ButtonText } };
 
@@ -31,7 +31,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             });
 
         //public IMvxCommand OpenUrlCommand =>
-        //    new MvxAsyncCommand<string>(async (url) =>
+        //    new MvxCommand<string>(async (url) =>
         //    {
         //        await Browser.OpenAsync(url, BrowserLaunchType.External);
         //    });

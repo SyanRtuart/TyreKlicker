@@ -35,12 +35,12 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             _tyreService = tyreService;
             _addressService = addressService;
-            Button1Command = new MvxAsyncCommand(async () => await Button1Execute());
-            Button2Command = new MvxAsyncCommand(async () => await Button2Execute());
-            Button3Command = new MvxAsyncCommand(async () => await Button3Execute());
-            Button4Command = new MvxAsyncCommand(async () => await Button4Execute());
-            Button5Command = new MvxAsyncCommand(async () => await Button5Execute());
-            Button6Command = new MvxAsyncCommand(async () => await Button6Execute());
+            Button1Command = new MvxCommand(async () => await Button1Execute());
+            Button2Command = new MvxCommand(async () => await Button2Execute());
+            Button3Command = new MvxCommand(async () => await Button3Execute());
+            Button4Command = new MvxCommand(async () => await Button4Execute());
+            Button5Command = new MvxCommand(async () => await Button5Execute());
+            Button6Command = new MvxCommand(async () => await Button6Execute());
 
             Address = new Address
             {
@@ -105,11 +105,11 @@ namespace TyreKlicker.XF.Core.ViewModels
             throw new System.NotImplementedException();
         }
 
-        public IMvxAsyncCommand Button1Command { get; }
-        public IMvxAsyncCommand Button2Command { get; }
-        public IMvxAsyncCommand Button3Command { get; }
-        public IMvxAsyncCommand Button4Command { get; }
-        public IMvxAsyncCommand Button5Command { get; }
-        public IMvxAsyncCommand Button6Command { get; }
+        public IMvxCommand Button1Command { get; }
+        public IMvxCommand Button2Command { get; }
+        public IMvxCommand Button3Command { get; }
+        public IMvxCommand Button4Command { get; }
+        public IMvxCommand Button5Command { get; }
+        public IMvxCommand Button6Command { get; }
     }
 }

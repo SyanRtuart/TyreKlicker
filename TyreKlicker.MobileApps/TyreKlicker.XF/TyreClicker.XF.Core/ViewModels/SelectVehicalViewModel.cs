@@ -52,7 +52,7 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-            await GetMakesCommand.ExecuteAsync();
+            await GetMakesAsync();
         }
 
         public CreateNewPendingOrderCommand Order
@@ -185,15 +185,15 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand OkCommand => new MvxAsyncCommand(async () => await OkAsync());
+        public IMvxCommand OkCommand => new MvxCommand(async () => await OkAsync());
 
-        public IMvxAsyncCommand GetMakesCommand => new MvxAsyncCommand(async () => await GetMakesAsync());
+        public IMvxCommand GetMakesCommand => new MvxCommand(async () => await GetMakesAsync());
 
-        public IMvxAsyncCommand GetModelsCommand => new MvxAsyncCommand(async () => await GetModelsAsync());
+        public IMvxCommand GetModelsCommand => new MvxCommand(async () => await GetModelsAsync());
 
-        public IMvxAsyncCommand GetYearsCommand => new MvxAsyncCommand(async () => await GetYearsAsync());
+        public IMvxCommand GetYearsCommand => new MvxCommand(async () => await GetYearsAsync());
 
-        public IMvxAsyncCommand GetVehiclesCommand => new MvxAsyncCommand(async () => await GetVehiclesAsync());
+        public IMvxCommand GetVehiclesCommand => new MvxCommand(async () => await GetVehiclesAsync());
 
         public IMvxCommand GetTyresCommand => new MvxCommand(GetTyres);
 
