@@ -40,13 +40,13 @@ namespace TyreKlicker.Application.Tests.Order.Queries.GetAllOrdersCreatedByUser
             var sut = new GetAllOrdersCreatedUserQueryHandler(_context);
             var orders = new List<Domain.Entities.Order>()
             {
-                new Domain.Entities.Order { CreatedByUserId = CreatedByUserIdToTest},
-                new Domain.Entities.Order { CreatedByUserId = userGuid1},
-                new Domain.Entities.Order { CreatedByUserId = userGuid2}
+                new Domain.Entities.Order { CreatedBy = CreatedByUserIdToTest},
+                new Domain.Entities.Order { CreatedBy = userGuid1},
+                new Domain.Entities.Order { CreatedBy = userGuid2}
             };
             _context.Order.AddRange(orders);
             _context.SaveChanges();
-            var createdOrdersInDb = _context.Order.Count(x => x.CreatedByUserId == CreatedByUserIdToTest);
+            var createdOrdersInDb = _context.Order.Count(x => x.CreatedBy == CreatedByUserIdToTest);
 
             var result = await sut.Handle(new GetAllOrdersCreatedByUserQuery() { UserId = CreatedByUserIdToTest }, CancellationToken.None);
             var resultCount = result.Orders.Count();

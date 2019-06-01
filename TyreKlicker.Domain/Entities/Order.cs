@@ -5,9 +5,9 @@ namespace TyreKlicker.Domain.Entities
 {
     public class Order : Entity
     {
-        public Guid CreatedByUserId { get; set; }
-
         public Guid? AcceptedByUserId { get; set; }
+
+        public Guid AddressId { get; set; }
 
         public string Registration { get; set; }
 
@@ -29,5 +29,6 @@ namespace TyreKlicker.Domain.Entities
 
         public User CreatedByUser { get; set; }
         public User AcceptedByUser { get; set; }
+        public Address Address { get; set; }
     }
 }

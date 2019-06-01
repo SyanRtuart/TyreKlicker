@@ -22,7 +22,6 @@ namespace TyreKlicker.Application.Order.Queries.GetAllPendingOrders
                 return o => new OrderDto
                 {
                     Id = o.Id,
-                    CreatedByUserId = o.CreatedByUserId,
                     AcceptedByUserId = o.AcceptedByUserId ?? Guid.Empty,
                     Description = o.Description ?? string.Empty,
                     Registration = o.Registration ?? string.Empty

@@ -3,6 +3,7 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
@@ -19,9 +20,10 @@ namespace TyreKlicker.XF.Core.ViewModels
         private readonly IAddressService _addressService;
         private readonly IMapper _mapper;
 
-        private CreateNewPendingOrderCommand _order;
+        private Order _order;
         private ValidatableObject<Address> _address;
         private ValidatableObject<Vehicle> _vehicle;
+        private string _description;
         private ValidatableObject<ObservableCollection<Availability>> _availability;
         private ValidatableObject<string> _registration;
 
@@ -34,7 +36,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             _addressService = addressService;
             _mapper = mapper;
 
-            _order = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId);
+            _order = new Order();
             _address = new ValidatableObject<Address>();
             _vehicle = new ValidatableObject<Vehicle>
             {
@@ -59,6 +61,16 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
+        public string Description
+        {
+            get { return (_description); }
+            set
+            {
+                _description = value;
+                RaisePropertyChanged(() => Description);
+            }
+        }
+
         public ValidatableObject<Address> Address
         {
             get => _address;
@@ -69,7 +81,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public CreateNewPendingOrderCommand Order
+        public Order Order
         {
             get => _order;
             set
@@ -128,7 +140,20 @@ namespace TyreKlicker.XF.Core.ViewModels
 
             if (Validate())
             {
-                await _orderService.CreateNewPendingOrder(Settings.AccessToken, _order);
+                var command = new CreateNewPendingOrderCommand(GlobalSetting.Instance.CurrentLoggedInUserId)
+                {
+                    Registration = _registration.Value,
+                    AddressId = _address.Value.Id,
+                    Make = _vehicle.Value.Make,
+                    Model = _vehicle.Value.Model,
+                    Year = _vehicle.Value.Year,
+                    Trim = _vehicle.Value.Trim,
+                    Tyre = _vehicle.Value.Tyre,
+                    Description = _description,
+                    Availability = Availability.Value.ToList(),
+                };
+
+                await _orderService.CreateNewPendingOrder(Settings.AccessToken, command);
             }
             IsBusy = false;
         }

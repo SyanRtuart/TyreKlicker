@@ -21,7 +21,7 @@ namespace TyreKlicker.Application.Order.Queries.GetAllOrdersCreatedByUser
             var model = new OrderCreatedByUserListViewModel
             {
                 Orders = await _context.Order
-                .Where(x => x.CreatedByUserId == request.UserId)
+                .Where(x => x.CreatedBy == request.UserId)
                 .Select(OrderDto.Projection)
                 .OrderBy(o => o.Registration)
                 .ToListAsync(cancellationToken)

@@ -32,7 +32,6 @@ namespace TyreKlicker.Application.Order.Queries.GetOrder
                 return o => new OrderDto
                 {
                     Id = o.Id,
-                    CreatedByUserId = o.CreatedByUserId,
                     AcceptedByUserId = o.AcceptedByUserId ?? Guid.Empty,
                     Make = o.Make,
                     Model = o.Model,

@@ -32,7 +32,7 @@ namespace TyreKlicker.Persistence
             builder.Entity<Order>()
                 .HasOne(o => o.CreatedByUser)
                 .WithMany(u => u.OrdersCreated)
-                .HasForeignKey(o => o.CreatedByUserId)
+                .HasForeignKey(o => o.CreatedBy)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.ApplyAllConfigurations();

@@ -12,6 +12,7 @@ namespace TyreKlicker.XF.Core.Models.Order
         }
 
         public Guid CreatedByUserId { get; set; }
+        public Guid AddressId { get; set; }
         public string Registration { get; set; }
         public string Description { get; set; }
         public string Make { get; set; }

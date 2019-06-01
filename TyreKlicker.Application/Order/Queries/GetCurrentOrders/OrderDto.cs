@@ -21,7 +21,6 @@ namespace TyreKlicker.Application.Order.Queries.GetCurrentOrders
             {
                 return o => new OrderDto
                 {
-                    CreatedByUserId = o.CreatedByUserId,
                     Id = o.Id,
                     AcceptedByUserId = o.AcceptedByUserId ?? Guid.Empty,
                     Description = o.Description ?? string.Empty,

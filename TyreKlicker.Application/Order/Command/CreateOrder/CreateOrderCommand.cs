@@ -1,11 +1,15 @@
 ﻿using MediatR;
 using System;
+using System.Collections.Generic;
+using TyreKlicker.Domain.Entities;
 
 namespace TyreKlicker.Application.Order.Command.CreateOrder
 {
     public class CreateOrderCommand : IRequest
     {
         public Guid CreatedByUserId { get; set; }
+
+        public Guid AddressId { get; set; }
 
         public string Registration { get; set; }
 
@@ -20,5 +24,7 @@ namespace TyreKlicker.Application.Order.Command.CreateOrder
         public string Trim { get; set; }
 
         public string Tyre { get; set; }
+
+        public IEnumerable<Availability> Availability { get; set; }
     }
 }

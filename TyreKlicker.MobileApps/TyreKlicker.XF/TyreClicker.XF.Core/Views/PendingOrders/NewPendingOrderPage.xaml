@@ -87,9 +87,10 @@
                 </StackLayout>
 
                 <controls:ContentCard
-                    Header ="Extra Info" />
+                    Header ="Description" />
                 <Editor Margin="24,0,24,0"
-                        HeightRequest="50" />
+                        HeightRequest="50"
+                        Text="{Binding Description}" />
                 <controls:ContentCard
                     Header ="Availability"
                     ButtonName="Select Availability"

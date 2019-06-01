@@ -30,7 +30,7 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
             var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
             var orderCountBeforeAct = _fixture.Context.Order.ToList().Count;
 
-            await sut.Handle(new CreateOrderCommand { CreatedByUserId = _fixture.CurrentUser.Id }, CancellationToken.None);
+            await sut.Handle(new CreateOrderCommand { CreatedByUserId = _fixture.CurrentUser.Id, AddressId = _fixture.CurrentAddress.Id }, CancellationToken.None);
 
             var orderCountAfterAct = _fixture.Context.Order.ToList().Count;
 
@@ -46,6 +46,16 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
 
             .ShouldThrowAsync<NotFoundException>();
         }
+
+        [Fact]
+        public async Task CreateOrderCommand_AddressDoesNotExist_ShouldThrowException()
+        {
+            var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
+
+            await sut.Handle(new CreateOrderCommand { CreatedByUserId = Guid.NewGuid(), AddressId = Guid.NewGuid() }, CancellationToken.None)
+
+            .ShouldThrowAsync<NotFoundException>();
+        }
     }
 
     [Collection("CreateOrderCommandHandlerCollection")]
@@ -53,13 +63,18 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
     {
         public TyreKlickerDbContext Context { get; set; }
         public Domain.Entities.User CurrentUser { get; set; }
+        public Domain.Entities.Address CurrentAddress { get; set; }
         public IMapper Mapper { get; }
 
         public CreateOrderCommandHandlerFixture()
         {
             Context = TyreKlickerContextFactory.Create();
             Mapper = AutoMapperFactory.Create();
+
             CurrentUser = new Domain.Entities.User();
+            CurrentAddress = new Domain.Entities.Address();
+
+            Context.Add(CurrentAddress);
             Context.Add(CurrentUser);
             Context.SaveChanges();
         }

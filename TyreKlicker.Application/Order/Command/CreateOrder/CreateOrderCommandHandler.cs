@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using TyreKlicker.Application.Exceptions;
+using TyreKlicker.Domain.Entities;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Command.CreateOrder
@@ -25,16 +27,22 @@ namespace TyreKlicker.Application.Order.Command.CreateOrder
 
             if (user == null) throw new NotFoundException(nameof(user), request.CreatedByUserId.ToString());
 
+            var address = await _context.Address.FirstOrDefaultAsync(a => a.Id == request.AddressId, cancellationToken);
+
+            if (address == null) throw new NotFoundException(nameof(address), request.AddressId.ToString());
+
             var entity = new Domain.Entities.Order
             {
-                CreatedByUserId = request.CreatedByUserId,
+                Address = address,
+                CreatedBy = request.CreatedByUserId,
                 Description = request.Description,
                 Registration = request.Registration,
                 Make = request.Make,
                 Model = request.Model,
                 Trim = request.Trim,
                 Tyre = request.Tyre,
-                Year = request.Year
+                Year = request.Year,
+                Availability = _mapper.Map<IEnumerable<Availability>>(request.Availability)
             };
 
             _context.Order.Add(entity);

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Persistence.Migrations
 {
     [DbContext(typeof(TyreKlickerDbContext))]
-    partial class TyreKlickerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190601202847_AddedAddressIdToOrder")]
+    partial class AddedAddressIdToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,6 +90,8 @@ namespace TyreKlicker.Persistence.Migrations
 
                     b.Property<Guid>("CreatedBy");
 
+                    b.Property<Guid>("CreatedByUserId");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
@@ -114,7 +118,7 @@ namespace TyreKlicker.Persistence.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex("CreatedByUserId");
 
                     b.ToTable("Order");
                 });
@@ -174,7 +178,7 @@ namespace TyreKlicker.Persistence.Migrations
 
                     b.HasOne("TyreKlicker.Domain.Entities.User", "CreatedByUser")
                         .WithMany("OrdersCreated")
-                        .HasForeignKey("CreatedBy")
+                        .HasForeignKey("CreatedByUserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
