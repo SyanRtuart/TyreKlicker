@@ -4,7 +4,7 @@ using TyreKlicker.XF.Core.ViewModels;
 
 namespace TyreKlicker.XF.Core.Views
 {
-    [MvxMasterDetailPagePresentation()]
+    [MvxMasterDetailPagePresentation]
     public partial class SplitDetailView : MvxContentPage<SplitDetailViewModel>
     {
         public SplitDetailView()

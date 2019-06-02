@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using System.Reflection;
+﻿using System.Reflection;
+using AutoMapper;
 
 namespace TyreKlicker.XF.Core.Infrastructure.AutoMapper
 {
@@ -20,20 +20,14 @@ namespace TyreKlicker.XF.Core.Infrastructure.AutoMapper
         {
             var mapsFrom = MapperProfileHelper.LoadStandardMappings(Assembly.GetExecutingAssembly());
 
-            foreach (var map in mapsFrom)
-            {
-                CreateMap(map.Source, map.Destination).ReverseMap();
-            }
+            foreach (var map in mapsFrom) CreateMap(map.Source, map.Destination).ReverseMap();
         }
 
         private void LoadCustomMappings()
         {
             var mapsFrom = MapperProfileHelper.LoadCustomMappings(Assembly.GetExecutingAssembly());
 
-            foreach (var map in mapsFrom)
-            {
-                map.CreateMappings(this);
-            }
+            foreach (var map in mapsFrom) map.CreateMappings(this);
         }
     }
 }

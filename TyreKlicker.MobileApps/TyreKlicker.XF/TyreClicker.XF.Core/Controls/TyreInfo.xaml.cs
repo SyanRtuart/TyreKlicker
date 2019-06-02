@@ -11,15 +11,15 @@ namespace TyreKlicker.XF.Core.Controls
         public static readonly BindableProperty VehicleProperty =
             BindableProperty.Create(nameof(Vehicle), typeof(Vehicle), typeof(TyreInfo), null);
 
-        public Vehicle Vehicle
-        {
-            get { return (Vehicle)GetValue(VehicleProperty); }
-            set { SetValue(VehicleProperty, value); }
-        }
-
         public TyreInfo()
         {
             InitializeComponent();
+        }
+
+        public Vehicle Vehicle
+        {
+            get => (Vehicle) GetValue(VehicleProperty);
+            set => SetValue(VehicleProperty, value);
         }
 
         private void Button_OnClicked(object sender, EventArgs e)

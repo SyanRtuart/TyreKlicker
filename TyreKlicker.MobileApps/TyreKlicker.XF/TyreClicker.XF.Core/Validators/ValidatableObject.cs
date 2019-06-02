@@ -6,19 +6,22 @@ namespace TyreKlicker.XF.Core.Validators
 {
     public class ValidatableObject<T> : ExtendedBindableObject, IValidity
     {
-        private readonly List<IValidationRule<T>> _validations;
         private List<string> _errors;
-        private T _value;
         private bool _isValid;
+        private T _value;
 
-        public List<IValidationRule<T>> Validations => _validations;
+        public ValidatableObject()
+        {
+            _isValid = true;
+            _errors = new List<string>();
+            Validations = new List<IValidationRule<T>>();
+        }
+
+        public List<IValidationRule<T>> Validations { get; }
 
         public List<string> Errors
         {
-            get
-            {
-                return _errors;
-            }
+            get => _errors;
             set
             {
                 _errors = value;
@@ -28,10 +31,7 @@ namespace TyreKlicker.XF.Core.Validators
 
         public T Value
         {
-            get
-            {
-                return _value;
-            }
+            get => _value;
             set
             {
                 _value = value;
@@ -41,10 +41,7 @@ namespace TyreKlicker.XF.Core.Validators
 
         public bool IsValid
         {
-            get
-            {
-                return _isValid;
-            }
+            get => _isValid;
             set
             {
                 _isValid = value;
@@ -52,24 +49,17 @@ namespace TyreKlicker.XF.Core.Validators
             }
         }
 
-        public ValidatableObject()
-        {
-            _isValid = true;
-            _errors = new List<string>();
-            _validations = new List<IValidationRule<T>>();
-        }
-
         public bool Validate()
         {
             Errors.Clear();
 
-            IEnumerable<string> errors = _validations.Where(v => !v.Check(Value))
+            var errors = Validations.Where(v => !v.Check(Value))
                 .Select(v => v.ValidationMessage);
 
             Errors = errors.ToList();
             IsValid = !Errors.Any();
 
-            return this.IsValid;
+            return IsValid;
         }
     }
 }

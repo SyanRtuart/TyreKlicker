@@ -45,7 +45,7 @@ namespace TyreKlicker.XF.Core.Infrastructure.AutoMapper
                     typeof(IHaveCustomMapping).IsAssignableFrom(type) &&
                     !type.IsAbstract &&
                     !type.IsInterface
-                select (IHaveCustomMapping)Activator.CreateInstance(type)).ToList();
+                select (IHaveCustomMapping) Activator.CreateInstance(type)).ToList();
 
             return mapsFrom;
         }

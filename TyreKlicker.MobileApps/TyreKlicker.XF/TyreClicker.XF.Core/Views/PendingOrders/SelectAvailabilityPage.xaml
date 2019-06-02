@@ -1,15 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <views:MvxContentPage
-            x:TypeArguments="viewModels:SelectAvailabilityViewModel"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-             xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-             xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
-             xmlns:sys="clr-namespace:System;assembly=netstandard"
-             xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
-             xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
-             x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAvailabilityPage">
+    x:TypeArguments="viewModels:SelectAvailabilityViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+    xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+    xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
+    x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectAvailabilityPage">
     <ContentPage.Resources>
         <ResourceDictionary>
 
@@ -79,8 +80,7 @@
                         <behaviors:EventToCommandBehavior
                             EventName="ItemTapped"
                             Command="{Binding ToggleTimeSlotCommand}"
-                            Converter="{StaticResource ItemTappedEventArgsConverter}">
-                        </behaviors:EventToCommandBehavior>
+                            Converter="{StaticResource ItemTappedEventArgsConverter}" />
                     </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -100,8 +100,7 @@
                                         <Switch.Behaviors>
                                             <behaviors:EventToCommandBehavior
                                                 EventName="Toggled"
-                                                Command="{Binding ValidateAvailabilityCommand}">
-                                            </behaviors:EventToCommandBehavior>
+                                                Command="{Binding ValidateAvailabilityCommand}" />
                                         </Switch.Behaviors>
                                     </Switch>
                                 </Grid>

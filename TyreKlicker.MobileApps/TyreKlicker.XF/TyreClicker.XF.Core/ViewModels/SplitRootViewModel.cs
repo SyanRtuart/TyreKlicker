@@ -1,22 +1,23 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System.Threading.Tasks;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
     public class SplitRootViewModel : MvxNavigationViewModel
     {
-        public SplitRootViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public SplitRootViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(
+            logProvider, navigationService)
         {
             ShowInitialMenuCommand = new MvxAsyncCommand(ShowInitialViewModel);
             ShowDetailCommand = new MvxAsyncCommand(ShowDetailViewModel);
         }
 
-        public IMvxAsyncCommand ShowInitialMenuCommand { get; private set; }
+        public IMvxAsyncCommand ShowInitialMenuCommand { get; }
 
-        public IMvxAsyncCommand ShowDetailCommand { get; private set; }
+        public IMvxAsyncCommand ShowDetailCommand { get; }
 
         public override void ViewAppeared()
         {

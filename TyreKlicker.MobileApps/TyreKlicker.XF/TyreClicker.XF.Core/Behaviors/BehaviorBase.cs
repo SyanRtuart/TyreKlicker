@@ -12,10 +12,7 @@ namespace TyreKlicker.XF.Core.Behaviors
             base.OnAttachedTo(bindable);
             AssociatedObject = bindable;
 
-            if (bindable.BindingContext != null)
-            {
-                BindingContext = bindable.BindingContext;
-            }
+            if (bindable.BindingContext != null) BindingContext = bindable.BindingContext;
 
             bindable.BindingContextChanged += OnBindingContextChanged;
         }

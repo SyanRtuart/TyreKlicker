@@ -11,7 +11,7 @@ namespace TyreKlicker.XF.Core.Services.Availability
         {
             var availabilities = new ObservableCollection<Models.Order.Availability>();
 
-            for (int i = 0; i < 14; i++)
+            for (var i = 0; i < 14; i++)
             {
                 var availability = new Models.Order.Availability
                 {
@@ -27,13 +27,13 @@ namespace TyreKlicker.XF.Core.Services.Availability
         private IEnumerable<TimeSlot> GetDefaultTimeSlots(DateTime startDate)
         {
             return new List<TimeSlot>
-           {
-               new TimeSlot(startDate,8),
-               new TimeSlot(startDate,10),
-               new TimeSlot(startDate,12),
-               new TimeSlot(startDate,14),
-               new TimeSlot(startDate,16)
-           };
+            {
+                new TimeSlot(startDate, 8),
+                new TimeSlot(startDate, 10),
+                new TimeSlot(startDate, 12),
+                new TimeSlot(startDate, 14),
+                new TimeSlot(startDate, 16)
+            };
         }
     }
 }

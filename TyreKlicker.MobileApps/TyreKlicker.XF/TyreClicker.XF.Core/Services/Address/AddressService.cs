@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Exceptions;
 using TyreKlicker.XF.Core.Extensions;
@@ -36,7 +37,7 @@ namespace TyreKlicker.XF.Core.Services.Address
             {
                 address = await _requestProvider.GetAsync<Models.Address.Address>(uri, Settings.AccessToken);
             }
-            catch (HttpResponseEx ex) when (ex.HttpCode == System.Net.HttpStatusCode.NotFound)
+            catch (HttpResponseEx ex) when (ex.HttpCode == HttpStatusCode.NotFound)
             {
                 address = null;
             }
@@ -46,7 +47,8 @@ namespace TyreKlicker.XF.Core.Services.Address
 
         public async Task<Models.Address.Address> GetPrimaryAddressAsync(string token, Guid userId)
         {
-            var uri = UriHelper.CombineUri(GlobalSetting.Instance.AddressEndPoint + $"/{GlobalSetting.Instance.CurrentLoggedInUserId}/primaryaddress");
+            var uri = UriHelper.CombineUri(GlobalSetting.Instance.AddressEndPoint +
+                                           $"/{GlobalSetting.Instance.CurrentLoggedInUserId}/primaryaddress");
 
             Models.Address.Address address;
 
@@ -54,7 +56,7 @@ namespace TyreKlicker.XF.Core.Services.Address
             {
                 address = await _requestProvider.GetAsync<Models.Address.Address>(uri, Settings.AccessToken);
             }
-            catch (HttpResponseEx ex) when (ex.HttpCode == System.Net.HttpStatusCode.NotFound)
+            catch (HttpResponseEx ex) when (ex.HttpCode == HttpStatusCode.NotFound)
             {
                 address = new Models.Address.Address();
             }
@@ -68,10 +70,7 @@ namespace TyreKlicker.XF.Core.Services.Address
 
             var addresses = await _requestProvider.GetAsync<AddressList>(uri, Settings.AccessToken);
 
-            if (addresses?.Addresses != null)
-            {
-                return addresses?.Addresses.ToObservableCollection();
-            }
+            if (addresses?.Addresses != null) return addresses?.Addresses.ToObservableCollection();
 
             return new ObservableCollection<Models.Address.Address>();
         }

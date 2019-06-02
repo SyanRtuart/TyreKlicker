@@ -15,7 +15,7 @@ namespace TyreKlicker.XF.Core.Behaviors
 
         public static bool GetApplyLineColor(BindableObject view)
         {
-            return (bool)view.GetValue(ApplyLineColorProperty);
+            return (bool) view.GetValue(ApplyLineColorProperty);
         }
 
         public static void SetApplyLineColor(BindableObject view, bool value)
@@ -25,7 +25,7 @@ namespace TyreKlicker.XF.Core.Behaviors
 
         public static Color GetLineColor(BindableObject view)
         {
-            return (Color)view.GetValue(LineColorProperty);
+            return (Color) view.GetValue(LineColorProperty);
         }
 
         public static void SetLineColor(BindableObject view, Color value)
@@ -37,12 +37,9 @@ namespace TyreKlicker.XF.Core.Behaviors
         {
             var view = bindable as View;
 
-            if (view == null)
-            {
-                return;
-            }
+            if (view == null) return;
 
-            bool hasLine = (bool)newValue;
+            var hasLine = (bool) newValue;
 
             if (hasLine)
             {
@@ -51,10 +48,7 @@ namespace TyreKlicker.XF.Core.Behaviors
             else
             {
                 var entryLineColorEffectToRemove = view.Effects.FirstOrDefault(e => e is EntryLineColorEffect);
-                if (entryLineColorEffectToRemove != null)
-                {
-                    view.Effects.Remove(entryLineColorEffectToRemove);
-                }
+                if (entryLineColorEffectToRemove != null) view.Effects.Remove(entryLineColorEffectToRemove);
             }
         }
     }

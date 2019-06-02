@@ -4,8 +4,6 @@ namespace TyreKlicker.XF.Core.Exceptions
 {
     public class ServiceAuthenticationException : Exception
     {
-        public string Content { get; }
-
         public ServiceAuthenticationException()
         {
         }
@@ -14,5 +12,7 @@ namespace TyreKlicker.XF.Core.Exceptions
         {
             Content = content;
         }
+
+        public string Content { get; }
     }
 }

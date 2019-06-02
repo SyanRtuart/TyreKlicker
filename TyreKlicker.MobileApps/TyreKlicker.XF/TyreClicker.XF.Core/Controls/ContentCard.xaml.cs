@@ -20,30 +20,6 @@ namespace TyreKlicker.XF.Core.Controls
         public static readonly BindableProperty ButtonVisibleProperty =
             BindableProperty.Create(nameof(ButtonVisible), typeof(bool), typeof(ContentCard), false);
 
-        public string Header
-        {
-            get { return (string)GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
-        }
-
-        public string ButtonName
-        {
-            get { return (string)GetValue(ButtonNameProperty); }
-            set { SetValue(ButtonNameProperty, value); }
-        }
-
-        public IMvxCommand Command
-        {
-            get { return (IMvxCommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
-        }
-
-        public bool ButtonVisible
-        {
-            get { return (bool)GetValue(ButtonVisibleProperty); }
-            set { SetValue(ButtonVisibleProperty, value); }
-        }
-
         public ContentCard()
         {
             InitializeComponent();
@@ -51,6 +27,30 @@ namespace TyreKlicker.XF.Core.Controls
             CardButton.SetBinding(Button.TextProperty, new Binding(nameof(ButtonName), source: this));
             CardButton.SetBinding(Button.CommandProperty, new Binding(nameof(Command), source: this));
             CardButton.SetBinding(IsVisibleProperty, new Binding(nameof(ButtonVisible), source: this));
+        }
+
+        public string Header
+        {
+            get => (string) GetValue(HeaderProperty);
+            set => SetValue(HeaderProperty, value);
+        }
+
+        public string ButtonName
+        {
+            get => (string) GetValue(ButtonNameProperty);
+            set => SetValue(ButtonNameProperty, value);
+        }
+
+        public IMvxCommand Command
+        {
+            get => (IMvxCommand) GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        public bool ButtonVisible
+        {
+            get => (bool) GetValue(ButtonVisibleProperty);
+            set => SetValue(ButtonVisibleProperty, value);
         }
     }
 }

@@ -22,23 +22,18 @@ namespace TyreKlicker.XF.Core.Services.Order
             var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.OrderEndpoint,
                 Settings.AccessToken);
 
-            if (orders?.Orders != null)
-            {
-                return orders?.Orders.ToObservableCollection();
-            }
+            if (orders?.Orders != null) return orders?.Orders.ToObservableCollection();
 
             return new ObservableCollection<Models.Order.Order>();
         }
 
         public async Task<ObservableCollection<Models.Order.Order>> GetOrders(string token, Guid userId)
         {
-            var orders = await _requestProvider.GetAsync<OrderList>(GlobalSetting.Instance.UserEndPoint + $"/{userId}/orders",
+            var orders = await _requestProvider.GetAsync<OrderList>(
+                GlobalSetting.Instance.UserEndPoint + $"/{userId}/orders",
                 Settings.AccessToken);
 
-            if (orders?.Orders != null)
-            {
-                return orders?.Orders.ToObservableCollection();
-            }
+            if (orders?.Orders != null) return orders?.Orders.ToObservableCollection();
 
             return new ObservableCollection<Models.Order.Order>();
         }
@@ -60,9 +55,11 @@ namespace TyreKlicker.XF.Core.Services.Order
             return result;
         }
 
-        public async Task<CreateNewPendingOrderCommand> CreateNewPendingOrder(string token, CreateNewPendingOrderCommand command)
+        public async Task<CreateNewPendingOrderCommand> CreateNewPendingOrder(string token,
+            CreateNewPendingOrderCommand command)
         {
-            var result = await _requestProvider.PostAsync(GlobalSetting.Instance.OrderEndpoint, command, Settings.AccessToken);
+            var result =
+                await _requestProvider.PostAsync(GlobalSetting.Instance.OrderEndpoint, command, Settings.AccessToken);
 
             return result;
         }

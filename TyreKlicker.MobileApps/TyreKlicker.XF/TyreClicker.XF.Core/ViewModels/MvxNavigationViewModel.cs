@@ -1,35 +1,31 @@
-﻿using MvvmCross.Logging;
+﻿using System.Threading.Tasks;
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System.Threading.Tasks;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
     public abstract class MvxNavigationViewModel
         : MvxViewModel
     {
+        private bool _isBusy;
         private IMvxLog _log;
 
-        private bool _isBusy;
+        protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        {
+            LogProvider = logProvider;
+            NavigationService = navigationService;
+        }
 
         public bool IsBusy
         {
-            get
-            {
-                return _isBusy;
-            }
+            get => _isBusy;
 
             set
             {
                 _isBusy = value;
                 RaisePropertyChanged(() => IsBusy);
             }
-        }
-
-        protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base()
-        {
-            LogProvider = logProvider;
-            NavigationService = navigationService;
         }
 
         protected virtual IMvxNavigationService NavigationService { get; }
@@ -41,7 +37,8 @@ namespace TyreKlicker.XF.Core.ViewModels
 
     public abstract class MvxNavigationViewModel<TParameter> : MvxNavigationViewModel, IMvxViewModel<TParameter>
     {
-        protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(
+            logProvider, navigationService)
         {
         }
 
@@ -51,7 +48,8 @@ namespace TyreKlicker.XF.Core.ViewModels
     //TODO: Not possible to name MvxViewModel, name is MvxViewModelResult for now
     public abstract class MvxNavigationViewModelResult<TResult> : MvxNavigationViewModel, IMvxViewModelResult<TResult>
     {
-        protected MvxNavigationViewModelResult(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        protected MvxNavigationViewModelResult(IMvxLogProvider logProvider, IMvxNavigationService navigationService) :
+            base(logProvider, navigationService)
         {
         }
 
@@ -59,16 +57,19 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted &&
+                !CloseCompletionSource.Task.IsFaulted)
                 CloseCompletionSource?.TrySetCanceled();
 
             base.ViewDestroy(viewFinishing);
         }
     }
 
-    public abstract class MvxNavigationViewModel<TParameter, TResult> : MvxNavigationViewModelResult<TResult>, IMvxViewModel<TParameter, TResult>
+    public abstract class MvxNavigationViewModel<TParameter, TResult> : MvxNavigationViewModelResult<TResult>,
+        IMvxViewModel<TParameter, TResult>
     {
-        protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        protected MvxNavigationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(
+            logProvider, navigationService)
         {
         }
 

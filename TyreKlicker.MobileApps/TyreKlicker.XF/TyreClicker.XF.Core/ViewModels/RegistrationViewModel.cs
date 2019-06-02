@@ -1,28 +1,29 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Exceptions;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
 using TyreKlicker.XF.Core.Services.Messages;
 using TyreKlicker.XF.Core.Validators;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
-    [MvxModalPresentation()]
+    [MvxModalPresentation]
     public class RegistrationViewModel : MvxNavigationViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IMvxNavigationService _navigationService;
+        private ValidatableObject<string> _confirmPassword;
 
         private ValidatableObject<string> _email;
-        private ValidatableObject<string> _password;
-        private ValidatableObject<string> _confirmPassword;
         private ValidatableObject<string> _firstName;
         private ValidatableObject<string> _lastName;
+        private ValidatableObject<string> _password;
 
         public RegistrationViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
@@ -112,7 +113,6 @@ namespace TyreKlicker.XF.Core.ViewModels
         private async Task RegisterAsync()
         {
             if (Validate())
-            {
                 try
                 {
                     var registerRequest = new RegisterRequest
@@ -125,15 +125,15 @@ namespace TyreKlicker.XF.Core.ViewModels
                     };
 
                     await _authenticationService.Register(registerRequest);
-                    DependencyService.Get<IMessage>().LongAlert("Please check your email for conformation.", System.Drawing.Color.Empty);
+                    DependencyService.Get<IMessage>()
+                        .LongAlert("Please check your email for conformation.", Color.Empty);
                     //ToDo Pass back email to login VM
                     await _navigationService.Close(this);
                 }
                 catch (HttpResponseEx ex)
                 {
-                    DependencyService.Get<IMessage>().LongAlert(ex.Scenario, System.Drawing.Color.Red);
+                    DependencyService.Get<IMessage>().LongAlert(ex.Scenario, Color.Red);
                 }
-            }
         }
 
         private bool Validate()
@@ -175,11 +175,13 @@ namespace TyreKlicker.XF.Core.ViewModels
         private void AddValidations()
         {
             //ToDo add password & email Validators
-            _email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "An email is required." });
-            _password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
+            _email.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "An email is required."});
+            _password.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "A password is required."});
             // _confirmPassword.Validations.Add(new MustMatchRule<string>(_password) { ValidationMessage = "password must match" });
-            _firstName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A first name is required." });
-            _lastName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A last name is required." });
+            _firstName.Validations.Add(new IsNotNullOrEmptyRule<string>
+                {ValidationMessage = "A first name is required."});
+            _lastName.Validations.Add(new IsNotNullOrEmptyRule<string>
+                {ValidationMessage = "A last name is required."});
         }
     }
 }

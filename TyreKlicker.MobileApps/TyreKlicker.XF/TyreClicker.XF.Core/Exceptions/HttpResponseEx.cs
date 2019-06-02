@@ -1,19 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Net;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Net;
 
 namespace TyreKlicker.XF.Core.Exceptions
 {
     public class HttpResponseEx : Exception
     {
-        public HttpStatusCode HttpCode { get; }
-
-        public string Code { get; set; }
-
-        public string Scenario { get; set; }
-
         public HttpResponseEx(HttpStatusCode code, string message)
         {
             var serializerSettings = new JsonSerializerSettings
@@ -30,5 +24,11 @@ namespace TyreKlicker.XF.Core.Exceptions
             Scenario = httpExceptionResponse.Scenario;
             HttpCode = code;
         }
+
+        public HttpStatusCode HttpCode { get; }
+
+        public string Code { get; set; }
+
+        public string Scenario { get; set; }
     }
 }

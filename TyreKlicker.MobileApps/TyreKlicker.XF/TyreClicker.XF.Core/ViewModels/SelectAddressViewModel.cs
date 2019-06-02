@@ -1,8 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
 using TyreKlicker.XF.Core.Services.Address;
@@ -25,7 +25,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public ObservableCollection<Address> Addresses
         {
-            get { return _addresses; }
+            get => _addresses;
             set
             {
                 _addresses = value;
@@ -33,9 +33,11 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxCommand<Address> SelectAddressCommand => new MvxCommand<Address>(async (address) => await SelectAddressAsync(address));
+        public IMvxCommand<Address> SelectAddressCommand =>
+            new MvxCommand<Address>(async address => await SelectAddressAsync(address));
 
-        public IMvxCommand NavigateToAddNewAddressCommand => new MvxCommand(async () => await NavigateToAddNewAddressAsync());
+        public IMvxCommand NavigateToAddNewAddressCommand =>
+            new MvxCommand(async () => await NavigateToAddNewAddressAsync());
 
         private async Task NavigateToAddNewAddressAsync()
         {
@@ -51,7 +53,8 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-            Addresses = await _addressService.GetAddressesAsync(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            Addresses = await _addressService.GetAddressesAsync(Settings.AccessToken,
+                GlobalSetting.Instance.CurrentLoggedInUserId);
         }
 
         public override void Prepare(Address parameter)

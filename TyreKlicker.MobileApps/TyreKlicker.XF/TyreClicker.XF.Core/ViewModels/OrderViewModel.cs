@@ -1,8 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
@@ -21,16 +21,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             _orderService = orderService;
         }
 
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-            await GetOrdersAsync();
-            // do the heavy work here
-        }
-
         public ObservableCollection<Order> OrderItems
         {
-            get { return _orderItems; }
+            get => _orderItems;
             set
             {
                 _orderItems = value;
@@ -38,7 +31,8 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public IMvxCommand<Order> OpenOrderDetailsCommand => new MvxCommand<Order>(async (order) => await OpenOrderDetailsAsync(order));
+        public IMvxCommand<Order> OpenOrderDetailsCommand =>
+            new MvxCommand<Order>(async order => await OpenOrderDetailsAsync(order));
 
         public IMvxCommand GetOrdersCommand => new MvxCommand(async () =>
         {
@@ -49,6 +43,13 @@ namespace TyreKlicker.XF.Core.ViewModels
             IsBusy = false;
         });
 
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            await GetOrdersAsync();
+            // do the heavy work here
+        }
+
         private async Task OpenOrderDetailsAsync(Order order)
         {
             await NavigationService.Navigate<OrderDetailsViewModel, Order>(order);
@@ -57,7 +58,8 @@ namespace TyreKlicker.XF.Core.ViewModels
         private async Task GetOrdersAsync()
         {
             //ToDo if there are 0 items show something on the screen
-            OrderItems = await _orderService.GetOrders(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            OrderItems =
+                await _orderService.GetOrders(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
         }
     }
 }

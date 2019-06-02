@@ -1,7 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
 using TyreKlicker.XF.Core.Services.Address;
@@ -12,12 +12,12 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class AddressViewModel : MvxNavigationViewModel<Address, Address>
     {
         private readonly IAddressService _addressService;
+        private ValidatableObject<string> _city;
+        private ValidatableObject<string> _phoneNumber;
+        private ValidatableObject<string> _postCode;
+        private bool _primaryAddress;
 
         private ValidatableObject<string> _street;
-        private ValidatableObject<string> _city;
-        private ValidatableObject<string> _postCode;
-        private ValidatableObject<string> _phoneNumber;
-        private bool _primaryAddress;
 
         public AddressViewModel(
             IMvxLogProvider logProvider,
@@ -93,7 +93,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
             if (Validate())
             {
-                var createAddressCommand = new CreateAddressCommand()
+                var createAddressCommand = new CreateAddressCommand
                 {
                     UserId = GlobalSetting.Instance.CurrentLoggedInUserId,
                     City = _city.Value,
@@ -128,20 +128,34 @@ namespace TyreKlicker.XF.Core.ViewModels
             return isValidStreet && isValidCity && isValidPhoneNumber && isValidPostCode;
         }
 
-        private bool ValidateStreet() => _street.Validate();
+        private bool ValidateStreet()
+        {
+            return _street.Validate();
+        }
 
-        private bool ValidateCity() => _city.Validate();
+        private bool ValidateCity()
+        {
+            return _city.Validate();
+        }
 
-        private bool ValidatePhoneNumber() => _phoneNumber.Validate();
+        private bool ValidatePhoneNumber()
+        {
+            return _phoneNumber.Validate();
+        }
 
-        private bool ValidatePostCode() => _postCode.Validate();
+        private bool ValidatePostCode()
+        {
+            return _postCode.Validate();
+        }
 
         private void AddValidations()
         {
-            _street.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A street is required." });
-            _city.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A city is required." });
-            _phoneNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A phone number is required." });
-            _postCode.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A post code is required." });
+            _street.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "A street is required."});
+            _city.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "A city is required."});
+            _phoneNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
+                {ValidationMessage = "A phone number is required."});
+            _postCode.Validations.Add(new IsNotNullOrEmptyRule<string>
+                {ValidationMessage = "A post code is required."});
         }
 
         public override void Prepare(Address address)

@@ -8,10 +8,7 @@ namespace TyreKlicker.XF.Core.Validators
 
         public bool Check(T value)
         {
-            if (value == null)
-            {
-                return false;
-            }
+            if (value == null) return false;
 
             var years = value as Years;
 

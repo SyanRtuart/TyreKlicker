@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using TyreKlicker.XF.Core.Exceptions;
 
 namespace TyreKlicker.XF.Core.Services.RequestProvider
@@ -23,7 +23,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                NullValueHandling = NullValueHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore
                 //Error = (s, a) =>
                 //{
                 //    a.ErrorContext.Handled = true;
@@ -51,10 +51,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
         {
             var httpClient = CreateHttpClient(token);
 
-            if (!string.IsNullOrEmpty(header))
-            {
-                AddHeaderParameter(httpClient, header);
-            }
+            if (!string.IsNullOrEmpty(header)) AddHeaderParameter(httpClient, header);
 
             var content = new StringContent(JsonConvert.SerializeObject(data));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -74,10 +71,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             var httpClient = CreateHttpClient();
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
 
-            if (!string.IsNullOrEmpty(header))
-            {
-                AddHeaderParameter(httpClient, header);
-            }
+            if (!string.IsNullOrEmpty(header)) AddHeaderParameter(httpClient, header);
 
             var content = new StringContent(JsonConvert.SerializeObject(data));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -105,9 +99,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             if (!string.IsNullOrEmpty(token))
-            {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
             return httpClient;
         }
 
@@ -141,9 +133,7 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
 
                 if (response.StatusCode == HttpStatusCode.Forbidden ||
                     response.StatusCode == HttpStatusCode.Unauthorized)
-                {
                     throw new ServiceAuthenticationException(content);
-                }
 
                 throw new HttpResponseEx(response.StatusCode, content);
             }

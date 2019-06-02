@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TyreKlicker.XF.Core.Models.Tyre
 {
@@ -16,30 +15,23 @@ namespace TyreKlicker.XF.Core.Models.Tyre
 
         public Generation Generation { get; set; }
 
-        [JsonProperty("stud_holes")]
-        public int? StudHoles { get; set; }
+        [JsonProperty("stud_holes")] public int? StudHoles { get; set; }
 
         public double? Pcd { get; set; }
 
-        [JsonProperty("centre_bore")]
-        public double? CentreBore { get; set; }
+        [JsonProperty("centre_bore")] public double? CentreBore { get; set; }
 
-        [JsonProperty("lock_type")]
-        public string LockType { get; set; }
+        [JsonProperty("lock_type")] public string LockType { get; set; }
 
-        [JsonProperty("lock_text")]
-        public string LockText { get; set; }
+        [JsonProperty("lock_text")] public string LockText { get; set; }
 
-        [JsonProperty("bolt_pattern")]
-        public string BoltPattern { get; set; }
+        [JsonProperty("bolt_pattern")] public string BoltPattern { get; set; }
 
         public Power Power { get; set; }
 
-        [JsonProperty("engine_type")]
-        public string EngineType { get; set; }
+        [JsonProperty("engine_type")] public string EngineType { get; set; }
 
-        [JsonProperty("fuel")]
-        public string Fuel { get; set; }
+        [JsonProperty("fuel")] public string Fuel { get; set; }
 
         public IEnumerable<WheelPair> Wheels { get; set; }
     }

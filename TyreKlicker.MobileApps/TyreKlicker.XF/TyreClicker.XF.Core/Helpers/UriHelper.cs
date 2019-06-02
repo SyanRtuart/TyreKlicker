@@ -9,16 +9,15 @@ namespace TyreKlicker.XF.Core.Helpers
     {
         public static string CombineUri(params string[] uriParts)
         {
-            string uri = string.Empty;
+            var uri = string.Empty;
             if (uriParts != null && uriParts.Count() > 0)
             {
-                char[] trims = new char[] { '\\', '/' };
+                char[] trims = {'\\', '/'};
                 uri = (uriParts[0] ?? string.Empty).TrimEnd(trims);
-                for (int i = 1; i < uriParts.Count(); i++)
-                {
+                for (var i = 1; i < uriParts.Count(); i++)
                     uri = string.Format("{0}/{1}", uri.TrimEnd(trims), (uriParts[i] ?? string.Empty).TrimStart(trims));
-                }
             }
+
             return uri;
         }
 
@@ -28,11 +27,9 @@ namespace TyreKlicker.XF.Core.Helpers
             var collection = HttpUtility.ParseQueryString(string.Empty);
 
             foreach (var key in query.Cast<string>().Where(key => !string.IsNullOrEmpty(query[key])))
-            {
                 collection[key] = query[key];
-            }
 
-            var builder = new UriBuilder(root) { Query = collection.ToString() };
+            var builder = new UriBuilder(root) {Query = collection.ToString()};
             return builder.Uri.ToString();
         }
     }

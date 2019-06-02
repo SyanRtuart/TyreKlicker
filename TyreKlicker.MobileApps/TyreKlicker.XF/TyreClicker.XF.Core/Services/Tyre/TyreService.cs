@@ -9,10 +9,9 @@ namespace TyreKlicker.XF.Core.Services.Tyre
 {
     public class TyreService : ITyreService
     {
-        private readonly IRequestProvider _requestProvider;
-
         private const string BaseUri = @"https://api.wheel-size.com/v1/";
         private const string Key = "6cbe0b7035ba71026abe2ca8dae889af";
+        private readonly IRequestProvider _requestProvider;
 
         public TyreService(IRequestProvider requestProvider)
         {
@@ -23,7 +22,7 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"user_key", Key }
+                {"user_key", Key}
             };
 
             var uri = UriHelper.BuildUri(BaseUri + "makes/", values);
@@ -37,8 +36,8 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"user_key", Key },
-                {"make", make.Name }
+                {"user_key", Key},
+                {"make", make.Name}
             };
 
             var uri = UriHelper.BuildUri(BaseUri + "models/", values);
@@ -52,8 +51,8 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"user_key", Key },
-                {"make", make.Name }
+                {"user_key", Key},
+                {"make", make.Name}
             };
 
             var uri = UriHelper.BuildUri(BaseUri + "years/", values);
@@ -67,10 +66,10 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"user_key", Key },
-                {"make", make.Name },
-                {"model", model.Name },
-                {"year", year.Name }
+                {"user_key", Key},
+                {"make", make.Name},
+                {"model", model.Name},
+                {"year", year.Name}
             };
 
             var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
@@ -84,10 +83,10 @@ namespace TyreKlicker.XF.Core.Services.Tyre
         {
             var values = new NameValueCollection
             {
-                {"user_key", Key },
-                {"make", make.Name },
-                {"model", model.Name },
-                {"year", year.Name }
+                {"user_key", Key},
+                {"make", make.Name},
+                {"model", model.Name},
+                {"year", year.Name}
             };
 
             var uri = UriHelper.BuildUri(BaseUri + "search/by_model/", values);
@@ -97,12 +96,8 @@ namespace TyreKlicker.XF.Core.Services.Tyre
             var myWheelPairs = new ObservableCollection<WheelPair>();
 
             foreach (var vehicle in response)
-            {
-                foreach (var wheel in vehicle.Wheels)
-                {
-                    myWheelPairs.Add(wheel);
-                }
-            }
+            foreach (var wheel in vehicle.Wheels)
+                myWheelPairs.Add(wheel);
 
             return myWheelPairs;
         }

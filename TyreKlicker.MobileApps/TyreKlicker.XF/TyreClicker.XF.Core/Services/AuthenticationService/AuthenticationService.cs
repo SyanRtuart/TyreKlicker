@@ -21,7 +21,8 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
 
         public async Task<UserToken> GetTokenAsync(LoginRequest loginRequest)
         {
-            var token = await _requestProvider.PostAsync<UserToken, LoginRequest>(GlobalSetting.Instance.TokenEndpoint, loginRequest);
+            var token = await _requestProvider.PostAsync<UserToken, LoginRequest>(GlobalSetting.Instance.TokenEndpoint,
+                loginRequest);
 
             GlobalSetting.Instance.AuthToken = token.AccessToken;
 
@@ -33,14 +34,15 @@ namespace TyreKlicker.XF.Core.Services.AuthenticationService
             throw new NotImplementedException();
         }
 
+        public async Task Register(RegisterRequest registerRequest)
+        {
+            await _requestProvider.PostAsync<string, RegisterRequest>(
+                GlobalSetting.Instance.AuthenticationEndpoint + "/register", registerRequest);
+        }
+
         public Task<UserToken> GetTokenAsync(string code)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task Register(RegisterRequest registerRequest)
-        {
-            await _requestProvider.PostAsync<string, RegisterRequest>(GlobalSetting.Instance.AuthenticationEndpoint + "/register", registerRequest);
         }
     }
 }

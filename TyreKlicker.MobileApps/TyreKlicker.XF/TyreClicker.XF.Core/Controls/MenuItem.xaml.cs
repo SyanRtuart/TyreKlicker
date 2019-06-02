@@ -1,5 +1,5 @@
-﻿using MvvmCross.Commands;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using MvvmCross.Commands;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,6 +24,13 @@ namespace TyreKlicker.XF.Core.Controls
         public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(IMvxCommand), typeof(MenuItem), null);
 
+        public MenuItem()
+        {
+            InitializeComponent();
+
+            BindingContext = this;
+        }
+
         //        public static readonly BindableProperty ViewModelNameProperty =
         //    BindableProperty.Create(nameof(ViewModelName), typeof(string), typeof(MenuItem), null);
 
@@ -32,20 +39,20 @@ namespace TyreKlicker.XF.Core.Controls
 
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
-            set { SetValue(LabelProperty, value); }
+            get => (string) GetValue(LabelProperty);
+            set => SetValue(LabelProperty, value);
         }
 
         public string IconUniCode
         {
-            get { return (string)GetValue(IconUniCodeProperty); }
-            set { SetValue(IconUniCodeProperty, value); }
+            get => (string) GetValue(IconUniCodeProperty);
+            set => SetValue(IconUniCodeProperty, value);
         }
 
         public IMvxCommand Command
         {
-            get { return (IMvxCommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (IMvxCommand) GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         //public string ViewModelName
@@ -64,17 +71,7 @@ namespace TyreKlicker.XF.Core.Controls
         public static void Execute(ICommand command)
         {
             if (command == null) return;
-            if (command.CanExecute(null))
-            {
-                command.Execute(null);
-            }
-        }
-
-        public MenuItem()
-        {
-            InitializeComponent();
-
-            BindingContext = this;
+            if (command.CanExecute(null)) command.Execute(null);
         }
     }
 }

@@ -1,22 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <views:MvxContentPage x:TypeArguments="viewModels:RegistrationViewModel"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TyreKlicker.XF.Core.Pages.RegistrationPage"
-            xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-            xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-            xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
-            xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core">
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      x:Class="TyreKlicker.XF.Core.Pages.RegistrationPage"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+                      xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+                      xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core">
     <ContentPage.Resources>
         <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Register your account here!"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" />
 
-            <Entry Text="{Binding Email.Value, Mode=TwoWay}"  Placeholder="Email" FontSize="Default">
+            <Entry Text="{Binding Email.Value, Mode=TwoWay}" Placeholder="Email" FontSize="Default">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
                         <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -41,7 +42,7 @@
                 Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                 Style="{StaticResource ValidationErrorLabelStyle}" />
 
-            <Entry  Text="{Binding Password.Value, Mode=TwoWay}" Placeholder="Password" FontSize="Default">
+            <Entry Text="{Binding Password.Value, Mode=TwoWay}" Placeholder="Password" FontSize="Default">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
                         <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -66,7 +67,8 @@
                 Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                 Style="{StaticResource ValidationErrorLabelStyle}" />
 
-            <Entry  Text="{Binding ConfirmPassword.Value, Mode=TwoWay}" Placeholder="Confirm Password" FontSize="Default">
+            <Entry Text="{Binding ConfirmPassword.Value, Mode=TwoWay}" Placeholder="Confirm Password"
+                   FontSize="Default">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
                         <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -140,7 +142,7 @@
                 Text="{Binding LastName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                 Style="{StaticResource ValidationErrorLabelStyle}" />
 
-            <Button Text="Register" Command="{Binding RegisterCommand}"></Button>
+            <Button Text="Register" Command="{Binding RegisterCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </views:MvxContentPage>

@@ -1,13 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <views:MvxContentPage
-            x:TypeArguments="viewModels:SelectVehicalViewModel"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-            xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-            xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
-            xmlns:behaviors1="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
-            x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectVehicalPage">
+    x:TypeArguments="viewModels:SelectVehicalViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+    xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
+    xmlns:behaviors1="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+    x:Class="TyreKlicker.XF.Core.Views.PendingOrders.SelectVehicalPage">
     <ContentPage.Content>
         <StackLayout>
             <Picker ItemsSource="{Binding Makes}"
@@ -21,11 +22,12 @@
                 </Picker.Behaviors>
             </Picker>
 
-            <Picker IsVisible="{Binding Models.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
-                    ItemsSource="{Binding Models}"
-                    ItemDisplayBinding="{Binding Name}"
-                    Title="Select Model"
-                    SelectedItem="{Binding SelectedModel.Value, Mode=TwoWay}">
+            <Picker
+                IsVisible="{Binding Models.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
+                ItemsSource="{Binding Models}"
+                ItemDisplayBinding="{Binding Name}"
+                Title="Select Model"
+                SelectedItem="{Binding SelectedModel.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetYearsCommand}" />
@@ -33,11 +35,12 @@
                 </Picker.Behaviors>
             </Picker>
 
-            <Picker IsVisible="{Binding Years.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
-                    ItemsSource="{Binding Years}"
-                    ItemDisplayBinding="{Binding Name}"
-                    Title="Select Year"
-                    SelectedItem="{Binding SelectedYear.Value, Mode=TwoWay}">
+            <Picker
+                IsVisible="{Binding Years.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
+                ItemsSource="{Binding Years}"
+                ItemDisplayBinding="{Binding Name}"
+                Title="Select Year"
+                SelectedItem="{Binding SelectedYear.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetVehiclesCommand}" />
@@ -45,11 +48,12 @@
                 </Picker.Behaviors>
             </Picker>
 
-            <Picker IsVisible="{Binding Trims.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
-                    ItemsSource="{Binding Trims}"
-                    ItemDisplayBinding="{Binding Trim}"
-                    Title="Select ApiVehicle"
-                    SelectedItem="{Binding SelectedVehicleTrim.Value, Mode=TwoWay}">
+            <Picker
+                IsVisible="{Binding Trims.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
+                ItemsSource="{Binding Trims}"
+                ItemDisplayBinding="{Binding Trim}"
+                Title="Select ApiVehicle"
+                SelectedItem="{Binding SelectedVehicleTrim.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetTyresCommand}" />
@@ -57,11 +61,12 @@
                 </Picker.Behaviors>
             </Picker>
 
-            <Picker IsVisible="{Binding Tyres.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
-                    ItemsSource="{Binding Tyres}"
-                    ItemDisplayBinding="{Binding Tire}"
-                    Title="Select Tyre Size"
-                    SelectedItem="{Binding SelectedTyre.Value, Mode=TwoWay}">
+            <Picker
+                IsVisible="{Binding Tyres.Count, Converter={StaticResource CountToBoolConverter}, FallbackValue=False}"
+                ItemsSource="{Binding Tyres}"
+                ItemDisplayBinding="{Binding Tire}"
+                Title="Select Tyre Size"
+                SelectedItem="{Binding SelectedTyre.Value, Mode=TwoWay}">
                 <Picker.Behaviors>
                     <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                         <behaviors:InvokeCommandAction Command="{Binding GetWheelPairsCommand}" />

@@ -1,8 +1,8 @@
-﻿using Acr.UserDialogs;
+﻿using System.Collections.Generic;
+using Acr.UserDialogs;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System.Collections.Generic;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Services;
 
@@ -10,13 +10,14 @@ namespace TyreKlicker.XF.Core.ViewModels
 {
     public class SecondViewModel : MvxViewModel<Dictionary<string, string>>
     {
+        private readonly ILocalizeService _localizeService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IUserDialogs _userDialogs;
 
         private Dictionary<string, string> _parameter;
-        private readonly ILocalizeService _localizeService;
 
-        public SecondViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, ILocalizeService localizeService)
+        public SecondViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs,
+            ILocalizeService localizeService)
         {
             _navigationService = navigationService;
             _userDialogs = userDialogs;

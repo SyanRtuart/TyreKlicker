@@ -1,6 +1,6 @@
-﻿using MvvmCross.Logging;
+﻿using System.Threading.Tasks;
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;

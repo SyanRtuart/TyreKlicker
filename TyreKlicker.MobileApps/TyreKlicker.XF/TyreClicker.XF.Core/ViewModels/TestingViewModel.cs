@@ -1,9 +1,9 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
 using TyreKlicker.XF.Core.Services.Address;
@@ -13,20 +13,10 @@ namespace TyreKlicker.XF.Core.ViewModels
 {
     public class TestingViewModel : MvxNavigationViewModel
     {
-        private readonly ITyreService _tyreService;
         private readonly IAddressService _addressService;
+        private readonly ITyreService _tyreService;
 
         private Address _address;
-
-        public Address Address
-        {
-            get => _address;
-            set
-            {
-                _address = value;
-                RaisePropertyChanged(() => Address);
-            }
-        }
 
         public TestingViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
@@ -52,6 +42,23 @@ namespace TyreKlicker.XF.Core.ViewModels
                 PhoneNumber = "115151"
             };
         }
+
+        public Address Address
+        {
+            get => _address;
+            set
+            {
+                _address = value;
+                RaisePropertyChanged(() => Address);
+            }
+        }
+
+        public IMvxCommand Button1Command { get; }
+        public IMvxCommand Button2Command { get; }
+        public IMvxCommand Button3Command { get; }
+        public IMvxCommand Button4Command { get; }
+        public IMvxCommand Button5Command { get; }
+        public IMvxCommand Button6Command { get; }
 
         private async Task Button1Execute()
         {
@@ -91,25 +98,19 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private async Task Button4Execute()
         {
-            var result = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken, GlobalSetting.Instance.CurrentLoggedInUserId);
+            var result = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken,
+                GlobalSetting.Instance.CurrentLoggedInUserId);
             var asdas = "";
         }
 
         private async Task Button5Execute()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private async Task Button6Execute()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-
-        public IMvxCommand Button1Command { get; }
-        public IMvxCommand Button2Command { get; }
-        public IMvxCommand Button3Command { get; }
-        public IMvxCommand Button4Command { get; }
-        public IMvxCommand Button5Command { get; }
-        public IMvxCommand Button6Command { get; }
     }
 }

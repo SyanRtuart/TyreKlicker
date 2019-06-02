@@ -5,7 +5,10 @@ using MvvmCross.IoC;
 using MvvmCross.Plugin.Json;
 using MvvmCross.ViewModels;
 using TyreKlicker.XF.Core.Helpers;
+using TyreKlicker.XF.Core.Resources;
+using TyreKlicker.XF.Core.Services;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
+using TyreKlicker.XF.Core.Services.AutoMapper;
 using TyreKlicker.XF.Core.Services.RequestProvider;
 using TyreKlicker.XF.Core.Services.User;
 using TyreKlicker.XF.Core.ViewModels;
@@ -27,15 +30,15 @@ namespace TyreKlicker.XF.Core
             //    .RegisterAsLazySingleton();
 
             //Add AutoMapper
-            Mvx.RegisterSingleton(Services.AutoMapper.MapService.ConfigureMapper());
+            Mvx.RegisterSingleton(MapService.ConfigureMapper());
 
             Mvx.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
-            Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+            Mvx.RegisterSingleton(() => UserDialogs.Instance);
             Mvx.RegisterType<IRequestProvider, RequestProvider>();
             Mvx.RegisterType<IAuthenticationService, AuthenticationService>();
             Mvx.RegisterType<IUserService, UserService>();
 
-            Resources.AppResources.Culture = Mvx.Resolve<Services.ILocalizeService>().GetCurrentCultureInfo();
+            AppResources.Culture = Mvx.Resolve<ILocalizeService>().GetCurrentCultureInfo();
 
             //Settings.AccessToken = null;
             //ToDo Test if the token is actually valid.

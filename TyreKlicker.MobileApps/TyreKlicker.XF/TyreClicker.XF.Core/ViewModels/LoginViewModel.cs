@@ -1,7 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
@@ -23,7 +23,8 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             _authenticationService = authenticationService;
 
-            NavigateToRegistrationPageCommand = new MvxCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
+            NavigateToRegistrationPageCommand =
+                new MvxCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
             LoginCommand = new MvxCommand(async () => await LoginAsync());
 
             _email = new ValidatableObject<string>();
@@ -81,6 +82,7 @@ namespace TyreKlicker.XF.Core.ViewModels
                     Settings.AccessToken = token.AccessToken;
                     await NavigationService.Navigate<SplitRootViewModel>();
                 }
+
                 //handle else
             }
         }
@@ -105,8 +107,8 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         private void AddValidations()
         {
-            _email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A username is required." });
-            _password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
+            _email.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "A username is required."});
+            _password.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "A password is required."});
         }
     }
 }

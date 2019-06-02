@@ -1,7 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
@@ -23,13 +23,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             AcceptOrderCommand = new MvxCommand(async () => await AcceptOrderAsync());
         }
 
-        private async Task AcceptOrderAsync()
-        {
-            var command = new AcceptOrderCommand { OrderId = _pendingOrder.Id, UserId = GlobalSetting.Instance.CurrentLoggedInUserId };
-
-            await _orderService.AcceptOrder(Settings.AccessToken, command);
-        }
-
         public Order PendingOrder
         {
             get => _pendingOrder;
@@ -41,6 +34,14 @@ namespace TyreKlicker.XF.Core.ViewModels
         }
 
         public IMvxCommand AcceptOrderCommand { get; }
+
+        private async Task AcceptOrderAsync()
+        {
+            var command = new AcceptOrderCommand
+                {OrderId = _pendingOrder.Id, UserId = GlobalSetting.Instance.CurrentLoggedInUserId};
+
+            await _orderService.AcceptOrder(Settings.AccessToken, command);
+        }
 
         public override void Prepare()
         {

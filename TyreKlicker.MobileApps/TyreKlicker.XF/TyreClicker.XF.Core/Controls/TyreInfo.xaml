@@ -1,15 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TyreKlicker.XF.Core.Controls.TyreInfo">
-  <ContentView.Content>
-    <StackLayout Margin="24,0,24,0">
-      <Button Clicked="Button_OnClicked"></Button>
-      <Label Text="{Binding Vehicle.Make}" />
-      <Label Text="{Binding Vehicle.Model}" />
-      <Label Text="{Binding Vehicle.Year}" />
-      <Label Text="{Binding Vehicle.Trim}" />
-      <Label Text="{Binding Vehicle.Tyre}" />
-    </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <StackLayout Margin="24,0,24,0">
+            <Button Clicked="Button_OnClicked" />
+            <Label Text="{Binding Vehicle.Make}" />
+            <Label Text="{Binding Vehicle.Model}" />
+            <Label Text="{Binding Vehicle.Year}" />
+            <Label Text="{Binding Vehicle.Trim}" />
+            <Label Text="{Binding Vehicle.Tyre}" />
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

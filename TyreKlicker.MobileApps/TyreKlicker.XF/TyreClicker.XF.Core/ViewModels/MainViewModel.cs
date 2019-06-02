@@ -1,7 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Collections.Generic;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System.Collections.Generic;
+using TyreKlicker.XF.Core.Resources;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -13,19 +14,16 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             _navigationService = navigationService;
 
-            ButtonText = Resources.AppResources.MainPageButton;
+            ButtonText = AppResources.MainPageButton;
         }
 
         public IMvxCommand PressMeCommand =>
-            new MvxCommand(() =>
-            {
-                ButtonText = Resources.AppResources.MainPageButtonPressed;
-            });
+            new MvxCommand(() => { ButtonText = AppResources.MainPageButtonPressed; });
 
         public IMvxCommand GoToSecondPageCommand =>
             new MvxCommand(async () =>
             {
-                var param = new Dictionary<string, string> { { "ButtonText", ButtonText } };
+                var param = new Dictionary<string, string> {{"ButtonText", ButtonText}};
 
                 await _navigationService.Navigate<SecondViewModel, Dictionary<string, string>>(param);
             });

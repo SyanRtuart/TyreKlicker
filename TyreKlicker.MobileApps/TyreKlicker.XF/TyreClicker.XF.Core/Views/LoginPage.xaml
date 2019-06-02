@@ -1,17 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <views:MvxContentPage
     x:TypeArguments="viewModels:LoginViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-                xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
-                NavigationPage.HasNavigationBar="False"
-                x:Class="TyreKlicker.XF.Core.Pages.LoginPage">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+    xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="TyreKlicker.XF.Core.Pages.LoginPage">
     <!--BackgroundImage="LoginScreenTire.jpg"-->
 
     <ContentPage.Content>
-        <Grid  BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid BackgroundColor="{StaticResource BackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <RowDefinition Height="*" />
@@ -50,7 +51,8 @@
                             TargetType="Entry"
                             Binding="{Binding UserName.IsValid}"
                             Value="False">
-                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            <Setter Property="behaviors:LineColorBehavior.LineColor"
+                                    Value="{StaticResource ErrorColor}" />
                         </DataTrigger>
                     </Entry.Triggers>
                 </Entry>
@@ -71,20 +73,23 @@
                             TargetType="Entry"
                             Binding="{Binding Password.IsValid}"
                             Value="False">
-                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            <Setter Property="behaviors:LineColorBehavior.LineColor"
+                                    Value="{StaticResource ErrorColor}" />
                         </DataTrigger>
                     </Entry.Triggers>
                 </Entry>
 
-                <Label Grid.Row="3"  HorizontalTextAlignment="Center" FontAttributes="Bold" >FORGOT PASSWORD?</Label>
-                <Button Grid.Row="4"  Command="{Binding LoginCommand,Mode=TwoWay}"  Text="LOGIN" HeightRequest="40" VerticalOptions="Start" />
+                <Label Grid.Row="3" HorizontalTextAlignment="Center" FontAttributes="Bold">FORGOT PASSWORD?</Label>
+                <Button Grid.Row="4" Command="{Binding LoginCommand,Mode=TwoWay}" Text="LOGIN" HeightRequest="40"
+                        VerticalOptions="Start" />
             </Grid>
 
             <StackLayout Grid.Row="2">
                 <Label HeightRequest="2" />
-                <Label Text="CREATE AN ACCOUNT" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                <Label Text="CREATE AN ACCOUNT" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToRegistrationPageCommand}"></TapGestureRecognizer>
+                        <TapGestureRecognizer Command="{Binding NavigateToRegistrationPageCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
             </StackLayout>

@@ -22,7 +22,7 @@ namespace TyreKlicker.XF.Core
 
         public string BaseIdentityEndpoint
         {
-            get { return _baseIdentityEndpoint; }
+            get => _baseIdentityEndpoint;
             set
             {
                 _baseIdentityEndpoint = value;

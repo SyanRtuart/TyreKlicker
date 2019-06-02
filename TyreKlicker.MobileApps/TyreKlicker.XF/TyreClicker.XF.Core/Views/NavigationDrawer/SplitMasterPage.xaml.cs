@@ -1,6 +1,6 @@
-﻿using MvvmCross.Forms.Presenters.Attributes;
+﻿using System;
+using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Forms.Views;
-using System;
 using TyreKlicker.XF.Core.ViewModels;
 using Xamarin.Forms;
 
@@ -20,7 +20,7 @@ namespace TyreKlicker.XF.Core.Pages
             {
                 md.MasterBehavior = MasterBehavior.Popover;
                 md.IsPresented = !md.IsPresented;
-                ((ListView)sender).SelectedItem = null;
+                ((ListView) sender).SelectedItem = null;
             }
         }
     }

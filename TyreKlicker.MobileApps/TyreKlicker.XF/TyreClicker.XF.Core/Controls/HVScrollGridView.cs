@@ -8,57 +8,24 @@ namespace TyreKlicker.XF.Core.Controls
 {
     public class HVScrollGridView : Grid
     {
-        private ICommand _innerSelectedCommand;
-        private readonly ScrollView _scrollView;
-        private readonly StackLayout _itemsStackLayout;
-
-        public event EventHandler SelectedItemChanged;
-
-        public StackOrientation ListOrientation { get; set; }
-
-        public double Spacing { get; set; }
-
         public static readonly BindableProperty SelectedCommandProperty =
             BindableProperty.Create("SelectedCommand", typeof(ICommand), typeof(HVScrollGridView), null);
 
         public static readonly BindableProperty ItemsSourceProperty =
-            BindableProperty.Create("ItemsSource", typeof(IEnumerable), typeof(HVScrollGridView), default(IEnumerable<object>), BindingMode.TwoWay, propertyChanged: ItemsSourceChanged);
+            BindableProperty.Create("ItemsSource", typeof(IEnumerable), typeof(HVScrollGridView),
+                default(IEnumerable<object>), BindingMode.TwoWay, propertyChanged: ItemsSourceChanged);
 
         public static readonly BindableProperty SelectedItemProperty =
-            BindableProperty.Create("SelectedItem", typeof(object), typeof(HVScrollGridView), null, BindingMode.TwoWay, propertyChanged: OnSelectedItemChanged);
+            BindableProperty.Create("SelectedItem", typeof(object), typeof(HVScrollGridView), null, BindingMode.TwoWay,
+                propertyChanged: OnSelectedItemChanged);
 
         public static readonly BindableProperty ItemTemplateProperty =
-            BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(HVScrollGridView), default(DataTemplate));
+            BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(HVScrollGridView),
+                default(DataTemplate));
 
-        public ICommand SelectedCommand
-        {
-            get { return (ICommand)GetValue(SelectedCommandProperty); }
-            set { SetValue(SelectedCommandProperty, value); }
-        }
-
-        public IEnumerable ItemsSource
-        {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public object SelectedItem
-        {
-            get { return (object)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
-        }
-
-        public DataTemplate ItemTemplate
-        {
-            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
-            set { SetValue(ItemTemplateProperty, value); }
-        }
-
-        private static void ItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var itemsLayout = (HVScrollGridView)bindable;
-            itemsLayout.SetItems();
-        }
+        private readonly StackLayout _itemsStackLayout;
+        private readonly ScrollView _scrollView;
+        private ICommand _innerSelectedCommand;
 
         public HVScrollGridView()
         {
@@ -77,6 +44,42 @@ namespace TyreKlicker.XF.Core.Controls
             Children.Add(_scrollView);
         }
 
+        public StackOrientation ListOrientation { get; set; }
+
+        public double Spacing { get; set; }
+
+        public ICommand SelectedCommand
+        {
+            get => (ICommand) GetValue(SelectedCommandProperty);
+            set => SetValue(SelectedCommandProperty, value);
+        }
+
+        public IEnumerable ItemsSource
+        {
+            get => (IEnumerable) GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
+        }
+
+        public object SelectedItem
+        {
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+
+        public DataTemplate ItemTemplate
+        {
+            get => (DataTemplate) GetValue(ItemTemplateProperty);
+            set => SetValue(ItemTemplateProperty, value);
+        }
+
+        public event EventHandler SelectedItemChanged;
+
+        private static void ItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var itemsLayout = (HVScrollGridView) bindable;
+            itemsLayout.SetItems();
+        }
+
         protected virtual void SetItems()
         {
             _itemsStackLayout.Children.Clear();
@@ -93,15 +96,9 @@ namespace TyreKlicker.XF.Core.Controls
                 ? ScrollOrientation.Horizontal
                 : ScrollOrientation.Vertical;
 
-            if (ItemsSource == null)
-            {
-                return;
-            }
+            if (ItemsSource == null) return;
 
-            foreach (var item in ItemsSource)
-            {
-                _itemsStackLayout.Children.Add(GetItemView(item));
-            }
+            foreach (var item in ItemsSource) _itemsStackLayout.Children.Add(GetItemView(item));
 
             _itemsStackLayout.BackgroundColor = BackgroundColor;
             SelectedItem = null;
@@ -112,10 +109,7 @@ namespace TyreKlicker.XF.Core.Controls
             var content = ItemTemplate.CreateContent();
             var view = content as View;
 
-            if (view == null)
-            {
-                return null;
-            }
+            if (view == null) return null;
 
             view.BindingContext = item;
 
@@ -136,31 +130,19 @@ namespace TyreKlicker.XF.Core.Controls
 
             var layout = view as Layout<View>;
 
-            if (layout == null)
-            {
-                return;
-            }
+            if (layout == null) return;
 
-            foreach (var child in layout.Children)
-            {
-                AddGesture(child, gesture);
-            }
+            foreach (var child in layout.Children) AddGesture(child, gesture);
         }
 
         private static void OnSelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var itemsView = (HVScrollGridView)bindable;
-            if (newValue == oldValue && newValue != null)
-            {
-                return;
-            }
+            var itemsView = (HVScrollGridView) bindable;
+            if (newValue == oldValue && newValue != null) return;
 
             itemsView.SelectedItemChanged?.Invoke(itemsView, EventArgs.Empty);
 
-            if (itemsView.SelectedCommand?.CanExecute(newValue) ?? false)
-            {
-                itemsView.SelectedCommand?.Execute(newValue);
-            }
+            if (itemsView.SelectedCommand?.CanExecute(newValue) ?? false) itemsView.SelectedCommand?.Execute(newValue);
         }
     }
 }
