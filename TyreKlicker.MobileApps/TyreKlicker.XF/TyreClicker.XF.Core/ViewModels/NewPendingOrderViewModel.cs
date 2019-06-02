@@ -1,10 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Address;
 using TyreKlicker.XF.Core.Models.Order;
@@ -16,44 +15,37 @@ namespace TyreKlicker.XF.Core.ViewModels
 {
     public class NewPendingOrderViewModel : MvxNavigationViewModel
     {
-        private readonly IOrderService _orderService;
         private readonly IAddressService _addressService;
-        private readonly IMapper _mapper;
+        private readonly IOrderService _orderService;
+        private ValidatableObject<Address> _address;
+        private ValidatableObject<ObservableCollection<Availability>> _availability;
+        private string _description;
 
         private Order _order;
-        private ValidatableObject<Address> _address;
-        private ValidatableObject<Vehicle> _vehicle;
-        private string _description;
-        private ValidatableObject<ObservableCollection<Availability>> _availability;
         private ValidatableObject<string> _registration;
+        private ValidatableObject<Vehicle> _vehicle;
 
         public NewPendingOrderViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            IOrderService orderService, IAddressService addressService, IMapper mapper) :
+            IOrderService orderService, IAddressService addressService) :
             base(logProvider, navigationService)
         {
             _orderService = orderService;
             _addressService = addressService;
-            _mapper = mapper;
 
             _order = new Order();
             _address = new ValidatableObject<Address>();
-            _vehicle = new ValidatableObject<Vehicle>
-            {
-                Value = new Vehicle()
-            };
+            _vehicle = new ValidatableObject<Vehicle> {Value = new Vehicle()};
             _registration = new ValidatableObject<string>();
             _availability = new ValidatableObject<ObservableCollection<Availability>>
-            {
-                Value = new ObservableCollection<Availability>()
-            };
+                {Value = new ObservableCollection<Availability>()};
 
             AddValidations();
         }
 
         public ValidatableObject<string> Registration
         {
-            get { return _registration; }
+            get => _registration;
             set
             {
                 _registration = value;
@@ -63,7 +55,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public string Description
         {
-            get { return (_description); }
+            get => _description;
             set
             {
                 _description = value;
@@ -93,7 +85,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public ValidatableObject<ObservableCollection<Availability>> Availability
         {
-            get { return _availability; }
+            get => _availability;
             set
             {
                 _availability = value;
@@ -105,7 +97,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public ValidatableObject<Vehicle> Vehicle
         {
-            get { return _vehicle; }
+            get => _vehicle;
             set
             {
                 _vehicle = value;
@@ -115,7 +107,8 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxCommand SelectAddressCommand => new MvxCommand(async () => await NavigateToSelectAddressPageAsync());
 
-        public IMvxCommand SelectAvailabilityCommand => new MvxCommand(async () => await NavigateToSelectSelectAvailabilityAsync());
+        public IMvxCommand SelectAvailabilityCommand =>
+            new MvxCommand(async () => await NavigateToSelectSelectAvailabilityAsync());
 
         public IMvxCommand ValidateRegistrationCommand => new MvxCommand(() => ValidateRegistration());
 
@@ -124,14 +117,8 @@ namespace TyreKlicker.XF.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-            try
-            {
-                Address.Value = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken,
-                    GlobalSetting.Instance.CurrentLoggedInUserId);
-            }
-            catch
-            {
-            }
+            Address.Value = await _addressService.GetPrimaryAddressAsync(Settings.AccessToken,
+                GlobalSetting.Instance.CurrentLoggedInUserId);
         }
 
         private async Task SubmitOrderAsync()
@@ -150,11 +137,13 @@ namespace TyreKlicker.XF.Core.ViewModels
                     Trim = _vehicle.Value.Trim,
                     Tyre = _vehicle.Value.Tyre,
                     Description = _description,
-                    Availability = Availability.Value.ToList(),
+                    Availability = Availability.Value.ToList()
                 };
 
                 await _orderService.CreateNewPendingOrder(Settings.AccessToken, command);
+                await NavigationService.Close(this);
             }
+
             IsBusy = false;
         }
 
@@ -163,18 +152,26 @@ namespace TyreKlicker.XF.Core.ViewModels
             var isRegistrationValid = ValidateRegistration();
             var isAddressValid = ValidateAddress();
             var isAvailabilityValid = ValidateAvailability();
+            var isVehicleValid = ValidateVehicle();
 
-            return isRegistrationValid && isAddressValid && isAvailabilityValid;
+            return isRegistrationValid && isAddressValid && isAvailabilityValid && isVehicleValid;
         }
 
         private async Task NavigateToSelectTyrePageAsync()
         {
-            Vehicle.Value = await NavigationService.Navigate<SelectVehicalViewModel, Vehicle, Vehicle>(new Vehicle());
+            Vehicle = new ValidatableObject<Vehicle>
+                {Value = await NavigationService.Navigate<SelectVehicalViewModel, Vehicle, Vehicle>(new Vehicle())};
         }
 
         private async Task NavigateToSelectSelectAvailabilityAsync()
         {
-            Availability = await NavigationService.Navigate<SelectAvailabilityViewModel, ValidatableObject<ObservableCollection<Availability>>, ValidatableObject<ObservableCollection<Availability>>>(new ValidatableObject<ObservableCollection<Availability>> { Value = new ObservableCollection<Availability>() });
+            //ToDo: Fix this to not return an observablecollection Check   NavigateToSelectTyrePageAsync
+            Availability =
+                await NavigationService
+                    .Navigate<SelectAvailabilityViewModel, ValidatableObject<ObservableCollection<Availability>>,
+                        ValidatableObject<ObservableCollection<Availability>>>(
+                        new ValidatableObject<ObservableCollection<Availability>>
+                            {Value = new ObservableCollection<Availability>()});
         }
 
         private async Task NavigateToSelectAddressPageAsync()
@@ -182,17 +179,35 @@ namespace TyreKlicker.XF.Core.ViewModels
             Address.Value = await NavigationService.Navigate<SelectAddressViewModel, Address, Address>(new Address());
         }
 
-        private bool ValidateRegistration() => _registration.Validate();
-
-        private bool ValidateAddress() => _address.Validate();
-
-        private bool ValidateAvailability() => _availability.Validate();
-
         private void AddValidations()
         {
-            _registration.Validations.Add(new VehicleRegistrationRule<string> { ValidationMessage = "A valid UK vehical registration is required." });
-            _address.Validations.Add((new IsValidAddressRule<Address> { ValidationMessage = "A valid address is required." }));
-            _availability.Validations.Add(new IsCountNotZeroRule<ObservableCollection<Availability>> { ValidationMessage = "At least 1 time slot is required." });
+            _registration.Validations.Add(new VehicleRegistrationRule<string>
+                {ValidationMessage = "A valid UK vehical registration is required."});
+            _address.Validations.Add(new IsValidAddressRule<Address>
+                {ValidationMessage = "A valid address is required."});
+            _availability.Validations.Add(new IsCountNotZeroRule<ObservableCollection<Availability>>
+                {ValidationMessage = "At least 1 time slot is required."});
+            _vehicle.Validations.Add(new IsVehicleValidRule<Vehicle> {ValidationMessage = "A vehicle is required."});
+        }
+
+        private bool ValidateRegistration()
+        {
+            return _registration.Validate();
+        }
+
+        private bool ValidateAddress()
+        {
+            return _address.Validate();
+        }
+
+        private bool ValidateAvailability()
+        {
+            return _availability.Validate();
+        }
+
+        private bool ValidateVehicle()
+        {
+            return _vehicle.Validate();
         }
     }
 }

@@ -1,134 +1,143 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <views:MvxContentPage x:TypeArguments="viewModels:NewPendingOrderViewModel"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-            xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
-            xmlns:behaviorsNuget="clr-namespace:Behaviors;assembly=Behaviors"
-            xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
-            xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
-            xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
-            x:Class="TyreKlicker.XF.Core.Views.PendingOrders.NewPendingOrderPage"
-            Title="Create New Order">
-    <ContentPage.Resources>
-        <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter" />
-        <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
-    </ContentPage.Resources>
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+                      xmlns:behaviorsNuget="clr-namespace:Behaviors;assembly=Behaviors"
+                      xmlns:behaviors="clr-namespace:TyreKlicker.XF.Core.Behaviors;assembly=TyreKlicker.XF.Core"
+                      xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
+                      xmlns:converters="clr-namespace:TyreKlicker.XF.Core.Converters;assembly=TyreKlicker.XF.Core"
+                      x:Class="TyreKlicker.XF.Core.Views.PendingOrders.NewPendingOrderPage"
+                      Title="Create New Order">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="60" />
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+                    <!-- REGISTRATION -->
+                    <controls:ContentCard
+                        Header="Registration" />
+                    <StackLayout
+                        Margin="24,0,24,0">
+                        <Entry Text="{Binding Registration.Value, Mode=TwoWay}">
+                            <Entry.Style>
+                                <OnPlatform x:TypeArguments="Style">
+                                    <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                                </OnPlatform>
+                            </Entry.Style>
+                            <Entry.Behaviors>
+                                <behaviors:EventToCommandBehavior
+                                    EventName="TextChanged"
+                                    Command="{Binding ValidateRegistrationCommand}" />
+                            </Entry.Behaviors>
+                            <Entry.Triggers>
+                                <DataTrigger
+                                    TargetType="Entry"
+                                    Binding="{Binding Registration.IsValid}"
+                                    Value="False">
+                                    <Setter Property="behaviors:LineColorBehavior.LineColor"
+                                            Value="{StaticResource ErrorColor}" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+                        </Entry>
+                        <Label
+                            Text="{Binding Registration.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                            Style="{StaticResource ValidationErrorLabelStyle}" />
+                    </StackLayout>
 
-                <controls:ContentCard
-                    Header ="Registration" />
-                <StackLayout
-                    Margin="24,0,24,0">
-                    <Entry Text="{Binding Registration.Value, Mode=TwoWay}">
-                        <Entry.Style>
-                            <OnPlatform x:TypeArguments="Style">
-                                <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
-                            </OnPlatform>
-                        </Entry.Style>
-                        <Entry.Behaviors>
-                            <behaviors:EventToCommandBehavior
-                                EventName="TextChanged"
-                                Command="{Binding ValidateRegistrationCommand}" />
-                        </Entry.Behaviors>
-                        <Entry.Triggers>
-                            <DataTrigger
-                                TargetType="Entry"
-                                Binding="{Binding Registration.IsValid}"
-                                Value="False">
-                                <Setter Property="behaviors:LineColorBehavior.LineColor"
-                                        Value="{StaticResource ErrorColor}" />
-                            </DataTrigger>
-                        </Entry.Triggers>
-                    </Entry>
-                    <Label
-                        Text="{Binding Registration.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                        Style="{StaticResource ValidationErrorLabelStyle}" />
-                </StackLayout>
+                    <!-- TYRE -->
+                    <controls:ContentCard
+                        Header="Tyre"
+                        ButtonName="Select Tyre"
+                        Command="{Binding SelectTyreCommand}"
+                        ButtonVisible="True" />
 
-                <controls:ContentCard
-                       Header ="Tyre"
-                       ButtonName="Select Tyre"
-                       Command="{Binding SelectTyreCommand}"
-                       ButtonVisible="True" />
-                <StackLayout
-                        Margin="24,0,24,0"
+                    <StackLayout Margin="24,0,24,0">
+                    <StackLayout
                         IsVisible="{Binding Vehicle.Value.Make,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <Label Text="{Binding Vehicle.Value.Make}" />
-                    <Label Text="{Binding Vehicle.Value.Model}" />
-                    <Label Text="{Binding Vehicle.Value.Year}" />
-                    <Label Text="{Binding Vehicle.Value.Trim}" />
-                    <Label Text="{Binding Vehicle.Value.Tyre}" />
-                    <Label
-                        Text="{Binding Vehicle.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                        Style="{StaticResource ValidationErrorLabelStyle}" />
-                </StackLayout>
-
-                <controls:ContentCard
-                        Header ="Address"
+                        <Label Text="{Binding Vehicle.Value.Make}" />
+                        <Label Text="{Binding Vehicle.Value.Model}" />
+                        <Label Text="{Binding Vehicle.Value.Year}" />
+                        <Label Text="{Binding Vehicle.Value.Trim}" />
+                        <Label Text="{Binding Vehicle.Value.Tyre}" />
+                    </StackLayout>
+                        <Label
+                            Text="{Binding Vehicle.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                            Style="{StaticResource ValidationErrorLabelStyle}" />
+                    </StackLayout>
+                    <!-- ADDRESS -->
+                    <controls:ContentCard
+                        Header="Address"
                         ButtonName="Select Address"
                         Command="{Binding SelectAddressCommand}"
                         ButtonVisible="True" />
-                <StackLayout
+                    <StackLayout
                         Margin="24,0,24,0"
                         IsVisible="{Binding Address.Value.Street,
                         Converter={StaticResource StringNullOrEmptyBoolConverter}}">
-                    <Label Text="{Binding Address.Value.Street}" />
-                    <Label Text="{Binding Address.Value.City}" />
-                    <Label Text="{Binding Address.Value.Postcode}" />
-                    <Label Text="{Binding Address.Value.PhoneNumber}" />
+                        <Label Text="{Binding Address.Value.Street}" />
+                        <Label Text="{Binding Address.Value.City}" />
+                        <Label Text="{Binding Address.Value.Postcode}" />
+                        <Label Text="{Binding Address.Value.PhoneNumber}" />
+                    </StackLayout>
+
+                    <!-- DESCRIPTION -->
+                    <controls:ContentCard
+                        Header="Description" />
+                    <Editor Margin="24,0,24,0"
+                            HeightRequest="50"
+                            Text="{Binding Description}" />
+
+                    <!-- AVAILABILITY -->
+                    <controls:ContentCard
+                        Header="Availability"
+                        ButtonName="Select Availability"
+                        Command="{Binding SelectAvailabilityCommand}"
+                        ButtonVisible="True" />
+                    <StackLayout Margin="24,0,24,0"
+                                 IsVisible="{Binding Availability.Value.Count, Converter={StaticResource CountToBoolConverter}}">
+                        <ListView
+                            BackgroundColor="Red"
+                            HeightRequest="{Binding Availability.Value.Count, Converter={StaticResource ItemsToHeightConverter}}"
+                            ItemsSource="{Binding Availability.Value, Converter={StaticResource AvailabilityConverter}}"
+                            HasUnevenRows="True"
+                            SeparatorVisibility="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <ScrollView>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label
+                                                        Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}" />
+                                                </StackLayout>
+                                            </ScrollView>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <Label
+                        Text="{Binding Availability.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        Style="{StaticResource ValidationErrorLabelStyle}" />
                 </StackLayout>
 
-                <controls:ContentCard
-                    Header ="Description" />
-                <Editor Margin="24,0,24,0"
-                        HeightRequest="50"
-                        Text="{Binding Description}" />
-                <controls:ContentCard
-                    Header ="Availability"
-                    ButtonName="Select Availability"
-                    Command="{Binding SelectAvailabilityCommand}"
-                    ButtonVisible="True" />
-                <StackLayout Margin="24,0,24,0"
-                             IsVisible="{Binding Availability.Value ,Converter={StaticResource CountToBoolConverter}}">
-                    <ListView ItemsSource="{Binding Availability.Value,Converter={StaticResource AvailabilityConverter}}"
-                          HasUnevenRows="True"
-                          SeparatorVisibility="None">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.View>
-                                        <ScrollView>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}" />
-                                            </StackLayout>
-                                        </ScrollView>
-                                    </ViewCell.View>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-                <Label
-                    Text="{Binding Availability.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                    Style="{StaticResource ValidationErrorLabelStyle}" />
-            </StackLayout>
+                <!-- SUBMIT BUTTON -->
+                <Grid Grid.Row="1">
+                    <Button
+                        Command="{Binding SubmitOrderCommand}"
+                        VerticalOptions="Start"
+                        Text="Submit" />
+                </Grid>
 
-            <Grid Grid.Row="1">
-                <Button
-                    Command="{Binding SubmitOrderCommand}"
-                    VerticalOptions="Start"
-                    Text="Submit" />
-            </Grid>
-
-            <ActivityIndicator
+                <ActivityIndicator
                     Grid.Row="0"
                     Grid.RowSpan="2"
                     Color="{StaticResource PrimaryDark}"
@@ -136,13 +145,14 @@
                     IsVisible="{Binding IsBusy}"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
-                <ActivityIndicator.WidthRequest>
-                    <OnPlatform x:TypeArguments="x:Double">
-                        <On Platform="iOS, Android" Value="100" />
-                        <On Platform="UWP, WinRT, WinPhone" Value="400" />
-                    </OnPlatform>
-                </ActivityIndicator.WidthRequest>
-            </ActivityIndicator>
-        </Grid>
+                    <ActivityIndicator.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS, Android" Value="100" />
+                            <On Platform="UWP, WinRT, WinPhone" Value="400" />
+                        </OnPlatform>
+                    </ActivityIndicator.WidthRequest>
+                </ActivityIndicator>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </views:MvxContentPage>

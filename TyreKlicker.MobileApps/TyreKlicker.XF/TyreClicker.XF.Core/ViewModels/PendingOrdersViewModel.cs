@@ -1,8 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Order;
 using TyreKlicker.XF.Core.Services.Order;
@@ -21,15 +21,9 @@ namespace TyreKlicker.XF.Core.ViewModels
             _orderService = orderService;
         }
 
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-            await GetPendingOrdersAsync();
-        }
-
         public ObservableCollection<Order> PendingOrders
         {
-            get { return _pendingOrders; }
+            get => _pendingOrders;
             set
             {
                 _pendingOrders = value;
@@ -50,7 +44,13 @@ namespace TyreKlicker.XF.Core.ViewModels
             => new MvxCommand(async () => await NavigateToAddNewPendingOrderPageAsync());
 
         public IMvxCommand<Order> NavigateToPendingOrderDetailsCommand
-            => new MvxCommand<Order>(async (pendingOrder) => await NavigateToOrderDetailsAsync(pendingOrder));
+            => new MvxCommand<Order>(async pendingOrder => await NavigateToOrderDetailsAsync(pendingOrder));
+
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            await GetPendingOrdersAsync();
+        }
 
         private async Task NavigateToOrderDetailsAsync(Order pendingOrder)
         {

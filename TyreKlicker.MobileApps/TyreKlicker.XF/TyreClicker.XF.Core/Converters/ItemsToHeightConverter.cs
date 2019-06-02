@@ -4,23 +4,20 @@ using Xamarin.Forms;
 
 namespace TyreKlicker.XF.Core.Converters
 {
-    public class CountToBoolConverter : IValueConverter
+    public class ItemsToHeightConverter : IValueConverter
     {
+        private const int ItemHeight = 21;
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int)
-            {
-                var count = System.Convert.ToInt32(value);
+            if (value is int) return System.Convert.ToInt32(value) * ItemHeight;
 
-                return count > 0;
-            }
-
-            return false;
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

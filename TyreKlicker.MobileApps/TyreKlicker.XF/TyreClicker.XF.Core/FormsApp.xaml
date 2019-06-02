@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <mvx:MvxFormsApplication
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -89,6 +90,9 @@
             <converters:CountToBoolConverter x:Key="CountToBoolConverter" />
             <converters:AvailabilityConverter x:Key="AvailabilityConverter" />
             <converters:AvailabilityToStringConverter x:Key="AvailabilityToStringConverter" />
+            <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter" />
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+            <converters:ItemsToHeightConverter x:Key="ItemsToHeightConverter" />
 
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />

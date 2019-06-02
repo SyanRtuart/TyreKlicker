@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using TyreKlicker.XF.Core.Models.Order;
 using Xamarin.Forms;
 
@@ -10,15 +11,15 @@ namespace TyreKlicker.XF.Core.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is IEnumerable<Availability>)
+            if (value is IEnumerable<Availability> availability)
             {
-                var sortedList = new List<Availability>();
+                if (availability.ToList().Count == 0) return value;
 
-                var availability = (IEnumerable<Availability>)value;
+                var sortedList = new List<Availability>();
 
                 foreach (var day in availability)
                 {
-                    bool availabilityAdjusted = false;
+                    var availabilityAdjusted = false;
                     foreach (var sortedAvailability in sortedList)
                     {
                         availabilityAdjusted = false;
@@ -28,6 +29,7 @@ namespace TyreKlicker.XF.Core.Converters
                             availabilityAdjusted = true;
                         }
                     }
+
                     if (!availabilityAdjusted) sortedList.Add(day);
                 }
 
