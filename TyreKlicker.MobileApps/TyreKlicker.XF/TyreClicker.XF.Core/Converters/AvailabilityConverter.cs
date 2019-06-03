@@ -29,7 +29,7 @@ namespace TyreKlicker.XF.Core.Converters
                             availabilityAdjusted = true;
                         }
                     }
-
+                    
                     if (!availabilityAdjusted) sortedList.Add(day);
                 }
 

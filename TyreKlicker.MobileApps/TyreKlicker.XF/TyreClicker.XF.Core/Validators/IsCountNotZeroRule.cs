@@ -1,5 +1,5 @@
-﻿using MvvmCross.Binding.Extensions;
-using System.Collections;
+﻿using System.Collections;
+using MvvmCross.Binding.Extensions;
 
 namespace TyreKlicker.XF.Core.Validators
 {
@@ -9,10 +9,7 @@ namespace TyreKlicker.XF.Core.Validators
 
         public bool Check(T value)
         {
-            if (value == null)
-            {
-                return false;
-            }
+            if (value == null) return false;
 
             var enumerable = value as IEnumerable;
 

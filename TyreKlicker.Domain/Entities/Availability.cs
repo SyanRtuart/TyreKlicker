@@ -4,6 +4,8 @@ namespace TyreKlicker.Domain.Entities
 {
     public class Availability : Entity
     {
-        public DateTime DateTime { get; set; }
+        public DateTime Start { get; set; }
+
+        public DateTime Finish { get; set; }
     }
 }

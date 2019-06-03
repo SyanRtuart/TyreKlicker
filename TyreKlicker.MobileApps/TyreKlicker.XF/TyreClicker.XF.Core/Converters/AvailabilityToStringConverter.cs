@@ -11,9 +11,10 @@ namespace TyreKlicker.XF.Core.Converters
         {
             if (value is Availability)
             {
-                var availability = (Availability)value;
+                var availability = (Availability) value;
 
-                return $"{availability.Start:HH:mm} - {availability.Finish:HH:mm} on {availability.Start:dddd, dd MMMM yyyy} ";
+                return
+                    $"{availability.Start:HH:mm} - {availability.Finish:HH:mm} on {availability.Start:dddd, dd MMMM yyyy} ";
             }
 
             return value;

@@ -1,32 +1,31 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Queries.GetOrder
 {
     public class GetOrderQueryHandler : IRequestHandler<GetOrderQuery, OrderDto>
     {
-        public readonly TyreKlickerDbContext _context;
+        private readonly TyreKlickerDbContext _context;
+        private readonly IMapper _mapper;
 
-        public GetOrderQueryHandler(TyreKlickerDbContext context)
+        public GetOrderQueryHandler(TyreKlickerDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<OrderDto> Handle(GetOrderQuery request, CancellationToken cancellationToken)
         {
-            var orderInDb = await _context.Order
-                .Where(o => o.Id == request.Id)
-                .Select(OrderDto.Projection)
-                .OrderBy(o => o.Registration)
-                .FirstOrDefaultAsync(cancellationToken);
+            var entity = _mapper.Map<OrderDto>(await _context.Order.Where(x => x.Id == request.Id)
+                .Include(availability => availability.Availability)
+                .SingleOrDefaultAsync(cancellationToken));
 
-            var myOrder = await _context.Order.ToListAsync(cancellationToken: cancellationToken);
-
-            return orderInDb;
+            return entity;
         }
     }
 }

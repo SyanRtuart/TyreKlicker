@@ -8,7 +8,7 @@ namespace TyreKlicker.XF.Core.Models.Order
         public CreateNewPendingOrderCommand(Guid createdByUserId)
         {
             CreatedByUserId = createdByUserId;
-            Availability = new List<Availability>();
+            Availability = new List<AvailabilityDto>();
         }
 
         public Guid CreatedByUserId { get; set; }
@@ -20,6 +20,6 @@ namespace TyreKlicker.XF.Core.Models.Order
         public string Year { get; set; }
         public string Trim { get; set; }
         public string Tyre { get; set; }
-        public List<Availability> Availability { get; set; }
+        public List<AvailabilityDto> Availability { get; set; }
     }
 }

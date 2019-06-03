@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -16,8 +18,10 @@ namespace TyreKlicker.XF.Core.ViewModels
     public class NewPendingOrderViewModel : MvxNavigationViewModel
     {
         private readonly IAddressService _addressService;
+        private readonly IMapper _mapper;
         private readonly IOrderService _orderService;
         private ValidatableObject<Address> _address;
+        private List<Availability> _availabilitiesList;
         private ValidatableObject<ObservableCollection<Availability>> _availability;
         private string _description;
 
@@ -27,11 +31,12 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public NewPendingOrderViewModel(IMvxLogProvider logProvider,
             IMvxNavigationService navigationService,
-            IOrderService orderService, IAddressService addressService) :
+            IOrderService orderService, IAddressService addressService, IMapper mapper) :
             base(logProvider, navigationService)
         {
             _orderService = orderService;
             _addressService = addressService;
+            _mapper = mapper;
 
             _order = new Order();
             _address = new ValidatableObject<Address>();
@@ -137,7 +142,7 @@ namespace TyreKlicker.XF.Core.ViewModels
                     Trim = _vehicle.Value.Trim,
                     Tyre = _vehicle.Value.Tyre,
                     Description = _description,
-                    Availability = Availability.Value.ToList()
+                    Availability = _mapper.Map<List<AvailabilityDto>>(_availabilitiesList.ToList())
                 };
 
                 await _orderService.CreateNewPendingOrder(Settings.AccessToken, command);
@@ -172,6 +177,19 @@ namespace TyreKlicker.XF.Core.ViewModels
                         ValidatableObject<ObservableCollection<Availability>>>(
                         new ValidatableObject<ObservableCollection<Availability>>
                             {Value = new ObservableCollection<Availability>()});
+
+            AddUnconvertedAvailabilityToTempList();
+        }
+
+        private void AddUnconvertedAvailabilityToTempList()
+        {
+            _availabilitiesList = new List<Availability>();
+            foreach (var availability in Availability.Value)
+                _availabilitiesList.Add(new Availability
+                {
+                    Start = availability.Start,
+                    Finish = availability.Finish
+                });
         }
 
         private async Task NavigateToSelectAddressPageAsync()
