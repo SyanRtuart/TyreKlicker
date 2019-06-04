@@ -5,21 +5,109 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                       xmlns:viewModels="clr-namespace:TyreKlicker.XF.Core.ViewModels;assembly=TyreKlicker.XF.Core"
+                      xmlns:controls="clr-namespace:TyreKlicker.XF.Core.Controls;assembly=TyreKlicker.XF.Core"
                       x:Class="TyreKlicker.XF.Core.Pages.OrderDetailsPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                Text="{Binding Order.Registration}" />
-            <Label
-                Text="{Binding Order.Make}" />
-            <Label
-                Text="{Binding Order.Model}" />
-            <Label
-                Text="{Binding Order.Year}" />
-            <Label
-                Text="{Binding Order.Trim}" />
-            <Label
-                Text="{Binding Order.Tyre}" />
-        </StackLayout>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+
+                    <!-- POTENTIAL EARNINGS -->
+                    <controls:ContentCard
+                        Header="Potential Earnings(placeholder)" />
+                    <Entry Margin="24,0,24,0" Text="£150" IsEnabled="False" />
+
+                    <!-- REGISTRATION -->
+                    <controls:ContentCard
+                        Header="Registration" />
+                    <Entry Margin="24,0,24,0" Text="{Binding Order.Registration}" IsEnabled="False" />
+
+                    <controls:ContentCard
+                        Header="Vehicle" />
+                    <StackLayout Margin="24,0,24,0">
+                        <Label Text="{Binding Order.Make}" />
+                        <Label Text="{Binding Order.Model}" />
+                        <Label Text="{Binding Order.Year}" />
+                        <Label Text="{Binding Order.Trim}" />
+                        <Label Text="{Binding Order.Tyre}" />
+                    </StackLayout>
+
+
+                    <!-- ADDRESS -->
+                    <controls:ContentCard
+                        Header="Address" />
+                    <StackLayout
+                        Margin="24,0,24,0">
+                        <Label Text="{Binding Address.Street}" />
+                        <Label Text="{Binding Address.City}" />
+                        <Label Text="{Binding Address.Postcode}" />
+                        <Label Text="{Binding Address.PhoneNumber}" />
+                    </StackLayout>
+
+                    <!-- DESCRIPTION -->
+                    <controls:ContentCard
+                        Header="Description" />
+                    <Label Margin="24,0,24,0"
+                           HeightRequest="50"
+                           IsEnabled="False"
+                           Text="{Binding Order.Description}" />
+
+
+                    <!-- AVAILABILITY -->
+                    <controls:ContentCard
+                        Header="Availability" />
+                    <StackLayout Margin="24,0,24,0">
+                        <ListView
+                            HeightRequest="{Binding Order.Availability.Count, Converter={StaticResource ItemsToHeightConverter}}"
+                            ItemsSource="{Binding Order.Availability, Converter={StaticResource AvailabilityConverter}}"
+                            HasUnevenRows="True"
+                            SeparatorVisibility="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <ScrollView>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label
+                                                        Text="{Binding . , Converter={StaticResource AvailabilityToStringConverter}}" />
+                                                </StackLayout>
+                                            </ScrollView>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+
+                <!-- ACCEPT BUTTON --><!--
+                <Grid Grid.Row="1">
+                    <Button
+                        Command="{Binding AcceptOrderCommand}"
+                        VerticalOptions="Start"
+                        Text="Accept Job" />
+                </Grid>-->
+
+                <ActivityIndicator
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Color="{StaticResource PrimaryDark}"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                    <ActivityIndicator.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS, Android" Value="100" />
+                            <On Platform="UWP, WinRT, WinPhone" Value="400" />
+                        </OnPlatform>
+                    </ActivityIndicator.WidthRequest>
+                </ActivityIndicator>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </views:MvxContentPage>

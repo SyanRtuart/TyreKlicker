@@ -14,9 +14,9 @@ namespace TyreKlicker.XF.Core.ViewModels
     {
         private readonly IAddressService _addressService;
         private readonly IOrderService _orderService;
+
         private Address _address;
         private string _description;
-
         private Order _pendingOrder;
         private string _registration;
         private Vehicle _vehicle;
@@ -28,7 +28,26 @@ namespace TyreKlicker.XF.Core.ViewModels
         {
             _orderService = orderService;
             _addressService = addressService;
-            AcceptOrderCommand = new MvxCommand(async () => await AcceptOrderAsync());
+        }
+
+        public Address Address
+        {
+            get => _address;
+            set
+            {
+                _address = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
+                RaisePropertyChanged();
+            }
         }
 
         public Order PendingOrder
@@ -61,29 +80,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
-        public Address Address
-        {
-            get => _address;
-            set
-            {
-                _address = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                _description = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
-        public IMvxCommand AcceptOrderCommand { get; }
+        public IMvxCommand AcceptOrderCommand => new MvxCommand(async () => await AcceptOrderAsync());
 
         private async Task AcceptOrderAsync()
         {
@@ -109,9 +106,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             await base.Initialize();
             PendingOrder = await _orderService.GetOrder(Settings.AccessToken, _pendingOrder.Id);
             Address = await _addressService.GetAddressAsync(Settings.AccessToken, PendingOrder.AddressId);
-
-
-            // do the heavy work here
         }
     }
 }
