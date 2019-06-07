@@ -13,6 +13,17 @@
         <StackLayout Margin="10">
             <Label Text="ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE ACCOUNT PAGE " />
             <Button Text="Logout" Command="{Binding LogoutCommand,Mode=TwoWay}" />
+
+            <StackLayout>
+                <Entry Text="{Binding CreditCardNumber}" Placeholder="Enter your credit card number" />
+                <StackLayout Orientation="Horizontal">
+                    <Entry Text="{Binding ExpiryDate}" Placeholder="Expiry date" />
+                    <Entry Text="{Binding CVV}" Placeholder="CVV" />
+                </StackLayout>
+                <Button Text="Pay" Command="{Binding MakePaymentCommand,Mode=TwoWay}" />
+
+            </StackLayout>
         </StackLayout>
+
     </ContentPage.Content>
 </views:MvxContentPage>

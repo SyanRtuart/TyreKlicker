@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+using System.Text;
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
 using MediatR.Pipeline;
@@ -12,23 +14,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.Text;
-using TyreKlicker.API.Middlewear;
-using TyreKlicker.API.Services;
-using TyreKlicker.API.Services.Token;
-using TyreKlicker.API.Services.UserToken;
+using Stripe;
 using TyreKlicker.Application.Infrastructure;
 using TyreKlicker.Application.Infrastructure.AutoMapper;
 using TyreKlicker.Application.Interfaces;
 using TyreKlicker.Application.Order.Command.CreateOrder;
+using TyreKlicker.Application.Order.Queries.GetAllOrders;
+using TyreKlicker.API.Middlewear;
+using TyreKlicker.API.Services;
+using TyreKlicker.API.Services.Token;
+using TyreKlicker.API.Services.UserToken;
 using TyreKlicker.Infrastructure;
 using TyreKlicker.Infrastructure.Identity.Data;
 using TyreKlicker.Infrastructure.Identity.Factories;
 using TyreKlicker.Infrastructure.Identity.Models;
 using TyreKlicker.Infrastructure.Identity.Service.RefreshToken;
+using TyreKlicker.Infrastructure.Models;
+using TyreKlicker.Infrastructure.Services;
 using TyreKlicker.Persistence;
-using RefreshTokenService = TyreKlicker.API.Services.Token.RefreshTokenService;
 
 namespace TyreKlicker.API
 {
@@ -51,11 +54,12 @@ namespace TyreKlicker.API
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddMediatR(typeof(Application.Order.Queries.GetAllOrders.GetAllOrdersQuery).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetAllOrdersQuery).GetTypeInfo().Assembly);
 
             //// Add DbContext using SQL Server Provider
             services.AddDbContext<TyreKlickerDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TyreKlicker.Persistence")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("TyreKlicker.Persistence")));
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
@@ -72,50 +76,45 @@ namespace TyreKlicker.API
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 
             services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = "TyreKlicker.XF",
-                    ValidIssuer = "TyreKlicker.API",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySuperSecureKey"))
-                };
-            });
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = "TyreKlicker.XF",
+                        ValidIssuer = "TyreKlicker.API",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySuperSecureKey"))
+                    };
+                });
 
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
+            services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IRefreshTokenService, RefreshTokenService>();
             services.AddTransient<IUserTokenService, UserTokenService>();
-            services.AddTransient<IRefreshTokenRepository, Infrastructure.Identity.Service.RefreshToken.RefreshTokenRepository>();
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<IPaymentService, StripeService>();
+
+            // Add Stripe
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
             services
                 .AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateOrderCommandValidator>());
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
 
-            services.ConfigureSwaggerGen(options =>
-                {
-                    options.CustomSchemaIds(x => x.FullName);
-                });
+            services.ConfigureSwaggerGen(options => { options.CustomSchemaIds(x => x.FullName); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,10 +129,7 @@ namespace TyreKlicker.API
 
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyAPI V1");
-                });
+                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyAPI V1"); });
             }
             else
             {
@@ -142,6 +138,8 @@ namespace TyreKlicker.API
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
@@ -149,8 +147,8 @@ namespace TyreKlicker.API
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -7,13 +7,16 @@ namespace TyreKlicker.XF.Core
     public class GlobalSetting
     {
         public const string DefaultEndpoint = "http://192.168.0.6:45455";
+
         //public const string DefaultEndpoint = "http://tyreklickerapi-dev.eu-west-2.elasticbeanstalk.com";
+        public const string StripePublishableKey = "pk_test_z2SWiC6tsoNEzNUh0zd3ob6t00p95LhSZZ";
+        public const string StripeSecretKey = "sk_test_F5h7hUztdsafB1CBwoiuEaRU00jh2wzwCW";
 
         private string _baseIdentityEndpoint;
 
         public GlobalSetting()
         {
-            AuthToken = "INSERT AUTHENTICATION TOKEN";
+            //AuthToken = "INSERT AUTHENTICATION TOKEN";
 
             BaseIdentityEndpoint = DefaultEndpoint;
         }
@@ -55,6 +58,8 @@ namespace TyreKlicker.XF.Core
         public string AddressEndPoint { get; set; }
         public string AddressesEndPoint { get; set; }
 
+        public string PaymentEndPoint { get; set; }
+
         public string EncryptionPassword => "ThisWillBeChanged";
 
         private void UpdateEndpoint(string endpoint)
@@ -68,6 +73,7 @@ namespace TyreKlicker.XF.Core
             UsersEndPoint = $"{endpoint}/api/users";
             AddressEndPoint = $"{endpoint}/api/address";
             AddressesEndPoint = $"{endpoint}/api/addresses";
+            PaymentEndPoint = $"{endpoint}/api/payment";
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using TyreKlicker.API.Models;
 
 namespace TyreKlicker.API.Controllers
@@ -27,7 +27,14 @@ namespace TyreKlicker.API.Controllers
 
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        }
+
+        public IActionResult Stripe()
+        {
+            ViewData["Message"] = "Your payment page.";
+
+            return View("Stripe");
         }
     }
 }

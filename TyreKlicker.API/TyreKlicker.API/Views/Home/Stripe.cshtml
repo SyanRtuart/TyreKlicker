@@ -1,0 +1,17 @@
+﻿@using Microsoft.Extensions.Options
+@using TyreKlicker.API
+@using TyreKlicker.Infrastructure.Models
+@inject IOptions<StripeSettings> Stripe
+@{
+    ViewData["Title"] = "Stripe";
+}
+
+<form action="/api/payment" method="post">
+    <label>Amount: £2</label>
+    <script src="https://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="@Stripe.Value.PublishableKey"
+            data-description="ASP.NET Tutorial"
+            data-amount="10">
+    </script>
+</form>

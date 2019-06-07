@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Stripe.net" Version="26.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TyreKlicker.Application\TyreKlicker.Application.csproj" />
   </ItemGroup>
 

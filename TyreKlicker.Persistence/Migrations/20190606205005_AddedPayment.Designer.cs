@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Persistence.Migrations
 {
     [DbContext(typeof(TyreKlickerDbContext))]
-    partial class TyreKlickerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190606205005_AddedPayment")]
+    partial class AddedPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,8 +141,6 @@ namespace TyreKlicker.Persistence.Migrations
                     b.Property<string>("Currency");
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("ExternalPaymentId");
 
                     b.Property<Guid>("ModifiedBy");
 
