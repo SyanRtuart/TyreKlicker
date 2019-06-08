@@ -4,8 +4,6 @@ namespace TyreKlicker.Application.Payment.Command.CreatePayment
 {
     public class CreatePaymentCommand : IRequest
     {
-        public string ExternalPaymentId { get; set; }
-
         public string Email { get; set; }
 
         public string Token { get; set; }

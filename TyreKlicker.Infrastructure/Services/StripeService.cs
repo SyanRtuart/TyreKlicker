@@ -8,6 +8,9 @@ namespace TyreKlicker.Infrastructure.Services
 {
     public class StripeService : IPaymentService
     {
+        //ToDo: Import the key from Json file
+        public string SecretKey { get; set; } = "sk_test_F5h7hUztdsafB1CBwoiuEaRU00jh2wzwCW";
+
         public async Task<string> MakePayment(PaymentDto payment, string secretKey)
         {
             try

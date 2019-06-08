@@ -26,7 +26,7 @@ namespace TyreKlicker.XF.Core.ViewModels
             _paymentService = paymentService;
             _stripeService = stripeService;
 
-            CreditCardNumber = "4242424242424242";
+            CreditCardNumber = "4000000000000002";
             Cvc = "123";
             ExpiryDate = DateTime.Now + TimeSpan.FromDays(500);
         }
