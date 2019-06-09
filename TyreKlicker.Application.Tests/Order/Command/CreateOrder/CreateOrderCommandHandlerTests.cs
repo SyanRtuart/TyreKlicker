@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using Shouldly;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using Shouldly;
 using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Application.Order.Command.CreateOrder;
 using TyreKlicker.Application.Tests.Infrastructure;
@@ -12,27 +12,47 @@ using Xunit;
 
 namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
 {
-    [Collection("CreateOrderCommandHandlerCollection")]
+    [Collection("CommandCollection")]
     public class CreateOrderCommandHandlerTests
     {
-        private readonly CreateOrderCommandHandlerFixture _fixture;
+        public CreateOrderCommandHandlerTests(CommandTestFixture fixture)
+        {
+            _context = fixture.Context;
+            _mapper = fixture.Mapper;
+        }
+
+        private readonly TyreKlickerDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreateOrderCommandHandlerTests(CreateOrderCommandHandlerFixture fixture)
+
+        [Fact]
+        public async Task CreateOrderCommand_AddressDoesNotExist_ShouldThrowException()
         {
-            _fixture = fixture;
-            _mapper = fixture.Mapper;
+            var sut = new CreateOrderCommandHandler(_context, _mapper);
+            var currentUser = _context.User.First();
+
+            await sut.Handle(new CreateOrderCommand {CreatedByUserId = currentUser.Id, AddressId = Guid.NewGuid()},
+                    CancellationToken.None)
+                .ShouldThrowAsync<NotFoundException>();
         }
 
         [Fact]
         public async Task CreateOrderCommand_AfterModelHasBeenValidated_OrderCountShouldIncrementBy1()
         {
-            var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
-            var orderCountBeforeAct = _fixture.Context.Order.ToList().Count;
+            var sut = new CreateOrderCommandHandler(_context, _mapper);
+            var orderCountBeforeAct = _context.Order.ToList().Count;
+            var currentUser = _context.User.First();
+            var currentAddress = _context.Address.First(x => x.UserId == currentUser.Id);
 
-            await sut.Handle(new CreateOrderCommand { CreatedByUserId = _fixture.CurrentUser.Id, AddressId = _fixture.CurrentAddress.Id }, CancellationToken.None);
+            await sut.Handle(
+                new CreateOrderCommand
+                {
+                    CreatedByUserId = currentUser.Id, AddressId = currentAddress.Id, Make = "Audi", Model = "A7",
+                    Trim = "14", Registration = "X55 XXX", Tyre = "Tyre", Year = "2012", Description = "Desc"
+                },
+                CancellationToken.None);
 
-            var orderCountAfterAct = _fixture.Context.Order.ToList().Count;
+            var orderCountAfterAct = _context.Order.ToList().Count;
 
             orderCountAfterAct.ShouldBe(orderCountBeforeAct + 1);
         }
@@ -40,51 +60,10 @@ namespace TyreKlicker.Application.Tests.Order.Command.CreateOrder
         [Fact]
         public async Task CreateOrderCommand_UserDoesNotExist_ShouldThrowException()
         {
-            var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
+            var sut = new CreateOrderCommandHandler(_context, _mapper);
 
-            await sut.Handle(new CreateOrderCommand { CreatedByUserId = Guid.NewGuid() }, CancellationToken.None)
-
-            .ShouldThrowAsync<NotFoundException>();
-        }
-
-        [Fact]
-        public async Task CreateOrderCommand_AddressDoesNotExist_ShouldThrowException()
-        {
-            var sut = new CreateOrderCommandHandler(_fixture.Context, _mapper);
-
-            await sut.Handle(new CreateOrderCommand { CreatedByUserId = Guid.NewGuid(), AddressId = Guid.NewGuid() }, CancellationToken.None)
-
-            .ShouldThrowAsync<NotFoundException>();
+            await sut.Handle(new CreateOrderCommand {CreatedByUserId = Guid.NewGuid()}, CancellationToken.None)
+                .ShouldThrowAsync<NotFoundException>();
         }
     }
-
-    [Collection("CreateOrderCommandHandlerCollection")]
-    public class CreateOrderCommandHandlerFixture : IDisposable
-    {
-        public TyreKlickerDbContext Context { get; set; }
-        public Domain.Entities.User CurrentUser { get; set; }
-        public Domain.Entities.Address CurrentAddress { get; set; }
-        public IMapper Mapper { get; }
-
-        public CreateOrderCommandHandlerFixture()
-        {
-            Context = TyreKlickerContextFactory.Create();
-            Mapper = AutoMapperFactory.Create();
-
-            CurrentUser = new Domain.Entities.User();
-            CurrentAddress = new Domain.Entities.Address();
-
-            Context.Add(CurrentAddress);
-            Context.Add(CurrentUser);
-            Context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            TyreKlickerContextFactory.Destroy(Context);
-        }
-    }
-
-    [CollectionDefinition("CreateOrderCommandHandlerCollection")]
-    public class SetPrimaryAddressCommandHandlerCollection : ICollectionFixture<CreateOrderCommandHandlerFixture> { }
 }

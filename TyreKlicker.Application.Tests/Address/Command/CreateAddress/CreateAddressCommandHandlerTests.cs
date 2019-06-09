@@ -1,8 +1,8 @@
-﻿using Shouldly;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Shouldly;
 using TyreKlicker.Application.Address.Command.CreateAddress;
 using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Application.Tests.Infrastructure;
@@ -11,51 +11,58 @@ using Xunit;
 
 namespace TyreKlicker.Application.Tests.Address.Command.CreateAddress
 {
-    [Collection("QueryCollection")]
-    public class CreateAddressCommandHandlerTests : IClassFixture<CreateAddressCommandHandlerFixture>
+    [Collection("CommandCollection")]
+    public class CreateAddressCommandHandlerTests
     {
-        private readonly CreateAddressCommandHandlerFixture _fixture;
-
-        public CreateAddressCommandHandlerTests(CreateAddressCommandHandlerFixture fixture)
+        public CreateAddressCommandHandlerTests(CommandTestFixture fixture)
         {
-            _fixture = fixture;
+            _context = fixture.Context;
         }
 
+        private readonly TyreKlickerDbContext _context;
+
         [Fact]
-        public async Task CreateAddress_WhenCalled_ShouldCreateAddress()
+        public async Task CreateAddress_UserAlreadyHasAPrimaryAddress_ShouldSetCurrentPrimaryAddressToFalse()
         {
-            var sut = new CreateAddressCommandHandler(_fixture.Context);
-            var addressCountBeforeAct = _fixture.Context.Address.ToList().Count;
+            var sut = new CreateAddressCommandHandler(_context);
+            var currentUser = _context.User.First();
+            var addressCountBeforeAct = _context.Address.ToList().Count;
+            var oldPrimaryAddress =
+                _context.Address.First(x => x.UserId == currentUser.Id && x.PrimaryAddress);
 
-            await sut.Handle(new CreateAddressCommand { UserId = _fixture.CurrentUser.Id }, CancellationToken.None);
-            var addressCountAfterAct = _fixture.Context.Address.ToList().Count;
+            var command = new CreateAddressCommand {City = "Glasgow", UserId = currentUser.Id, PrimaryAddress = true};
+            await sut.Handle(command, CancellationToken.None);
 
-            addressCountAfterAct.ShouldBe(addressCountBeforeAct + 1);
+            oldPrimaryAddress.PrimaryAddress.ShouldBe(false);
+            _context.Address.First(x => x.UserId == currentUser.Id && x.PrimaryAddress).City.ShouldBe("Glasgow");
+            _context.Address.Count().ShouldBe(addressCountBeforeAct + 1);
         }
 
         [Fact]
         public async Task CreateAddress_UserDoesNotExist_ShouldThrowException()
         {
-            var sut = new CreateAddressCommandHandler(_fixture.Context);
+            var sut = new CreateAddressCommandHandler(_context);
 
-            await sut.Handle(new CreateAddressCommand { UserId = Guid.NewGuid() }, CancellationToken.None)
-
-            .ShouldThrowAsync<NotFoundException>();
+            await sut.Handle(new CreateAddressCommand {UserId = Guid.NewGuid()}, CancellationToken.None)
+                .ShouldThrowAsync<NotFoundException>();
         }
-    }
 
-    [Collection("QueryCollection")]
-    public class CreateAddressCommandHandlerFixture
-    {
-        public TyreKlickerDbContext Context { get; set; }
-        public Domain.Entities.User CurrentUser { get; set; }
-
-        public CreateAddressCommandHandlerFixture(QueryTestFixture fixture)
+        [Fact]
+        public async Task CreateAddress_WhenCalled_ShouldCreateAddress()
         {
-            Context = fixture.Context;
-            CurrentUser = new Domain.Entities.User();
-            Context.Add(CurrentUser);
-            Context.SaveChanges();
+            var sut = new CreateAddressCommandHandler(_context);
+            var addressCountBeforeAct = _context.Address.ToList().Count;
+            var currentUser = _context.User.First();
+
+            await sut.Handle(
+                new CreateAddressCommand
+                {
+                    UserId = currentUser.Id, PrimaryAddress = false, City = "Glasgow", PhoneNumber = "0141 000 0000",
+                    Postcode = "G55 5RR", Street = "Main Street"
+                }, CancellationToken.None);
+            var addressCountAfterAct = _context.Address.ToList().Count;
+
+            addressCountAfterAct.ShouldBe(addressCountBeforeAct + 1);
         }
     }
 }

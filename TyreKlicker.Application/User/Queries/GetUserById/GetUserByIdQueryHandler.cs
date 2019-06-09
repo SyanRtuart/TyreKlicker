@@ -10,7 +10,7 @@ namespace TyreKlicker.Application.User.Queries.GetUserById
 {
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserViewModel>
     {
-        public readonly TyreKlickerDbContext _context;
+        private readonly TyreKlickerDbContext _context;
 
         public GetUserByIdQueryHandler(TyreKlickerDbContext context)
         {

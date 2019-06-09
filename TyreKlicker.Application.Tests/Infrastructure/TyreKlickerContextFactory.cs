@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Tests.Infrastructure
@@ -16,9 +17,19 @@ namespace TyreKlicker.Application.Tests.Infrastructure
 
             context.Database.EnsureCreated();
 
-            context.User.AddRange(new[] {
-                new Domain.Entities.User { Id = Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5"), Email  = "ryan@email.co.uk", FirstName = "Ryan", LastName = "Stuart"}
+            var user = new Domain.Entities.User
+            {
+                Id = Guid.Parse("2220d661-6a96-4537-a896-5014374d39f5"), Email = "ryan@email.co.uk", FirstName = "Ryan",
+                LastName = "Stuart"
+            };
+            context.User.Add(user);
+
+            context.Address.AddRange(new Domain.Entities.Address
+            {
+                City = "SEDGWICK", PrimaryAddress = true, PhoneNumber = "070 1639 2540", Postcode = "LA8 4HA",
+                Street = "HOPE STREET", User = user
             });
+
 
             SeedOrders(context);
 

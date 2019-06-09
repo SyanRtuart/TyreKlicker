@@ -26,7 +26,6 @@ namespace TyreKlicker.Application.User.Queries.GetUserByEmail
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     PhoneNumber = u.PhoneNumber
-                    //firstname lastname phonenumber
                 };
             }
         }

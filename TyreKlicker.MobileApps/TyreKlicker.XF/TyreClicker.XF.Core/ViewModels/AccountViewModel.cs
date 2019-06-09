@@ -86,7 +86,7 @@ namespace TyreKlicker.XF.Core.ViewModels
                 Token = stripeToken
             };
 
-            var result = await _paymentService.MakePayment(payment, GlobalSetting.StripeSecretKey);
+            await _paymentService.MakePayment(payment, GlobalSetting.StripeSecretKey);
         }
     }
 }

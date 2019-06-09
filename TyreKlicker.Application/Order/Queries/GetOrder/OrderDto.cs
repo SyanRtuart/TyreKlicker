@@ -29,30 +29,5 @@ namespace TyreKlicker.Application.Order.Queries.GetOrder
         public string Tyre { get; set; }
 
         public IEnumerable<Availability> Availability { get; set; }
-
-
-        //public static Expression<Func<Domain.Entities.Order, OrderDto>> Projection
-        //{
-        //    get
-        //    {
-        //        return o => new OrderDto
-        //        {
-        //            Id = o.Id,
-        //            AcceptedByUserId = o.AcceptedByUserId ?? Guid.Empty,
-        //            Make = o.Make,
-        //            Model = o.Model,
-        //            CreatedDate = o.CreatedDate,
-        //            Registration = o.Registration ?? string.Empty,
-        //            Trim = o.Trim,
-        //            Year = o.Year,
-        //            Tyre = o.Tyre
-        //        };
-        //    }
-        //}
-
-        //public static OrderDto Create(Domain.Entities.Order order)
-        //{
-        //    return Projection.Compile().Invoke(order);
-        //}
     }
 }

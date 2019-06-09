@@ -1,6 +1,7 @@
-﻿using Shouldly;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Shouldly;
 using TyreKlicker.Application.Exceptions;
 using TyreKlicker.Application.Tests.Infrastructure;
 using TyreKlicker.Application.User.Queries.GetUserByEmail;
@@ -12,34 +13,33 @@ namespace TyreKlicker.Application.Tests.User.Queries.GetUserByEmail
     [Collection("QueryCollection")]
     public class GetUserByEmailQueryHandlerTests
     {
-        private readonly TyreKlickerDbContext _context;
-        private readonly string _validUserEmail = "ryan@email.co.uk";
-        private readonly string _invalidUserEmail = "iDoNotExists@InTheDatabase.co.uk";
-
         public GetUserByEmailQueryHandlerTests(QueryTestFixture fixture)
         {
             _context = fixture.Context;
         }
 
-        [Fact]
-        public async Task GetUserByEmail_UserExists_ReturnsUserViewModel()
-        {
-            var sut = new GetUserByEmailQueryHandler(_context);
-
-            var result = await sut.Handle(new GetUserByEmailQuery { Email = _validUserEmail }, CancellationToken.None);
-
-            result.ShouldBeOfType<UserViewModel>();
-            result.Email.ShouldBe(_validUserEmail);
-        }
+        private readonly TyreKlickerDbContext _context;
 
         [Fact]
         public async Task GetUserByEmail_UserDoesNotExist_ThrowsNotFoundException()
         {
             var sut = new GetUserByEmailQueryHandler(_context);
 
-            var result = await sut.Handle(new GetUserByEmailQuery { Email = _invalidUserEmail }, CancellationToken.None)
+            await sut.Handle(new GetUserByEmailQuery {Email = "iDoNotExists@InTheDatabase.co.uk"},
+                    CancellationToken.None)
+                .ShouldThrowAsync<NotFoundException>();
+        }
 
-            .ShouldThrowAsync<NotFoundException>();
+        [Fact]
+        public async Task GetUserByEmail_UserExists_ReturnsUserViewModel()
+        {
+            var sut = new GetUserByEmailQueryHandler(_context);
+            var user = _context.User.First();
+
+            var result = await sut.Handle(new GetUserByEmailQuery {Email = user.Email}, CancellationToken.None);
+
+            result.ShouldBeOfType<UserViewModel>();
+            result.Email.ShouldBe(user.Email);
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.User.Command.CreateUser
@@ -16,6 +17,8 @@ namespace TyreKlicker.Application.User.Command.CreateUser
 
         public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            if (request.Id == null || request.Id == Guid.Empty) throw new ArgumentException("ID cannot be null");
+
             var entity = new Domain.Entities.User
             {
                 Id = request.Id,

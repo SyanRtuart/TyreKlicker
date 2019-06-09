@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
 
 namespace TyreKlicker.Application.User.Command.CreateUser
 {
