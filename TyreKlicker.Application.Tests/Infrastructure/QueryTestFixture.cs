@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using TyreKlicker.Persistence;
 using Xunit;
 
@@ -11,7 +12,12 @@ namespace TyreKlicker.Application.Tests.Infrastructure
         public QueryTestFixture()
         {
             Context = TyreKlickerContextFactory.Create();
+            Mapper = AutoMapperFactory.Create();
+
         }
+
+        public IMapper Mapper { get; }
+
 
         public void Dispose()
         {

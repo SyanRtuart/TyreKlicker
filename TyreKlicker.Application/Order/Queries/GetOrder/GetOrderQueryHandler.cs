@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TyreKlicker.Application.Exceptions;
+using TyreKlicker.Application.Order.Models;
 using TyreKlicker.Persistence;
 
 namespace TyreKlicker.Application.Order.Queries.GetOrder
@@ -21,11 +23,13 @@ namespace TyreKlicker.Application.Order.Queries.GetOrder
 
         public async Task<OrderDto> Handle(GetOrderQuery request, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<OrderDto>(await _context.Order.Where(x => x.Id == request.Id)
+            var order = await _context.Order.Where(x => x.Id == request.Id)
                 .Include(availability => availability.Availability)
-                .SingleOrDefaultAsync(cancellationToken));
+                .SingleOrDefaultAsync(cancellationToken);
 
-            return entity;
+            if (order == null) throw new NotFoundException(nameof(order), request.Id.ToString());
+
+            return _mapper.Map<OrderDto>(order);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
 using TyreKlicker.Domain.Entities;
 
-namespace TyreKlicker.Application.Order.Queries.GetOrder
+namespace TyreKlicker.Application.Order.Models
 {
     public class OrderDto
     {
