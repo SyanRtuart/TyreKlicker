@@ -150,6 +150,9 @@
     <Reference Include="Plugin.Settings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xam.Plugins.Settings.4.0.0.10-beta\lib\monoandroid44\Plugin.Settings.dll</HintPath>
     </Reference>
+    <Reference Include="Polly, Version=7.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Polly.7.1.0\lib\netstandard2.0\Polly.dll</HintPath>
+    </Reference>
     <Reference Include="Stripe.net, Version=26.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Stripe.net.26.1.0\lib\netstandard2.0\Stripe.net.dll</HintPath>
     </Reference>

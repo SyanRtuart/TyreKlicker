@@ -20,7 +20,7 @@ namespace TyreKlicker.API.Controllers
         }
 
         [HttpGet, Route("{id:guid}")]
-        public async Task<Application.Order.Queries.GetOrder.OrderDto> GetOrder([FromRoute] Guid id)
+        public async Task<Application.Order.Models.OrderDto> GetOrder([FromRoute] Guid id)
         {
             return await Mediator.Send(new GetOrderQuery() { Id = id });
         }
