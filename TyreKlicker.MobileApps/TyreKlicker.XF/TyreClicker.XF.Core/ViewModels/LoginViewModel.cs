@@ -1,11 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using TyreKlicker.XF.Core.Exceptions;
 using TyreKlicker.XF.Core.Helpers;
 using TyreKlicker.XF.Core.Models.Authentication;
 using TyreKlicker.XF.Core.Services.AuthenticationService;
+using TyreKlicker.XF.Core.Services.Messages;
 using TyreKlicker.XF.Core.Validators;
+using Xamarin.Forms;
 
 namespace TyreKlicker.XF.Core.ViewModels
 {
@@ -25,7 +29,7 @@ namespace TyreKlicker.XF.Core.ViewModels
 
             NavigateToRegistrationPageCommand =
                 new MvxCommand(async () => await NavigationService.Navigate<RegistrationViewModel>());
-            LoginCommand = new MvxCommand(async () => await LoginAsync());
+            LoginCommand = new MvxCommand( () =>  LoginAsync());
 
             _email = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();
@@ -43,7 +47,6 @@ namespace TyreKlicker.XF.Core.ViewModels
             {
                 _email = value;
                 RaisePropertyChanged(() => Email);
-                Settings.LastUsedEmail = value.Value;
             }
         }
 
@@ -65,10 +68,11 @@ namespace TyreKlicker.XF.Core.ViewModels
 
         public IMvxCommand ValidatePasswordCommand => new MvxCommand(() => ValidatePassword());
 
-        private async Task LoginAsync()
+        private async void LoginAsync()
         {
-            if (Validate())
+            try
             {
+                if (!Validate()) return;
                 var loginRequest = new LoginRequest
                 {
                     Email = _email.Value,
@@ -77,14 +81,18 @@ namespace TyreKlicker.XF.Core.ViewModels
 
                 var token = await _authenticationService.GetTokenAsync(loginRequest);
 
-                if (!string.IsNullOrEmpty(token.AccessToken))
-                {
-                    Settings.AccessToken = token.AccessToken;
-                    await NavigationService.Navigate<SplitRootViewModel>();
-                }
+                if (string.IsNullOrEmpty(token.AccessToken)) return;
 
-                //handle else
+                Settings.AccessToken = token.AccessToken;
+                Settings.LastUsedEmail = _email.Value;
+                await NavigationService.Navigate<SplitRootViewModel>();
+
             }
+            catch (HttpResponseEx ex)
+            {
+                DependencyService.Get<IMessage>().LongAlert(ex.Scenario, Color.Red);
+            }
+
         }
 
         private bool Validate()

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TyreKlicker.API.Exceptions;
 using TyreKlicker.API.Extensions;
@@ -11,6 +12,7 @@ using TyreKlicker.API.Models.AccountViewModels;
 using TyreKlicker.API.Services;
 using TyreKlicker.API.Services.Token;
 using TyreKlicker.Application.User.Command.CreateUser;
+using TyreKlicker.API.Models.Account;
 using TyreKlicker.Infrastructure.Identity.Models;
 
 namespace TyreKlicker.API.Controllers
@@ -139,8 +141,10 @@ namespace TyreKlicker.API.Controllers
                 var userToken = _userTokenService.CreateUserToken(user);
                 return Ok(userToken);
             }
-
-            return NotFound("Invalid email or password.");
+            else
+            {
+                throw new BadRequestException("LOGIN_FAILED", "Invalid email or password.");
+            }
         }
 
         [HttpPost]
@@ -179,6 +183,20 @@ namespace TyreKlicker.API.Controllers
                 return BadRequest("Refresh token was revoked.");
             }
             _refreshTokenService.RevokeRefreshToken(token);
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordCommand command)
+        {
+            var user = await  _userManager.FindByEmailAsync(command.Email);
+
+            if (user == null) throw new BadRequestException("USER_DOES_NOT_EXIST", @"This user does not exist.");
+
+            var result = await _userManager.ChangePasswordAsync(user, command.CurrentPassword, command.NewPassword);
+
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Code, result.Errors.FirstOrDefault()?.Description);
+
             return Ok();
         }
 

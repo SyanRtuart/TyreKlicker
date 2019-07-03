@@ -62,10 +62,11 @@ namespace TyreKlicker.XF.Core.ViewModels
             }
         }
 
+        public IMvxCommand LogoutCommand => new MvxCommand(async () => await LogoutAsync());
+
         public IMvxCommand MakePaymentCommand => new MvxCommand(async () => await MakePaymentAsync());
 
-
-        public IMvxCommand LogoutCommand => new MvxCommand(async () => await LogoutAsync());
+        public IMvxCommand ChangePasswordCommand => new MvxCommand(async () => await ChangePassword());
 
         private async Task LogoutAsync()
         {
@@ -88,5 +89,11 @@ namespace TyreKlicker.XF.Core.ViewModels
 
             await _paymentService.MakePayment(payment, GlobalSetting.StripeSecretKey);
         }
+
+        private async Task ChangePassword()
+        {
+            await NavigationService.Navigate<ForgotPasswordViewModel>();
+        }
+
     }
 }

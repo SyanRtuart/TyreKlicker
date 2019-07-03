@@ -45,7 +45,9 @@ namespace TyreKlicker.XF.Core
 
         public string AuthToken { get; set; }
 
+
         public string AuthenticationEndpoint { get; set; }
+        public string AccountEndPoint { get; set; }
 
         public string TokenEndpoint { get; set; }
 
@@ -74,6 +76,7 @@ namespace TyreKlicker.XF.Core
             AddressEndPoint = $"{endpoint}/api/address";
             AddressesEndPoint = $"{endpoint}/api/addresses";
             PaymentEndPoint = $"{endpoint}/api/payment";
+            AccountEndPoint = $"{endpoint}/api/account";
         }
     }
 }

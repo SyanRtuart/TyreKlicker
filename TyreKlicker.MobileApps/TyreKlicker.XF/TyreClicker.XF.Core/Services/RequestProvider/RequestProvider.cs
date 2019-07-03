@@ -69,13 +69,11 @@ namespace TyreKlicker.XF.Core.Services.RequestProvider
         public async Task<TResult> PostAsync<TResult, T1>(string uri, T1 data, string header = "")
         {
             var httpClient = CreateHttpClient();
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-
+            
             if (!string.IsNullOrEmpty(header)) AddHeaderParameter(httpClient, header);
 
             var content = new StringContent(JsonConvert.SerializeObject(data));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
             var response = await httpClient.PostAsync(uri, content);
 
             await HandleResponse(response);

@@ -49,7 +49,7 @@
                     <Entry.Triggers>
                         <DataTrigger
                             TargetType="Entry"
-                            Binding="{Binding UserName.IsValid}"
+                            Binding="{Binding Email.IsValid}"
                             Value="False">
                             <Setter Property="behaviors:LineColorBehavior.LineColor"
                                     Value="{StaticResource ErrorColor}" />
